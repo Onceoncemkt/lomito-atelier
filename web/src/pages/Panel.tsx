@@ -10,6 +10,7 @@ export default function Panel() {
     { to: "/panel", label: "Agenda", end: true, show: true },
     { to: "/panel/clientes", label: "Clientes", show: role !== "GROOMER" },
     { to: "/panel/caja", label: "Caja", show: role !== "GROOMER" },
+    { to: "/panel/reportes", label: "Reportes", show: role === "OWNER" },
     { to: "/panel/comisiones", label: "Comisiones", show: role === "OWNER" },
     { to: "/panel/ajustes", label: "Ajustes", show: role === "OWNER" },
   ].filter((t) => t.show);
@@ -17,7 +18,10 @@ export default function Panel() {
     <div className="wrap">
       <header className="top">
         <div className="brand">
-          <img src="/lomito-verde.svg" alt="" />
+          <picture>
+            <source srcSet="/lomito-creme.svg" media="(prefers-color-scheme: dark)" />
+            <img src="/lomito-verde.svg" alt="" />
+          </picture>
           <div>
             <b>LOMITO ATELIER</b>
             <small>Citas y gestión</small>

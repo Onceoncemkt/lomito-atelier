@@ -63,6 +63,10 @@ model Business {
   /// Horas mínimas antes de la cita para que el cliente pueda cancelar o cambiarla en línea
   minNoticeHours Int     @default(4)
   phone         String?
+  /// Datos para el aviso de privacidad
+  legalName     String?
+  address       String?
+  contactEmail  String?
   createdAt     DateTime @default(now())
 
   users        User[]

@@ -185,3 +185,32 @@ input[type="time"]{border:1px solid var(--line);background:var(--bg);border-radi
 .ok .kv span,.summary .kv span{color:var(--muted)}
 .kv-simple{display:grid;grid-template-columns:minmax(0,260px) 1fr;gap:6px 12px;font-size:.92rem}
 .kv-simple span{color:var(--muted)}
+.legal .phone-body{gap:12px}
+.legal h3{font-size:1rem;margin-top:8px}
+.legal ul{margin:0;padding-left:1.2em;display:grid;gap:4px}
+.legal p,.legal li{font-size:.94rem}
+.card.danger{border-color:var(--warn)}
+.btn.danger-btn{background:var(--warn);color:#fff}
+/* reportes */
+.kpi small{font-size:.76rem}
+.chart svg{display:block;overflow:visible}
+.chart .grid{stroke:var(--line);stroke-width:1}
+.chart .baseline{stroke:var(--muted);stroke-width:1}
+.chart .axis{fill:var(--muted);font-size:11px;font-family:var(--body)}
+.chart .bar{fill:var(--accent)}
+.chart .bar.on{fill:var(--ink)}
+.tip{position:absolute;top:0;transform:translateX(-50%);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 10px;display:grid;gap:2px;font-size:.82rem;box-shadow:0 6px 18px rgba(0,0,0,.12);pointer-events:none;white-space:nowrap;z-index:5}
+.bartable{width:100%;border-collapse:collapse;font-size:.9rem;min-width:0}
+.bartable td,.bartable th{border:0;padding:6px 4px;background:none}
+.bartable .track{height:6px;background:var(--tint);border-radius:4px;margin-top:4px;overflow:hidden}
+.bartable .fill{height:100%;background:var(--accent);border-radius:4px}
+table.heat{border-collapse:separate;border-spacing:3px;min-width:0;width:auto;font-size:.75rem}
+table.heat th{background:none;padding:2px 4px;font-size:.7rem;letter-spacing:0;color:var(--muted);font-weight:600;border:0;text-transform:none}
+table.heat td{width:30px;height:26px;padding:0;text-align:center;border-radius:5px;border:0;font-variant-numeric:tabular-nums;color:var(--ink)}
+.heat .lv0,.heat-legend .lv0{background:var(--bg)}
+.heat .lv1,.heat-legend .lv1{background:color-mix(in srgb,var(--accent) 18%,var(--surface))}
+.heat .lv2,.heat-legend .lv2{background:color-mix(in srgb,var(--accent) 38%,var(--surface))}
+.heat .lv3,.heat-legend .lv3{background:color-mix(in srgb,var(--accent) 62%,var(--surface));color:var(--accent-ink)}
+.heat .lv4,.heat-legend .lv4{background:var(--accent);color:var(--accent-ink)}
+.heat-legend{display:flex;align-items:center;gap:4px;font-size:.75rem;margin-top:6px}
+.heat-legend i{width:16px;height:12px;border-radius:3px;display:inline-block}

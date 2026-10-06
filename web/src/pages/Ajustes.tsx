@@ -4,7 +4,7 @@ import { money, SIZES, SIZE_LABEL } from "../format";
 
 type Prices = Partial<Record<string, { price: number; durationMin: number }>>;
 type Settings = {
-  business: { name: string; slug: string; phone: string | null; openingHours: Record<string, { open: string; close: string } | null>; commissionPct: number; minNoticeHours: number };
+  business: { name: string; slug: string; phone: string | null; openingHours: Record<string, { open: string; close: string } | null>; commissionPct: number; minNoticeHours: number; legalName: string | null; address: string | null; contactEmail: string | null };
   whatsapp: { configured: boolean; reminders: boolean; confirmations: boolean };
   services: { id: string; code: string; name: string; description: string | null; active: boolean; prices: Prices }[];
   addOns: { id: string; name: string; price: number; durationMin: number; active: boolean }[];
@@ -121,6 +121,8 @@ function Negocio({ st, reload }: { st: Settings; reload: () => void }) {
   const [phone, setPhone] = useState(st.business.phone ?? "");
   const [pct, setPct] = useState(String(st.business.commissionPct));
   const [notice, setNotice] = useState(String(st.business.minNoticeHours));
+  const [legal, setLegal] = useState({ legalName: st.business.legalName ?? "", address: st.business.address ?? "", contactEmail: st.business.contactEmail ?? "" });
+  const [wipe, setWipe] = useState("");
   const [hours, setHours] = useState(st.business.openingHours);
 
   return (
@@ -144,6 +146,19 @@ function Negocio({ st, reload }: { st: Settings; reload: () => void }) {
           <button className="btn" disabled={busy === "biz"} onClick={() => run("biz", () => api("/api/settings/business", { method: "PATCH", body: { name, phone: phone || null, commissionPct: Number(pct), minNoticeHours: Number(notice) } }))}>Guardar datos</button>
           <Note k="biz" />
         </div>
+      </Section>
+      <Section title="Aviso de privacidad" hint="Estos datos aparecen en lomitoatelier.mx/privacidad. La ley pide nombre y domicilio del responsable y un medio para ejercer derechos ARCO. Pide a tu contador o abogado que revise el texto final.">
+        <div className="row2">
+          <div className="field"><label htmlFor="ln">Responsable (tu nombre o razón social)</label><input id="ln" value={legal.legalName} onChange={(e) => setLegal({ ...legal, legalName: e.target.value })} /></div>
+          <div className="field"><label htmlFor="le">Correo para privacidad</label><input id="le" type="email" value={legal.contactEmail} onChange={(e) => setLegal({ ...legal, contactEmail: e.target.value })} /></div>
+        </div>
+        <div className="field"><label htmlFor="la">Domicilio</label><input id="la" value={legal.address} onChange={(e) => setLegal({ ...legal, address: e.target.value })} placeholder="Calle, número, colonia, Tulancingo, Hgo., C.P." /></div>
+        <div className="inline">
+          <button className="btn" disabled={busy === "legal"} onClick={() => run("legal", () => api("/api/settings/business", { method: "PATCH", body: { legalName: legal.legalName || null, address: legal.address || null, contactEmail: legal.contactEmail || null } }))}>Guardar</button>
+          <a href="/privacidad" target="_blank" rel="noreferrer">Ver aviso publicado</a>
+          <Note k="legal" />
+        </div>
+        {(!st.business.legalName || !st.business.address || !st.business.contactEmail) && <div className="warnbox">Faltan datos: el aviso publicado los muestra incompletos.</div>}
       </Section>
       <Section title="WhatsApp automático" hint="Recordatorio un día antes de cada cita, con la liga para cambiar o cancelar.">
         <div className="kv-simple">
@@ -182,6 +197,24 @@ function Negocio({ st, reload }: { st: Settings; reload: () => void }) {
           <Note k="hours" />
         </div>
       </Section>
+      <section className="card danger" style={{ marginBottom: 14 }}>
+        <h3>Borrar datos de prueba</h3>
+        <p className="muted" style={{ fontSize: ".88rem" }}>
+          Borra <b>todas</b> las citas, clientes, lomitos, ventas, cortes de caja y la bitácora. Se conservan servicios, precios, extras, productos,
+          estilistas, usuarios y horario. Úsalo una sola vez, justo antes de abrir. No se puede deshacer.
+        </p>
+        <p className="muted" style={{ fontSize: ".88rem" }}>Después revisa el stock de la boutique, porque las ventas de prueba lo descontaron.</p>
+        <div className="inline">
+          <label htmlFor="wipe">Escribe <b>BORRAR</b> para confirmar</label>
+          <input id="wipe" value={wipe} onChange={(e) => setWipe(e.target.value)} style={{ width: 140 }} className="search" autoComplete="off" />
+          <button className="btn danger-btn" disabled={busy === "wipe" || wipe.trim().toUpperCase() !== "BORRAR"} onClick={() => run("wipe", async () => {
+            const r = await api<{ appointments: number; clients: number; sales: number }>("/api/settings/reset-data", { method: "POST", body: { confirm: wipe } });
+            setWipe("");
+            return r;
+          }, "Listo: datos de prueba borrados")}>Borrar datos de prueba</button>
+          <Note k="wipe" />
+        </div>
+      </section>
     </>
   );
 }

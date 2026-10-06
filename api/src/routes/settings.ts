@@ -36,6 +36,9 @@ settingsRouter.get("/settings", async (req, res) => {
       commissionPct: business.commissionPct,
       slotMinutes: business.slotMinutes,
       minNoticeHours: business.minNoticeHours,
+      legalName: business.legalName,
+      address: business.address,
+      contactEmail: business.contactEmail,
     },
     whatsapp: whatsappStatus(),
     services: services.map((s) => ({
@@ -57,6 +60,9 @@ const businessBody = z.object({
   phone: z.string().nullable().optional(),
   commissionPct: z.number().int().min(0).max(100).optional(),
   minNoticeHours: z.number().int().min(0).max(72).optional(),
+  legalName: z.string().trim().max(120).nullable().optional(),
+  address: z.string().trim().max(300).nullable().optional(),
+  contactEmail: z.union([z.email(), z.literal("")]).nullable().optional(),
   openingHours: z
     .record(z.enum(["1", "2", "3", "4", "5", "6", "7"]), dayHours)
     .refine((h) => Object.values(h).every((d) => !d || d.open < d.close), "La hora de cierre debe ser después de la de apertura")
@@ -68,7 +74,7 @@ settingsRouter.patch("/settings/business", async (req, res) => {
   const phone = body.phone === undefined ? undefined : body.phone ? normalizePhone(body.phone) : null;
   const b = await prisma.business.update({
     where: { id: req.user!.businessId },
-    data: { ...body, phone, openingHours: body.openingHours },
+    data: { ...body, contactEmail: body.contactEmail === "" ? null : body.contactEmail, phone, openingHours: body.openingHours },
   });
   await logActivity(prisma, b.id, "settings.business", "Ajustes del negocio actualizados", { userId: req.user!.id });
   res.json({ name: b.name, phone: b.phone, commissionPct: b.commissionPct, openingHours: b.openingHours });
@@ -192,4 +198,22 @@ settingsRouter.patch("/settings/users/:id", async (req, res) => {
   if (password) await logActivity(prisma, businessId, "settings.user", `Contraseña restablecida para ${u.email}`, { userId: req.user!.id });
   const { passwordHash: _p, ...safe } = updated;
   res.json(safe);
+});
+
+// ---------- borrar datos de prueba
+settingsRouter.post("/settings/reset-data", async (req, res) => {
+  const { confirm } = parse(z.object({ confirm: z.string() }), req.body);
+  if (confirm.trim().toUpperCase() !== "BORRAR") throw badRequest('Escribe BORRAR para confirmar');
+  const businessId = req.user!.businessId;
+  const counts = await prisma.$transaction(async (tx) => {
+    const sales = await tx.sale.deleteMany({ where: { businessId } }); // borra también sus renglones
+    const appts = await tx.appointment.deleteMany({ where: { businessId } }); // y sus extras
+    const closings = await tx.cashClosing.deleteMany({ where: { businessId } });
+    const pets = await tx.pet.deleteMany({ where: { businessId } });
+    const clients = await tx.client.deleteMany({ where: { businessId } });
+    await tx.activityLog.deleteMany({ where: { businessId } });
+    return { sales: sales.count, appointments: appts.count, closings: closings.count, pets: pets.count, clients: clients.count };
+  });
+  await logActivity(prisma, businessId, "settings.reset", "Se borraron los datos de prueba (citas, clientes, ventas y cortes)", { userId: req.user!.id, meta: counts });
+  res.json(counts);
 });

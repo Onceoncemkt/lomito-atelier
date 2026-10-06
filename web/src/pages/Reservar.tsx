@@ -3,6 +3,7 @@ import { api, BUSINESS_SLUG } from "../api";
 import { guessSize, SIZE_EXAMPLES, type Size } from "../breeds";
 import BreedInput from "../BreedInput";
 import { useLightTheme } from "../useLightTheme";
+import { trackBooking } from "../tracking";
 import { money, SIZES, SIZE_LABEL, todayYmd, addDays, dayParts, longDate, hm, ymd, cap } from "../format";
 
 type Menu = {
@@ -178,6 +179,7 @@ export default function Reservar() {
       });
       setReviewing(false);
       setDone(r);
+      trackBooking(r.price / 100, r.service);
     } catch (x: any) {
       setReviewing(false);
       setErr(x.message);
@@ -412,6 +414,9 @@ export default function Reservar() {
           )}
           {err && <div className="err" role="alert">{err}</div>}
           <button className="btn" disabled={sending}>{sending ? "Agendando…" : "Revisar y confirmar"}</button>
+          <p className="footer-note" style={{ marginTop: 0 }}>
+            Al confirmar aceptas nuestro <a href="/privacidad" target="_blank" rel="noreferrer">aviso de privacidad</a>.
+          </p>
           {reviewing && (
             <div className="modal-bg" onClick={(e) => e.target === e.currentTarget && !sending && setReviewing(false)}>
               <div className="modal" role="dialog" aria-modal="true" aria-labelledby="rv-title">

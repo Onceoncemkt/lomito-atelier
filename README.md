@@ -49,6 +49,8 @@ TEST_DATABASE_URL=postgresql://localhost:5432/lomito_test npm test
    - `VITE_API_URL` = la URL de la API en Render
    - `VITE_BUSINESS_SLUG` = `lomito-atelier`
    - `VITE_WHATSAPP` = el WhatsApp del negocio (10 dígitos)
+   - `VITE_META_PIXEL_ID` (opcional) = el ID del Pixel de Meta para medir campañas
+   - `VITE_GA_ID` (opcional) = el ID de Google Analytics 4 (`G-XXXXXXX`)
 4. Deploy.
 
 ### 3. Dominio
@@ -113,3 +115,13 @@ Para que salgan solos (recordatorio 24 h antes y, si quieres, confirmación al r
    Guarda y redeploy. En **Ajustes → Negocio → WhatsApp automático** debe decir *Conectado / Activo*.
 
 El recordatorio se revisa cada 10 minutos: sale para citas de las próximas 24 h (y con más de 2 h de anticipación), una sola vez. Si se reprograma, se vuelve a mandar para la nueva hora. Los errores de envío aparecen en la bitácora de Caja.
+
+## Antes de abrir
+
+1. **Ajustes → Negocio → Aviso de privacidad:** llena responsable, domicilio y correo. El aviso queda en `/privacidad` y se enlaza al confirmar cada cita. Que lo revise tu contador o abogado.
+2. **Ajustes → Negocio → Borrar datos de prueba:** escribe BORRAR. Deja servicios, precios, productos, equipo y horario; borra citas, clientes, ventas, cortes y bitácora. Después revisa el stock de la boutique.
+3. **Medición (opcional):** con `VITE_META_PIXEL_ID` y/o `VITE_GA_ID` en Vercel, cada reserva confirmada manda el evento `Schedule` (Meta) y `generate_lead` (Google) con el valor en MXN. El panel no se mide.
+
+## Reportes
+
+Panel → **Reportes** (sólo dueña): ventas por día, servicios y productos más vendidos, ticket promedio, clientes nuevos y que regresan, porcentaje que no llegó, días y horas más llenos, cómo agendan, formas de pago y clientes por recuperar (más de 60 días sin venir) con botón para invitarlos por WhatsApp.

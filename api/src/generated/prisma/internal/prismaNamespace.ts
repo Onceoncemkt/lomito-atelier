@@ -1590,6 +1590,9 @@ export const BusinessScalarFieldEnum = {
   commissionPct: 'commissionPct',
   minNoticeHours: 'minNoticeHours',
   phone: 'phone',
+  legalName: 'legalName',
+  address: 'address',
+  contactEmail: 'contactEmail',
   createdAt: 'createdAt'
 } as const
 

@@ -25,7 +25,8 @@ publicRouter.get("/:slug", async (req, res) => {
     prisma.addOn.findMany({ where: { businessId: b.id, active: true }, orderBy: { price: "desc" } }),
   ]);
   res.json({
-    business: { slug: b.slug, name: b.name, timezone: b.timezone, phone: b.phone, openingHours: b.openingHours, minNoticeHours: b.minNoticeHours },
+    business: { slug: b.slug, name: b.name, timezone: b.timezone, phone: b.phone, openingHours: b.openingHours, minNoticeHours: b.minNoticeHours,
+      legalName: b.legalName, address: b.address, contactEmail: b.contactEmail },
     services: services.map((s) => ({
       code: s.code,
       name: s.name,

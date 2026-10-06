@@ -47,6 +47,9 @@ export type BusinessMinAggregateOutputType = {
   commissionPct: number | null
   minNoticeHours: number | null
   phone: string | null
+  legalName: string | null
+  address: string | null
+  contactEmail: string | null
   createdAt: Date | null
 }
 
@@ -59,6 +62,9 @@ export type BusinessMaxAggregateOutputType = {
   commissionPct: number | null
   minNoticeHours: number | null
   phone: string | null
+  legalName: string | null
+  address: string | null
+  contactEmail: string | null
   createdAt: Date | null
 }
 
@@ -72,6 +78,9 @@ export type BusinessCountAggregateOutputType = {
   commissionPct: number
   minNoticeHours: number
   phone: number
+  legalName: number
+  address: number
+  contactEmail: number
   createdAt: number
   _all: number
 }
@@ -98,6 +107,9 @@ export type BusinessMinAggregateInputType = {
   commissionPct?: true
   minNoticeHours?: true
   phone?: true
+  legalName?: true
+  address?: true
+  contactEmail?: true
   createdAt?: true
 }
 
@@ -110,6 +122,9 @@ export type BusinessMaxAggregateInputType = {
   commissionPct?: true
   minNoticeHours?: true
   phone?: true
+  legalName?: true
+  address?: true
+  contactEmail?: true
   createdAt?: true
 }
 
@@ -123,6 +138,9 @@ export type BusinessCountAggregateInputType = {
   commissionPct?: true
   minNoticeHours?: true
   phone?: true
+  legalName?: true
+  address?: true
+  contactEmail?: true
   createdAt?: true
   _all?: true
 }
@@ -223,6 +241,9 @@ export type BusinessGroupByOutputType = {
   commissionPct: number
   minNoticeHours: number
   phone: string | null
+  legalName: string | null
+  address: string | null
+  contactEmail: string | null
   createdAt: Date
   _count: BusinessCountAggregateOutputType | null
   _avg: BusinessAvgAggregateOutputType | null
@@ -259,6 +280,9 @@ export type BusinessWhereInput = {
   commissionPct?: Prisma.IntFilter<"Business"> | number
   minNoticeHours?: Prisma.IntFilter<"Business"> | number
   phone?: Prisma.StringNullableFilter<"Business"> | string | null
+  legalName?: Prisma.StringNullableFilter<"Business"> | string | null
+  address?: Prisma.StringNullableFilter<"Business"> | string | null
+  contactEmail?: Prisma.StringNullableFilter<"Business"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Business"> | Date | string
   users?: Prisma.UserListRelationFilter
   groomers?: Prisma.GroomerListRelationFilter
@@ -283,6 +307,9 @@ export type BusinessOrderByWithRelationInput = {
   commissionPct?: Prisma.SortOrder
   minNoticeHours?: Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
+  legalName?: Prisma.SortOrderInput | Prisma.SortOrder
+  address?: Prisma.SortOrderInput | Prisma.SortOrder
+  contactEmail?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   users?: Prisma.UserOrderByRelationAggregateInput
   groomers?: Prisma.GroomerOrderByRelationAggregateInput
@@ -310,6 +337,9 @@ export type BusinessWhereUniqueInput = Prisma.AtLeast<{
   commissionPct?: Prisma.IntFilter<"Business"> | number
   minNoticeHours?: Prisma.IntFilter<"Business"> | number
   phone?: Prisma.StringNullableFilter<"Business"> | string | null
+  legalName?: Prisma.StringNullableFilter<"Business"> | string | null
+  address?: Prisma.StringNullableFilter<"Business"> | string | null
+  contactEmail?: Prisma.StringNullableFilter<"Business"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Business"> | Date | string
   users?: Prisma.UserListRelationFilter
   groomers?: Prisma.GroomerListRelationFilter
@@ -334,6 +364,9 @@ export type BusinessOrderByWithAggregationInput = {
   commissionPct?: Prisma.SortOrder
   minNoticeHours?: Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
+  legalName?: Prisma.SortOrderInput | Prisma.SortOrder
+  address?: Prisma.SortOrderInput | Prisma.SortOrder
+  contactEmail?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.BusinessCountOrderByAggregateInput
   _avg?: Prisma.BusinessAvgOrderByAggregateInput
@@ -355,6 +388,9 @@ export type BusinessScalarWhereWithAggregatesInput = {
   commissionPct?: Prisma.IntWithAggregatesFilter<"Business"> | number
   minNoticeHours?: Prisma.IntWithAggregatesFilter<"Business"> | number
   phone?: Prisma.StringNullableWithAggregatesFilter<"Business"> | string | null
+  legalName?: Prisma.StringNullableWithAggregatesFilter<"Business"> | string | null
+  address?: Prisma.StringNullableWithAggregatesFilter<"Business"> | string | null
+  contactEmail?: Prisma.StringNullableWithAggregatesFilter<"Business"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Business"> | Date | string
 }
 
@@ -368,6 +404,9 @@ export type BusinessCreateInput = {
   commissionPct?: number
   minNoticeHours?: number
   phone?: string | null
+  legalName?: string | null
+  address?: string | null
+  contactEmail?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerCreateNestedManyWithoutBusinessInput
@@ -392,6 +431,9 @@ export type BusinessUncheckedCreateInput = {
   commissionPct?: number
   minNoticeHours?: number
   phone?: string | null
+  legalName?: string | null
+  address?: string | null
+  contactEmail?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerUncheckedCreateNestedManyWithoutBusinessInput
@@ -416,6 +458,9 @@ export type BusinessUpdateInput = {
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
   minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUpdateManyWithoutBusinessNestedInput
@@ -440,6 +485,9 @@ export type BusinessUncheckedUpdateInput = {
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
   minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUncheckedUpdateManyWithoutBusinessNestedInput
@@ -464,6 +512,9 @@ export type BusinessCreateManyInput = {
   commissionPct?: number
   minNoticeHours?: number
   phone?: string | null
+  legalName?: string | null
+  address?: string | null
+  contactEmail?: string | null
   createdAt?: Date | string
 }
 
@@ -477,6 +528,9 @@ export type BusinessUpdateManyMutationInput = {
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
   minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -490,6 +544,9 @@ export type BusinessUncheckedUpdateManyInput = {
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
   minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -503,6 +560,9 @@ export type BusinessCountOrderByAggregateInput = {
   commissionPct?: Prisma.SortOrder
   minNoticeHours?: Prisma.SortOrder
   phone?: Prisma.SortOrder
+  legalName?: Prisma.SortOrder
+  address?: Prisma.SortOrder
+  contactEmail?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -521,6 +581,9 @@ export type BusinessMaxOrderByAggregateInput = {
   commissionPct?: Prisma.SortOrder
   minNoticeHours?: Prisma.SortOrder
   phone?: Prisma.SortOrder
+  legalName?: Prisma.SortOrder
+  address?: Prisma.SortOrder
+  contactEmail?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -533,6 +596,9 @@ export type BusinessMinOrderByAggregateInput = {
   commissionPct?: Prisma.SortOrder
   minNoticeHours?: Prisma.SortOrder
   phone?: Prisma.SortOrder
+  legalName?: Prisma.SortOrder
+  address?: Prisma.SortOrder
+  contactEmail?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -731,6 +797,9 @@ export type BusinessCreateWithoutUsersInput = {
   commissionPct?: number
   minNoticeHours?: number
   phone?: string | null
+  legalName?: string | null
+  address?: string | null
+  contactEmail?: string | null
   createdAt?: Date | string
   groomers?: Prisma.GroomerCreateNestedManyWithoutBusinessInput
   services?: Prisma.ServiceCreateNestedManyWithoutBusinessInput
@@ -754,6 +823,9 @@ export type BusinessUncheckedCreateWithoutUsersInput = {
   commissionPct?: number
   minNoticeHours?: number
   phone?: string | null
+  legalName?: string | null
+  address?: string | null
+  contactEmail?: string | null
   createdAt?: Date | string
   groomers?: Prisma.GroomerUncheckedCreateNestedManyWithoutBusinessInput
   services?: Prisma.ServiceUncheckedCreateNestedManyWithoutBusinessInput
@@ -793,6 +865,9 @@ export type BusinessUpdateWithoutUsersInput = {
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
   minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   groomers?: Prisma.GroomerUpdateManyWithoutBusinessNestedInput
   services?: Prisma.ServiceUpdateManyWithoutBusinessNestedInput
@@ -816,6 +891,9 @@ export type BusinessUncheckedUpdateWithoutUsersInput = {
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
   minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   groomers?: Prisma.GroomerUncheckedUpdateManyWithoutBusinessNestedInput
   services?: Prisma.ServiceUncheckedUpdateManyWithoutBusinessNestedInput
@@ -839,6 +917,9 @@ export type BusinessCreateWithoutGroomersInput = {
   commissionPct?: number
   minNoticeHours?: number
   phone?: string | null
+  legalName?: string | null
+  address?: string | null
+  contactEmail?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutBusinessInput
   services?: Prisma.ServiceCreateNestedManyWithoutBusinessInput
@@ -862,6 +943,9 @@ export type BusinessUncheckedCreateWithoutGroomersInput = {
   commissionPct?: number
   minNoticeHours?: number
   phone?: string | null
+  legalName?: string | null
+  address?: string | null
+  contactEmail?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
   services?: Prisma.ServiceUncheckedCreateNestedManyWithoutBusinessInput
@@ -901,6 +985,9 @@ export type BusinessUpdateWithoutGroomersInput = {
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
   minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
   services?: Prisma.ServiceUpdateManyWithoutBusinessNestedInput
@@ -924,6 +1011,9 @@ export type BusinessUncheckedUpdateWithoutGroomersInput = {
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
   minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
   services?: Prisma.ServiceUncheckedUpdateManyWithoutBusinessNestedInput
@@ -947,6 +1037,9 @@ export type BusinessCreateWithoutServicesInput = {
   commissionPct?: number
   minNoticeHours?: number
   phone?: string | null
+  legalName?: string | null
+  address?: string | null
+  contactEmail?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerCreateNestedManyWithoutBusinessInput
@@ -970,6 +1063,9 @@ export type BusinessUncheckedCreateWithoutServicesInput = {
   commissionPct?: number
   minNoticeHours?: number
   phone?: string | null
+  legalName?: string | null
+  address?: string | null
+  contactEmail?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerUncheckedCreateNestedManyWithoutBusinessInput
@@ -1009,6 +1105,9 @@ export type BusinessUpdateWithoutServicesInput = {
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
   minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUpdateManyWithoutBusinessNestedInput
@@ -1032,6 +1131,9 @@ export type BusinessUncheckedUpdateWithoutServicesInput = {
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
   minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUncheckedUpdateManyWithoutBusinessNestedInput
@@ -1055,6 +1157,9 @@ export type BusinessCreateWithoutAddOnsInput = {
   commissionPct?: number
   minNoticeHours?: number
   phone?: string | null
+  legalName?: string | null
+  address?: string | null
+  contactEmail?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerCreateNestedManyWithoutBusinessInput
@@ -1078,6 +1183,9 @@ export type BusinessUncheckedCreateWithoutAddOnsInput = {
   commissionPct?: number
   minNoticeHours?: number
   phone?: string | null
+  legalName?: string | null
+  address?: string | null
+  contactEmail?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerUncheckedCreateNestedManyWithoutBusinessInput
@@ -1117,6 +1225,9 @@ export type BusinessUpdateWithoutAddOnsInput = {
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
   minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUpdateManyWithoutBusinessNestedInput
@@ -1140,6 +1251,9 @@ export type BusinessUncheckedUpdateWithoutAddOnsInput = {
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
   minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUncheckedUpdateManyWithoutBusinessNestedInput
@@ -1163,6 +1277,9 @@ export type BusinessCreateWithoutClientsInput = {
   commissionPct?: number
   minNoticeHours?: number
   phone?: string | null
+  legalName?: string | null
+  address?: string | null
+  contactEmail?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerCreateNestedManyWithoutBusinessInput
@@ -1186,6 +1303,9 @@ export type BusinessUncheckedCreateWithoutClientsInput = {
   commissionPct?: number
   minNoticeHours?: number
   phone?: string | null
+  legalName?: string | null
+  address?: string | null
+  contactEmail?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerUncheckedCreateNestedManyWithoutBusinessInput
@@ -1225,6 +1345,9 @@ export type BusinessUpdateWithoutClientsInput = {
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
   minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUpdateManyWithoutBusinessNestedInput
@@ -1248,6 +1371,9 @@ export type BusinessUncheckedUpdateWithoutClientsInput = {
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
   minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUncheckedUpdateManyWithoutBusinessNestedInput
@@ -1271,6 +1397,9 @@ export type BusinessCreateWithoutPetsInput = {
   commissionPct?: number
   minNoticeHours?: number
   phone?: string | null
+  legalName?: string | null
+  address?: string | null
+  contactEmail?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerCreateNestedManyWithoutBusinessInput
@@ -1294,6 +1423,9 @@ export type BusinessUncheckedCreateWithoutPetsInput = {
   commissionPct?: number
   minNoticeHours?: number
   phone?: string | null
+  legalName?: string | null
+  address?: string | null
+  contactEmail?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerUncheckedCreateNestedManyWithoutBusinessInput
@@ -1333,6 +1465,9 @@ export type BusinessUpdateWithoutPetsInput = {
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
   minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUpdateManyWithoutBusinessNestedInput
@@ -1356,6 +1491,9 @@ export type BusinessUncheckedUpdateWithoutPetsInput = {
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
   minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUncheckedUpdateManyWithoutBusinessNestedInput
@@ -1379,6 +1517,9 @@ export type BusinessCreateWithoutAppointmentsInput = {
   commissionPct?: number
   minNoticeHours?: number
   phone?: string | null
+  legalName?: string | null
+  address?: string | null
+  contactEmail?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerCreateNestedManyWithoutBusinessInput
@@ -1402,6 +1543,9 @@ export type BusinessUncheckedCreateWithoutAppointmentsInput = {
   commissionPct?: number
   minNoticeHours?: number
   phone?: string | null
+  legalName?: string | null
+  address?: string | null
+  contactEmail?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerUncheckedCreateNestedManyWithoutBusinessInput
@@ -1441,6 +1585,9 @@ export type BusinessUpdateWithoutAppointmentsInput = {
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
   minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUpdateManyWithoutBusinessNestedInput
@@ -1464,6 +1611,9 @@ export type BusinessUncheckedUpdateWithoutAppointmentsInput = {
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
   minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUncheckedUpdateManyWithoutBusinessNestedInput
@@ -1487,6 +1637,9 @@ export type BusinessCreateWithoutProductsInput = {
   commissionPct?: number
   minNoticeHours?: number
   phone?: string | null
+  legalName?: string | null
+  address?: string | null
+  contactEmail?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerCreateNestedManyWithoutBusinessInput
@@ -1510,6 +1663,9 @@ export type BusinessUncheckedCreateWithoutProductsInput = {
   commissionPct?: number
   minNoticeHours?: number
   phone?: string | null
+  legalName?: string | null
+  address?: string | null
+  contactEmail?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerUncheckedCreateNestedManyWithoutBusinessInput
@@ -1549,6 +1705,9 @@ export type BusinessUpdateWithoutProductsInput = {
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
   minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUpdateManyWithoutBusinessNestedInput
@@ -1572,6 +1731,9 @@ export type BusinessUncheckedUpdateWithoutProductsInput = {
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
   minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUncheckedUpdateManyWithoutBusinessNestedInput
@@ -1595,6 +1757,9 @@ export type BusinessCreateWithoutSalesInput = {
   commissionPct?: number
   minNoticeHours?: number
   phone?: string | null
+  legalName?: string | null
+  address?: string | null
+  contactEmail?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerCreateNestedManyWithoutBusinessInput
@@ -1618,6 +1783,9 @@ export type BusinessUncheckedCreateWithoutSalesInput = {
   commissionPct?: number
   minNoticeHours?: number
   phone?: string | null
+  legalName?: string | null
+  address?: string | null
+  contactEmail?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerUncheckedCreateNestedManyWithoutBusinessInput
@@ -1657,6 +1825,9 @@ export type BusinessUpdateWithoutSalesInput = {
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
   minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUpdateManyWithoutBusinessNestedInput
@@ -1680,6 +1851,9 @@ export type BusinessUncheckedUpdateWithoutSalesInput = {
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
   minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUncheckedUpdateManyWithoutBusinessNestedInput
@@ -1703,6 +1877,9 @@ export type BusinessCreateWithoutClosingsInput = {
   commissionPct?: number
   minNoticeHours?: number
   phone?: string | null
+  legalName?: string | null
+  address?: string | null
+  contactEmail?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerCreateNestedManyWithoutBusinessInput
@@ -1726,6 +1903,9 @@ export type BusinessUncheckedCreateWithoutClosingsInput = {
   commissionPct?: number
   minNoticeHours?: number
   phone?: string | null
+  legalName?: string | null
+  address?: string | null
+  contactEmail?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerUncheckedCreateNestedManyWithoutBusinessInput
@@ -1765,6 +1945,9 @@ export type BusinessUpdateWithoutClosingsInput = {
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
   minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUpdateManyWithoutBusinessNestedInput
@@ -1788,6 +1971,9 @@ export type BusinessUncheckedUpdateWithoutClosingsInput = {
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
   minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUncheckedUpdateManyWithoutBusinessNestedInput
@@ -1811,6 +1997,9 @@ export type BusinessCreateWithoutActivityInput = {
   commissionPct?: number
   minNoticeHours?: number
   phone?: string | null
+  legalName?: string | null
+  address?: string | null
+  contactEmail?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerCreateNestedManyWithoutBusinessInput
@@ -1834,6 +2023,9 @@ export type BusinessUncheckedCreateWithoutActivityInput = {
   commissionPct?: number
   minNoticeHours?: number
   phone?: string | null
+  legalName?: string | null
+  address?: string | null
+  contactEmail?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerUncheckedCreateNestedManyWithoutBusinessInput
@@ -1873,6 +2065,9 @@ export type BusinessUpdateWithoutActivityInput = {
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
   minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUpdateManyWithoutBusinessNestedInput
@@ -1896,6 +2091,9 @@ export type BusinessUncheckedUpdateWithoutActivityInput = {
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
   minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUncheckedUpdateManyWithoutBusinessNestedInput
@@ -2040,6 +2238,9 @@ export type BusinessSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   commissionPct?: boolean
   minNoticeHours?: boolean
   phone?: boolean
+  legalName?: boolean
+  address?: boolean
+  contactEmail?: boolean
   createdAt?: boolean
   users?: boolean | Prisma.Business$usersArgs<ExtArgs>
   groomers?: boolean | Prisma.Business$groomersArgs<ExtArgs>
@@ -2065,6 +2266,9 @@ export type BusinessSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   commissionPct?: boolean
   minNoticeHours?: boolean
   phone?: boolean
+  legalName?: boolean
+  address?: boolean
+  contactEmail?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["business"]>
 
@@ -2078,6 +2282,9 @@ export type BusinessSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   commissionPct?: boolean
   minNoticeHours?: boolean
   phone?: boolean
+  legalName?: boolean
+  address?: boolean
+  contactEmail?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["business"]>
 
@@ -2091,10 +2298,13 @@ export type BusinessSelectScalar = {
   commissionPct?: boolean
   minNoticeHours?: boolean
   phone?: boolean
+  legalName?: boolean
+  address?: boolean
+  contactEmail?: boolean
   createdAt?: boolean
 }
 
-export type BusinessOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "name" | "timezone" | "slotMinutes" | "openingHours" | "commissionPct" | "minNoticeHours" | "phone" | "createdAt", ExtArgs["result"]["business"]>
+export type BusinessOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "name" | "timezone" | "slotMinutes" | "openingHours" | "commissionPct" | "minNoticeHours" | "phone" | "legalName" | "address" | "contactEmail" | "createdAt", ExtArgs["result"]["business"]>
 export type BusinessInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   users?: boolean | Prisma.Business$usersArgs<ExtArgs>
   groomers?: boolean | Prisma.Business$groomersArgs<ExtArgs>
@@ -2143,6 +2353,12 @@ export type $BusinessPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
      */
     minNoticeHours: number
     phone: string | null
+    /**
+     * Datos para el aviso de privacidad
+     */
+    legalName: string | null
+    address: string | null
+    contactEmail: string | null
     createdAt: Date
   }, ExtArgs["result"]["business"]>
   composites: {}
@@ -2587,6 +2803,9 @@ export interface BusinessFieldRefs {
   readonly commissionPct: Prisma.FieldRef<"Business", 'Int'>
   readonly minNoticeHours: Prisma.FieldRef<"Business", 'Int'>
   readonly phone: Prisma.FieldRef<"Business", 'String'>
+  readonly legalName: Prisma.FieldRef<"Business", 'String'>
+  readonly address: Prisma.FieldRef<"Business", 'String'>
+  readonly contactEmail: Prisma.FieldRef<"Business", 'String'>
   readonly createdAt: Prisma.FieldRef<"Business", 'DateTime'>
 }
     
