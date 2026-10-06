@@ -1,0 +1,306 @@
+// Lomito Atelier — esquema multi-negocio.
+// Toda tabla de negocio lleva businessId. El dinero se guarda en centavos (Int).
+
+generator client {
+  provider = "prisma-client"
+  output              = "../src/generated/prisma"
+  moduleFormat        = "esm"
+  importFileExtension = "js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  OWNER
+  RECEPTION
+  GROOMER
+}
+
+enum Size {
+  CHICO
+  MEDIANO
+  GRANDE
+  GIGANTE
+}
+
+enum AppointmentStatus {
+  BOOKED
+  DONE
+  CANCELLED
+  NO_SHOW
+}
+
+enum Source {
+  WEB
+  RECEPTION
+  PHONE
+  WHATSAPP
+  INSTAGRAM
+}
+
+enum PayMethod {
+  CASH
+  CARD
+  TRANSFER
+}
+
+enum SaleItemKind {
+  SERVICE
+  PRODUCT
+}
+
+model Business {
+  id            String   @id @default(cuid())
+  slug          String   @unique
+  name          String
+  timezone      String   @default("America/Mexico_City")
+  slotMinutes   Int      @default(30)
+  /// { "1": null, "2": {"open":"09:00","close":"19:00"}, ... } — 1 = lunes … 7 = domingo; null = cerrado
+  openingHours  Json
+  commissionPct Int      @default(30)
+  phone         String?
+  createdAt     DateTime @default(now())
+
+  users        User[]
+  groomers     Groomer[]
+  services     Service[]
+  addOns       AddOn[]
+  clients      Client[]
+  pets         Pet[]
+  appointments Appointment[]
+  products     Product[]
+  sales        Sale[]
+  closings     CashClosing[]
+  activity     ActivityLog[]
+}
+
+model User {
+  id           String   @id @default(cuid())
+  businessId   String
+  business     Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  email        String
+  name         String
+  passwordHash String
+  role         Role     @default(RECEPTION)
+  groomerId    String?  @unique
+  groomer      Groomer? @relation(fields: [groomerId], references: [id])
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+
+  @@unique([businessId, email])
+}
+
+model Groomer {
+  id            String   @id @default(cuid())
+  businessId    String
+  business      Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  name          String
+  /// Si es null se usa Business.commissionPct
+  commissionPct Int?
+  active        Boolean  @default(true)
+  createdAt     DateTime @default(now())
+
+  user         User?
+  appointments Appointment[]
+
+  @@index([businessId])
+}
+
+model Service {
+  id          String   @id @default(cuid())
+  businessId  String
+  business    Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  code        String
+  name        String
+  description String?
+  sortOrder   Int      @default(0)
+  active      Boolean  @default(true)
+
+  prices       ServicePrice[]
+  appointments Appointment[]
+
+  @@unique([businessId, code])
+}
+
+model ServicePrice {
+  id          String  @id @default(cuid())
+  serviceId   String
+  service     Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  size        Size
+  price       Int
+  durationMin Int
+
+  @@unique([serviceId, size])
+}
+
+model AddOn {
+  id          String   @id @default(cuid())
+  businessId  String
+  business    Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  code        String
+  name        String
+  price       Int
+  durationMin Int      @default(0)
+  active      Boolean  @default(true)
+
+  appointments AppointmentAddOn[]
+
+  @@unique([businessId, code])
+}
+
+model Client {
+  id         String   @id @default(cuid())
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  name       String
+  /// Sólo dígitos, 10 para México
+  phone      String
+  email      String?
+  notes      String?
+  createdAt  DateTime @default(now())
+
+  pets         Pet[]
+  appointments Appointment[]
+  sales        Sale[]
+
+  @@unique([businessId, phone])
+}
+
+model Pet {
+  id         String   @id @default(cuid())
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  clientId   String
+  client     Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  name       String
+  breed      String?
+  size       Size
+  notes      String?
+  /// null = decidir por raza/tamaño; true = cabina; false = a mano
+  cabinOk    Boolean?
+  createdAt  DateTime @default(now())
+
+  appointments Appointment[]
+
+  @@index([businessId, clientId])
+}
+
+model Appointment {
+  id         String            @id @default(cuid())
+  businessId String
+  business   Business          @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  clientId   String
+  client     Client            @relation(fields: [clientId], references: [id])
+  petId      String
+  pet        Pet               @relation(fields: [petId], references: [id])
+  groomerId  String
+  groomer    Groomer           @relation(fields: [groomerId], references: [id])
+  serviceId  String
+  service    Service           @relation(fields: [serviceId], references: [id])
+  size       Size
+  startsAt   DateTime
+  endsAt     DateTime
+  status     AppointmentStatus @default(BOOKED)
+  source     Source            @default(WEB)
+  /// Precio total (servicio + extras) en centavos
+  price      Int
+  useCabin   Boolean
+  notes      String?
+  paidAt     DateTime?
+  createdAt  DateTime          @default(now())
+
+  addOns    AppointmentAddOn[]
+  saleItems SaleItem[]
+
+  @@index([businessId, startsAt])
+  @@index([groomerId, startsAt])
+}
+
+model AppointmentAddOn {
+  appointmentId String
+  appointment   Appointment @relation(fields: [appointmentId], references: [id], onDelete: Cascade)
+  addOnId       String
+  addOn         AddOn       @relation(fields: [addOnId], references: [id])
+  price         Int
+
+  @@id([appointmentId, addOnId])
+}
+
+model Product {
+  id         String   @id @default(cuid())
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  name       String
+  price      Int
+  stock      Int      @default(0)
+  active     Boolean  @default(true)
+
+  saleItems SaleItem[]
+
+  @@index([businessId])
+}
+
+model Sale {
+  id         String    @id @default(cuid())
+  businessId String
+  business   Business  @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  clientId   String?
+  client     Client?   @relation(fields: [clientId], references: [id])
+  method     PayMethod
+  total      Int
+  /// Efectivo recibido (para calcular cambio)
+  received   Int?
+  userId     String?
+  createdAt  DateTime  @default(now())
+
+  items SaleItem[]
+
+  @@index([businessId, createdAt])
+}
+
+model SaleItem {
+  id            String       @id @default(cuid())
+  saleId        String
+  sale          Sale         @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  kind          SaleItemKind
+  name          String
+  qty           Int          @default(1)
+  unitPrice     Int
+  appointmentId String?
+  appointment   Appointment? @relation(fields: [appointmentId], references: [id])
+  productId     String?
+  product       Product?     @relation(fields: [productId], references: [id])
+}
+
+model CashClosing {
+  id            String   @id @default(cuid())
+  businessId    String
+  business      Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  /// Día local del negocio, formato YYYY-MM-DD
+  date          String
+  openingFloat  Int
+  expectedCash  Int
+  countedCash   Int
+  difference    Int
+  totalSales    Int
+  notes         String?
+  userId        String?
+  createdAt     DateTime @default(now())
+
+  @@unique([businessId, date])
+}
+
+model ActivityLog {
+  id         String   @id @default(cuid())
+  businessId String
+  business   Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  userId     String?
+  type       String
+  message    String
+  meta       Json?
+  createdAt  DateTime @default(now())
+
+  @@index([businessId, createdAt])
+}
