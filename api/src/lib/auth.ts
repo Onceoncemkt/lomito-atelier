@@ -2,6 +2,7 @@ import type { RequestHandler } from "express";
 import jwt from "jsonwebtoken";
 import { HttpError, forbidden } from "./errors.js";
 import type { Role } from "../generated/prisma/enums.js";
+import { prisma } from "./db.js";
 
 export type AuthUser = { id: string; businessId: string; role: Role; groomerId: string | null; name: string };
 
@@ -28,15 +29,19 @@ export function signToken(u: AuthUser) {
   );
 }
 
-export const requireAuth: RequestHandler = (req, _res, next) => {
+/** Verifica el token y que el usuario siga activo (rol y estado se leen de la base, así los cambios aplican al momento). */
+export const requireAuth: RequestHandler = async (req, _res, next) => {
   const h = req.headers.authorization;
   if (!h?.startsWith("Bearer ")) throw new HttpError(401, "Inicia sesión");
+  let p: jwt.JwtPayload;
   try {
-    const p = jwt.verify(h.slice(7), secret()) as jwt.JwtPayload;
-    req.user = { id: p.sub!, businessId: p.businessId, role: p.role, groomerId: p.groomerId ?? null, name: p.name };
+    p = jwt.verify(h.slice(7), secret()) as jwt.JwtPayload;
   } catch {
     throw new HttpError(401, "Sesión vencida, vuelve a entrar");
   }
+  const u = await prisma.user.findUnique({ where: { id: p.sub! }, select: { active: true, role: true, businessId: true, groomerId: true, name: true } });
+  if (!u || !u.active || u.businessId !== p.businessId) throw new HttpError(401, "Inicia sesión");
+  req.user = { id: p.sub!, businessId: u.businessId, role: u.role, groomerId: u.groomerId, name: u.name };
   next();
 };
 

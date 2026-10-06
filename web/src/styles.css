@@ -164,3 +164,10 @@ a.linkbtn{text-decoration:none}
 .modal .kv span{color:var(--muted)}
 .field input[aria-invalid="true"]{border-color:var(--warn);box-shadow:0 0 0 1px var(--warn)}
 .opt .num{font-size:.85rem}
+.toggle{display:inline-flex;align-items:center;gap:6px;font-size:.88rem;cursor:pointer}
+.toggle input,td input[type="checkbox"]{accent-color:var(--accent);width:18px;height:18px}
+td input:not([type="checkbox"]),td select{border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:6px 8px;width:100%;min-width:90px}
+.num-in{max-width:100px}
+input[type="time"]{border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:6px 8px}
+.okmsg,.err{display:inline-block}
+.seg{flex-wrap:wrap}

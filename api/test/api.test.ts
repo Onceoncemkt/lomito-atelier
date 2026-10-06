@@ -292,3 +292,81 @@ describe("contraseña", () => {
     expect(old.status).toBe(401);
   });
 });
+
+describe("ajustes", () => {
+  it("cambia precios y el menú público los refleja", async () => {
+    const st = await request(app).get("/api/settings").set(auth());
+    expect(st.status).toBe(200);
+    const exp = st.body.services.find((s: any) => s.code === "experiencia");
+    const r = await request(app)
+      .patch(`/api/settings/services/${exp.id}`)
+      .set(auth())
+      .send({ prices: { CHICO: { price: 49000, durationMin: 90 } } });
+    expect(r.status).toBe(200);
+    const pub = await request(app).get(`/public/${SLUG}`);
+    expect(pub.body.services.find((s: any) => s.code === "experiencia").prices.CHICO.price).toBe(49000);
+    // no se puede dejar sin precios
+    const none = await request(app)
+      .patch(`/api/settings/services/${exp.id}`)
+      .set(auth())
+      .send({ prices: { CHICO: null, MEDIANO: null, GRANDE: null, GIGANTE: null } });
+    expect(none.status).toBe(400);
+  });
+
+  it("no permite productos duplicados", async () => {
+    const r = await request(app).post("/api/products").set(auth()).send({ name: "perfume lomito", price: 1000 });
+    expect(r.status).toBe(409);
+  });
+
+  it("crea servicio y extra; ocultarlos los quita del menú", async () => {
+    const s = await request(app)
+      .post("/api/settings/services")
+      .set(auth())
+      .send({ name: "Spa de patitas", prices: { CHICO: { price: 18000, durationMin: 30 } } });
+    expect(s.status).toBe(201);
+    const a = await request(app).post("/api/settings/addons").set(auth()).send({ name: "Hidratación", price: 9000, durationMin: 15 });
+    expect(a.status).toBe(201);
+    let pub = await request(app).get(`/public/${SLUG}`);
+    expect(pub.body.services.map((x: any) => x.name)).toContain("Spa de patitas");
+    expect(pub.body.addOns.map((x: any) => x.name)).toContain("Hidratación");
+    await request(app).patch(`/api/settings/services/${s.body.id}`).set(auth()).send({ active: false });
+    await request(app).patch(`/api/settings/addons/${a.body.id}`).set(auth()).send({ active: false });
+    pub = await request(app).get(`/public/${SLUG}`);
+    expect(pub.body.services.map((x: any) => x.name)).not.toContain("Spa de patitas");
+    expect(pub.body.addOns.map((x: any) => x.name)).not.toContain("Hidratación");
+  });
+
+  it("cambia horario: un día cerrado deja de ofrecer horarios", async () => {
+    const closedAll = { "1": null, "2": null, "3": null, "4": null, "5": null, "6": null, "7": null };
+    const bad = await request(app).patch("/api/settings/business").set(auth()).send({ openingHours: { ...closedAll, "2": { open: "19:00", close: "09:00" } } });
+    expect(bad.status).toBe(400);
+    const st = await request(app).get("/api/settings").set(auth());
+    const original = st.body.business.openingHours;
+    await request(app).patch("/api/settings/business").set(auth()).send({ openingHours: { ...original, "2": null }, phone: "771 000 1111" });
+    const av = await request(app).get(`/public/${SLUG}/availability`).query({ date: tuesday, service: "unas", size: "CHICO" });
+    expect(av.body.slots).toEqual([]);
+    const pub = await request(app).get(`/public/${SLUG}`);
+    expect(pub.body.business.phone).toBe("7710001111");
+    await request(app).patch("/api/settings/business").set(auth()).send({ openingHours: original });
+  });
+
+  it("usuarios: no se puede quitar a la última dueña; restablecer contraseña", async () => {
+    const st = await request(app).get("/api/settings").set(auth());
+    const me = st.body.users.find((u: any) => u.isMe);
+    const demote = await request(app).patch(`/api/settings/users/${me.id}`).set(auth()).send({ role: "RECEPTION" });
+    expect(demote.status).toBe(400);
+    const rec = st.body.users.find((u: any) => u.email === "recepcion@lomito.mx");
+    const reset = await request(app).patch(`/api/settings/users/${rec.id}`).set(auth()).send({ password: "reset-clave-789" });
+    expect(reset.status).toBe(200);
+    const login = await request(app).post("/auth/login").send({ business: SLUG, email: "recepcion@lomito.mx", password: "reset-clave-789" });
+    expect(login.status).toBe(200);
+    const off = await request(app).patch(`/api/settings/users/${rec.id}`).set(auth()).send({ active: false });
+    expect(off.body.active).toBe(false);
+    const blocked = await request(app).post("/auth/login").send({ business: SLUG, email: "recepcion@lomito.mx", password: "reset-clave-789" });
+    expect(blocked.status).toBe(401);
+    // su sesión abierta deja de servir al desactivarla
+    expect((await request(app).get("/api/agenda").query({ date: tuesday }).set({ Authorization: `Bearer ${login.body.token}` })).status).toBe(401);
+    await request(app).patch(`/api/settings/users/${rec.id}`).set(auth()).send({ active: true });
+    expect((await request(app).get("/api/settings").set({ Authorization: `Bearer ${login.body.token}` })).status).toBe(403);
+  });
+});

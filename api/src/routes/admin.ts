@@ -41,6 +41,8 @@ const productBody = z.object({
 
 adminRouter.post("/products", owner, async (req, res) => {
   const body = parse(productBody, req.body);
+  const dup = await prisma.product.findFirst({ where: { businessId: req.user!.businessId, name: { equals: body.name, mode: "insensitive" } } });
+  if (dup) throw conflict(`Ya existe "${dup.name}" en la boutique`);
   const p = await prisma.product.create({ data: { ...body, businessId: req.user!.businessId } });
   await logActivity(prisma, p.businessId, "product.created", `Producto nuevo · ${p.name} · ${pesos(p.price)}`, { userId: req.user!.id });
   res.status(201).json(p);

@@ -12,6 +12,25 @@ type Done = { startsAt: string; service: string; addOns: string[]; petName: stri
 
 const fmtDur = (min: number) => (min < 60 ? `${min} min` : `${Math.floor(min / 60)} h${min % 60 ? ` ${min % 60} min` : ""}`);
 
+const DAY_NAMES = ["", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"];
+/** "Martes a domingo", "Lunes a sábado", o la lista de días abiertos. */
+function openDaysText(h: Record<string, unknown>) {
+  const open = [1, 2, 3, 4, 5, 6, 7].filter((d) => h[String(d)]);
+  if (!open.length) return "";
+  const txt = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+  // ¿forman un bloque continuo (circular)?
+  for (let start = 0; start < 7; start++) {
+    const seq = Array.from({ length: open.length }, (_, i) => ((open[0] - 1 + start + i) % 7) + 1);
+    if (seq.every((d) => open.includes(d)) && open.length > 2) {
+      const first = seq[0];
+      const last = seq[seq.length - 1];
+      if (open.includes(((first + 5) % 7) + 1) && open.length < 7) continue;
+      return open.length === 7 ? "Todos los días" : `${txt(DAY_NAMES[first])} a ${DAY_NAMES[last]}`;
+    }
+  }
+  return txt(open.map((d) => DAY_NAMES[d]).join(", "));
+}
+
 const WHATSAPP = import.meta.env.VITE_WHATSAPP as string | undefined;
 
 export default function Reservar() {
@@ -82,6 +101,7 @@ export default function Reservar() {
   if (!menu) return <div className="public"><p className="loading">Cargando…</p></div>;
 
   const svc = menu.services.find((s) => s.code === service);
+  const contactPhone = menu.business.phone || WHATSAPP;
   const showAddOns = service !== "unas";
   const chosen = menu.addOns.filter((a) => addOns.includes(a.code));
   const basePrice = svc?.prices[size]?.price ?? 0;
@@ -183,6 +203,7 @@ export default function Reservar() {
                 <button type="button" key={s.code} className="opt" aria-pressed={s.code === service} onClick={() => {
                     setService(s.code);
                     if (s.code === "unas") setAddOns([]);
+                    if (!s.prices[size]) setSize(SIZES.find((z) => s.prices[z]) ?? "CHICO");
                   }}>
                   <b>{s.name}</b>
                   <span>{s.prices[size] ? `${money(s.prices[size].price)} · ${fmtDur(s.prices[size].durationMin)}` : "—"}</span>
@@ -338,11 +359,11 @@ export default function Reservar() {
             </div>
           )}
           <p className="footer-note">
-            Pagas en el atelier · Martes a domingo
-            {WHATSAPP ? (
+            Pagas en el atelier · {openDaysText(menu.business.openingHours)}
+            {contactPhone ? (
               <>
                 {" · "}
-                <a href={`https://wa.me/52${WHATSAPP}`} target="_blank" rel="noreferrer">¿Dudas? WhatsApp</a>
+                <a href={`https://wa.me/52${contactPhone}`} target="_blank" rel="noreferrer">¿Dudas? WhatsApp</a>
               </>
             ) : null}
           </p>

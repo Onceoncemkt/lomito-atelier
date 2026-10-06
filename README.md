@@ -75,4 +75,10 @@ TEST_DATABASE_URL=postgresql://localhost:5432/lomito_test npm test
 | RECEPTION | Agenda, citas, clientes, caja y corte |
 | GROOMER | Ver sus citas y marcarlas como terminadas |
 
-Para crear usuarios por ahora: `POST /api/users` con sesión de dueña (la pantalla de usuarios viene después).
+Usuarios, estilistas, precios, extras, boutique, horario y WhatsApp se editan en **Panel → Ajustes** (sólo dueña).
+
+Si alguien olvida su contraseña: la dueña la cambia en Ajustes → Equipo, o desde la Shell de Render:
+
+```bash
+npm run set-password -w api -- correo@ejemplo.com 'NuevaContraseña123'
+```

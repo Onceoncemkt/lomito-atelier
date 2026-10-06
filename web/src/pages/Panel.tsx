@@ -11,6 +11,7 @@ export default function Panel() {
     { to: "/panel/clientes", label: "Clientes", show: role !== "GROOMER" },
     { to: "/panel/caja", label: "Caja", show: role !== "GROOMER" },
     { to: "/panel/comisiones", label: "Comisiones", show: role === "OWNER" },
+    { to: "/panel/ajustes", label: "Ajustes", show: role === "OWNER" },
   ].filter((t) => t.show);
   return (
     <div className="wrap">

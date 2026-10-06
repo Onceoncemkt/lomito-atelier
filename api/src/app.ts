@@ -10,6 +10,7 @@ import { agendaRouter } from "./routes/agenda.js";
 import { clientsRouter } from "./routes/clients.js";
 import { cajaRouter } from "./routes/caja.js";
 import { adminRouter } from "./routes/admin.js";
+import { settingsRouter } from "./routes/settings.js";
 
 export function createApp() {
   const app = express();
@@ -31,7 +32,7 @@ export function createApp() {
   app.use("/public", limiter(600), publicRouter);
   app.use("/auth/login", limiter(30));
   app.use("/auth", authRouter);
-  app.use("/api", requireAuth, agendaRouter, clientsRouter, cajaRouter, adminRouter);
+  app.use("/api", requireAuth, agendaRouter, clientsRouter, cajaRouter, adminRouter, settingsRouter);
 
   app.use((_req, res) => {
     res.status(404).json({ error: "Ruta no encontrada" });

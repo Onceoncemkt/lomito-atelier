@@ -10,6 +10,7 @@ import Clientes from "./pages/Clientes";
 import Caja from "./pages/Caja";
 import Comisiones from "./pages/Comisiones";
 import Cuenta from "./pages/Cuenta";
+import Ajustes from "./pages/Ajustes";
 import { SessionProvider } from "./session";
 
 createRoot(document.getElementById("root")!).render(
@@ -25,6 +26,7 @@ createRoot(document.getElementById("root")!).render(
             <Route path="caja" element={<Caja />} />
             <Route path="comisiones" element={<Comisiones />} />
             <Route path="cuenta" element={<Cuenta />} />
+            <Route path="ajustes" element={<Ajustes />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
