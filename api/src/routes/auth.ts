@@ -44,3 +44,18 @@ authRouter.get("/me", requireAuth, async (req, res) => {
     },
   });
 });
+
+const passwordBody = z.object({
+  current: z.string().min(1),
+  next: z.string().min(8, "La nueva contraseña debe tener al menos 8 caracteres").max(200),
+});
+
+authRouter.post("/password", requireAuth, async (req, res) => {
+  const body = parse(passwordBody, req.body);
+  const user = await prisma.user.findUnique({ where: { id: req.user!.id } });
+  if (!user || !(await bcrypt.compare(body.current, user.passwordHash))) {
+    throw new HttpError(400, "La contraseña actual no es correcta");
+  }
+  await prisma.user.update({ where: { id: user.id }, data: { passwordHash: await bcrypt.hash(body.next, 10) } });
+  res.json({ ok: true });
+});

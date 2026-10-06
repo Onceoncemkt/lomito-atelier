@@ -277,3 +277,18 @@ describe("multi-negocio y permisos", () => {
     expect(bad.status).toBe(401);
   });
 });
+
+describe("contraseña", () => {
+  it("cambia la contraseña con la actual correcta", async () => {
+    const wrong = await request(app).post("/auth/password").set(auth()).send({ current: "nop", next: "nueva-clave-123" });
+    expect(wrong.status).toBe(400);
+    const short = await request(app).post("/auth/password").set(auth()).send({ current: "lomito-test-123", next: "corta" });
+    expect(short.status).toBe(400);
+    const ok = await request(app).post("/auth/password").set(auth()).send({ current: "lomito-test-123", next: "nueva-clave-123" });
+    expect(ok.status).toBe(200);
+    const login = await request(app).post("/auth/login").send({ business: SLUG, email: "maria@onceonce.community", password: "nueva-clave-123" });
+    expect(login.status).toBe(200);
+    const old = await request(app).post("/auth/login").send({ business: SLUG, email: "maria@onceonce.community", password: "lomito-test-123" });
+    expect(old.status).toBe(401);
+  });
+});

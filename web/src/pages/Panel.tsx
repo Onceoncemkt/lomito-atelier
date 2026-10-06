@@ -1,4 +1,4 @@
-import { NavLink, Navigate, Outlet } from "react-router-dom";
+import { Link, NavLink, Navigate, Outlet } from "react-router-dom";
 import { useSession } from "../session";
 
 export default function Panel() {
@@ -30,7 +30,7 @@ export default function Panel() {
           ))}
         </nav>
         <div className="user">
-          <span>{me.user.name}</span>
+          <Link to="/panel/cuenta" className="linkbtn" title="Mi cuenta y contraseña">{me.user.name}</Link>
           <button className="linkbtn" onClick={logout}>Salir</button>
         </div>
       </header>
