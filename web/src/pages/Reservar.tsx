@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { api, BUSINESS_SLUG } from "../api";
-import { money, SIZES, SIZE_LABEL, todayYmd, addDays, dayParts, longDate, hm, ymd } from "../format";
+import { money, SIZES, SIZE_LABEL, todayYmd, addDays, dayParts, longDate, hm, ymd, cap } from "../format";
 
 type Menu = {
   business: { name: string; phone: string | null; openingHours: Record<string, { open: string; close: string } | null> };
@@ -9,6 +9,8 @@ type Menu = {
 };
 type Avail = { price: number; durationMin: number; slots: { time: string; startsAt: string }[] };
 type Done = { startsAt: string; service: string; addOns: string[]; petName: string; price: number; drying: string };
+
+const fmtDur = (min: number) => (min < 60 ? `${min} min` : `${Math.floor(min / 60)} h${min % 60 ? ` ${min % 60} min` : ""}`);
 
 const WHATSAPP = import.meta.env.VITE_WHATSAPP as string | undefined;
 
@@ -26,6 +28,8 @@ export default function Reservar() {
   const [err, setErr] = useState("");
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState<Done | null>(null);
+  const [missing, setMissing] = useState<string[]>([]);
+  const [reviewing, setReviewing] = useState(false);
 
   useEffect(() => {
     api<Menu>(`/public/${BUSINESS_SLUG}`)
@@ -48,6 +52,11 @@ export default function Reservar() {
   }, [menu]);
 
   useEffect(() => {
+    if (missing.length) setMissing(check());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slot, form]);
+
+  useEffect(() => {
     if (!date && days.length) setDate(days[0]);
   }, [days, date]);
 
@@ -55,9 +64,13 @@ export default function Reservar() {
     if (!date || !service) return;
     let alive = true;
     setLoadingSlots(true);
-    setSlot("");
     api<Avail>(`/public/${BUSINESS_SLUG}/availability`, { query: { date, service, size, addOns: addOns.join(",") } })
-      .then((a) => alive && setAvail(a))
+      .then((a) => {
+        if (!alive) return;
+        setAvail(a);
+        // conserva la hora elegida si sigue disponible
+        setSlot((cur) => (cur && a.slots.some((x) => x.startsAt === cur) ? cur : ""));
+      })
       .catch((e) => alive && setErr(e.message))
       .finally(() => alive && setLoadingSlots(false));
     return () => {
@@ -71,11 +84,37 @@ export default function Reservar() {
   const svc = menu.services.find((s) => s.code === service);
   const showAddOns = service !== "unas";
   const chosen = menu.addOns.filter((a) => addOns.includes(a.code));
-  const valid = slot && form.clientName.trim().length >= 2 && form.phone.replace(/\D/g, "").length >= 10 && form.petName.trim();
+  const basePrice = svc?.prices[size]?.price ?? 0;
+  const total = basePrice + chosen.reduce((t, a) => t + a.price, 0);
+  const totalMin = (svc?.prices[size]?.durationMin ?? 0) + chosen.reduce((t, a) => t + a.durationMin, 0);
+  const slotTime = avail?.slots.find((x) => x.startsAt === slot)?.time ?? "";
+  const phoneDigits = form.phone.replace(/\D/g, "");
 
-  async function submit(e: FormEvent) {
+  function check() {
+    const m: string[] = [];
+    if (!slot) m.push("hora");
+    if (!form.petName.trim()) m.push("pet");
+    if (form.clientName.trim().length < 2) m.push("name");
+    const digits = form.phone.replace(/\D/g, "");
+    if (digits.length < 10 || digits.length > 13) m.push("phone");
+    return m;
+  }
+
+  function review(e: FormEvent) {
     e.preventDefault();
-    if (!valid) return;
+    setErr("");
+    const m = check();
+    setMissing(m);
+    if (m.length) {
+      const target = m[0] === "hora" ? document.querySelector(".slots, .days") : document.getElementById(m[0]);
+      target?.scrollIntoView({ behavior: "smooth", block: "center" });
+      if (target instanceof HTMLInputElement) setTimeout(() => target.focus(), 300);
+      return;
+    }
+    setReviewing(true);
+  }
+
+  async function submit() {
     setErr("");
     setSending(true);
     try {
@@ -83,8 +122,10 @@ export default function Reservar() {
         method: "POST",
         body: { service, size, addOns, startsAt: slot, ...form, breed: form.breed || null, notes: form.notes || null },
       });
+      setReviewing(false);
       setDone(r);
     } catch (x: any) {
+      setReviewing(false);
       setErr(x.message);
       if (x.status === 409) {
         // se ocupó el horario: refrescar
@@ -128,7 +169,7 @@ export default function Reservar() {
 
   return (
     <div className="public">
-      <form className="phone" onSubmit={submit}>
+      <form className="phone" onSubmit={review} noValidate>
         <div className="phone-head">
           <img src="/lomito-creme.svg" alt="Lomito Atelier" />
           <h2>Agenda su cita</h2>
@@ -144,7 +185,7 @@ export default function Reservar() {
                     if (s.code === "unas") setAddOns([]);
                   }}>
                   <b>{s.name}</b>
-                  <span>desde {money(Math.min(...Object.values(s.prices).map((p) => p.price)))}</span>
+                  <span>{s.prices[size] ? `${money(s.prices[size].price)} · ${fmtDur(s.prices[size].durationMin)}` : "—"}</span>
                 </button>
               ))}
             </div>
@@ -158,6 +199,7 @@ export default function Reservar() {
                 <button type="button" key={z} className="opt" aria-pressed={z === size} onClick={() => setSize(z)}>
                   <b>{SIZE_LABEL[z].name}</b>
                   <span>{SIZE_LABEL[z].desc}</span>
+                  <span className="num" style={{ color: "var(--ink)", fontWeight: 600 }}>{money(svc!.prices[z].price)}</span>
                 </button>
               ))}
             </div>
@@ -198,6 +240,8 @@ export default function Reservar() {
             {loadingSlots ? (
               <p className="loading">Buscando horarios…</p>
             ) : avail && avail.slots.length ? (
+              <>
+              {missing.includes("hora") && <div className="warnbox">Elige una hora para tu cita</div>}
               <div className="slots" role="group" aria-label="Hora">
                 {avail.slots.map((s) => (
                   <button type="button" key={s.startsAt} className="slot" aria-pressed={s.startsAt === slot} onClick={() => setSlot(s.startsAt)}>
@@ -205,6 +249,7 @@ export default function Reservar() {
                   </button>
                 ))}
               </div>
+              </>
             ) : (
               <p className="muted">No quedan horarios este día. Prueba otro.</p>
             )}
@@ -215,7 +260,7 @@ export default function Reservar() {
             <div className="row2">
               <div className="field">
                 <label htmlFor="pet">Nombre del lomito</label>
-                <input id="pet" value={form.petName} onChange={(e) => setForm({ ...form, petName: e.target.value })} required maxLength={40} />
+                <input id="pet" aria-invalid={missing.includes("pet")} value={form.petName} onChange={(e) => setForm({ ...form, petName: e.target.value })} required maxLength={40} />
               </div>
               <div className="field">
                 <label htmlFor="breed">Raza</label>
@@ -225,24 +270,29 @@ export default function Reservar() {
             <div className="row2">
               <div className="field">
                 <label htmlFor="name">Tu nombre</label>
-                <input id="name" autoComplete="name" value={form.clientName} onChange={(e) => setForm({ ...form, clientName: e.target.value })} required maxLength={80} />
+                <input id="name" aria-invalid={missing.includes("name")} autoComplete="name" value={form.clientName} onChange={(e) => setForm({ ...form, clientName: e.target.value })} required maxLength={80} />
               </div>
               <div className="field">
                 <label htmlFor="phone">WhatsApp</label>
-                <input id="phone" inputMode="tel" autoComplete="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder="10 dígitos" required />
+                <input id="phone" aria-invalid={missing.includes("phone")} inputMode="tel" autoComplete="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder="10 dígitos" required />
               </div>
             </div>
+            {missing.some((m) => m !== "hora") && (
+              <div className="warnbox">
+                Falta: {missing.filter((m) => m !== "hora").map((m) => ({ pet: "nombre del lomito", name: "tu nombre", phone: "WhatsApp a 10 dígitos" } as Record<string, string>)[m]).join(", ")}
+              </div>
+            )}
             <div className="field">
               <label htmlFor="notes">¿Algo que debamos saber?</label>
               <textarea id="notes" rows={2} value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} maxLength={500} placeholder="Alergias, nervios, nudos…" />
             </div>
           </section>
 
-          {avail && (
+          {svc && (
             <div className="summary">
               <div className="line">
-                <span>{svc?.name} · {SIZE_LABEL[size].name}</span>
-                <span className="num">{money(svc?.prices[size]?.price ?? 0)}</span>
+                <span>{svc.name} · {SIZE_LABEL[size].name}</span>
+                <span className="num">{money(basePrice)}</span>
               </div>
               {chosen.map((a) => (
                 <div className="line" key={a.code}>
@@ -250,14 +300,43 @@ export default function Reservar() {
                   <span className="num">{money(a.price)}</span>
                 </div>
               ))}
+              <div className="line">
+                <span className="muted">{slotTime ? `${cap(longDate(date))} · ${slotTime}` : "Elige día y hora"}</span>
+                <span className="muted">{fmtDur(totalMin)}</span>
+              </div>
               <div className="line total">
-                <span>Total · aprox. {Math.round((avail.durationMin / 60) * 10) / 10} h</span>
-                <span className="num">{money(avail.price)}</span>
+                <span>Total</span>
+                <span className="num">{money(total)}</span>
               </div>
             </div>
           )}
           {err && <div className="err" role="alert">{err}</div>}
-          <button className="btn" disabled={!valid || sending}>{sending ? "Agendando…" : "Confirmar cita"}</button>
+          <button className="btn" disabled={sending}>{sending ? "Agendando…" : "Revisar y confirmar"}</button>
+          {reviewing && (
+            <div className="modal-bg" onClick={(e) => e.target === e.currentTarget && !sending && setReviewing(false)}>
+              <div className="modal" role="dialog" aria-modal="true" aria-labelledby="rv-title">
+                <h2 id="rv-title">¿Todo bien?</h2>
+                <p className="muted">Revisa los datos de tu cita antes de confirmar.</p>
+                <div className="kv">
+                  <span>Lomito</span><b>{form.petName.trim()}{form.breed.trim() ? ` · ${form.breed.trim()}` : ""}</b>
+                  <span>Tamaño</span><b>{SIZE_LABEL[size].name} ({SIZE_LABEL[size].desc})</b>
+                  <span>Servicio</span><b>{svc?.name}{chosen.length ? ` + ${chosen.map((a) => a.name).join(", ")}` : ""}</b>
+                  <span>Cuándo</span><b>{cap(longDate(date))} · {slotTime}</b>
+                  <span>Duración</span><b>aprox. {fmtDur(totalMin)}</b>
+                  <span>A nombre de</span><b>{form.clientName.trim()}</b>
+                  <span>WhatsApp</span><b className="num">{phoneDigits.slice(-10)}</b>
+                  {form.notes.trim() && (<><span>Notas</span><b style={{ fontWeight: 500 }}>{form.notes.trim()}</b></>)}
+                </div>
+                <div className="summary">
+                  <div className="line total"><span>Total a pagar en el atelier</span><span className="num">{money(total)}</span></div>
+                </div>
+                <div className="actions" style={{ justifyContent: "flex-end" }}>
+                  <button type="button" className="btn ghost" disabled={sending} onClick={() => setReviewing(false)}>Corregir</button>
+                  <button type="button" className="btn" disabled={sending} onClick={submit} autoFocus>{sending ? "Agendando…" : "Sí, confirmar cita"}</button>
+                </div>
+              </div>
+            </div>
+          )}
           <p className="footer-note">
             Pagas en el atelier · Martes a domingo
             {WHATSAPP ? (
