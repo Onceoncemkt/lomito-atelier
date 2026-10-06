@@ -180,3 +180,8 @@ input[type="time"]{border:1px solid var(--line);background:var(--bg);border-radi
 .combo-list li{padding:10px 12px;border-radius:8px;cursor:pointer;font-size:.95rem}
 .combo-list li[aria-selected="true"]{background:var(--tint)}
 .combo-list .combo-head{cursor:default;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:6px 12px 2px}
+.manage-link{font-weight:600;word-break:break-all}
+.ok .kv,.summary .kv{display:grid;grid-template-columns:90px 1fr;gap:6px 10px;font-size:.92rem}
+.ok .kv span,.summary .kv span{color:var(--muted)}
+.kv-simple{display:grid;grid-template-columns:minmax(0,260px) 1fr;gap:6px 12px;font-size:.92rem}
+.kv-simple span{color:var(--muted)}

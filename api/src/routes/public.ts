@@ -5,6 +5,7 @@ import { prisma, type Size } from "../lib/db.js";
 import { parse, conflict, badRequest } from "../lib/errors.js";
 import { computeSlots, pickGroomer } from "../lib/availability.js";
 import { openWindow, localDate, type OpeningHours, DATE_RE } from "../lib/time.js";
+import { sendConfirmation } from "../lib/reminders.js";
 import { businessBySlug, quote, busyBetween, lockDay, upsertClientPet, createAppointment } from "../lib/booking.js";
 
 export const SIZES = ["CHICO", "MEDIANO", "GRANDE", "GIGANTE"] as const;
@@ -24,7 +25,7 @@ publicRouter.get("/:slug", async (req, res) => {
     prisma.addOn.findMany({ where: { businessId: b.id, active: true }, orderBy: { price: "desc" } }),
   ]);
   res.json({
-    business: { slug: b.slug, name: b.name, timezone: b.timezone, phone: b.phone, openingHours: b.openingHours },
+    business: { slug: b.slug, name: b.name, timezone: b.timezone, phone: b.phone, openingHours: b.openingHours, minNoticeHours: b.minNoticeHours },
     services: services.map((s) => ({
       code: s.code,
       name: s.name,
@@ -130,8 +131,10 @@ publicRouter.post("/:slug/bookings", async (req, res) => {
     });
   });
 
+  void sendConfirmation(appt.id).catch(() => {});
   res.status(201).json({
     id: appt.id,
+    manageToken: appt.manageToken,
     startsAt: appt.startsAt,
     endsAt: appt.endsAt,
     service: appt.service.name,

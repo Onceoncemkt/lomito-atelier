@@ -92,6 +92,7 @@ export const BusinessScalarFieldEnum = {
   slotMinutes: 'slotMinutes',
   openingHours: 'openingHours',
   commissionPct: 'commissionPct',
+  minNoticeHours: 'minNoticeHours',
   phone: 'phone',
   createdAt: 'createdAt'
 } as const
@@ -207,6 +208,8 @@ export const AppointmentScalarFieldEnum = {
   useCabin: 'useCabin',
   notes: 'notes',
   paidAt: 'paidAt',
+  manageToken: 'manageToken',
+  reminderSentAt: 'reminderSentAt',
   createdAt: 'createdAt'
 } as const
 

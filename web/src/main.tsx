@@ -11,6 +11,7 @@ import Caja from "./pages/Caja";
 import Comisiones from "./pages/Comisiones";
 import Cuenta from "./pages/Cuenta";
 import Ajustes from "./pages/Ajustes";
+import Cita from "./pages/Cita";
 import { SessionProvider } from "./session";
 
 createRoot(document.getElementById("root")!).render(
@@ -19,6 +20,7 @@ createRoot(document.getElementById("root")!).render(
       <SessionProvider>
         <Routes>
           <Route path="/" element={<Reservar />} />
+          <Route path="/cita/:token" element={<Cita />} />
           <Route path="/panel/login" element={<Login />} />
           <Route path="/panel" element={<Panel />}>
             <Route index element={<Agenda />} />

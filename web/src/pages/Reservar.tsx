@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { api, BUSINESS_SLUG } from "../api";
 import { guessSize, SIZE_EXAMPLES, type Size } from "../breeds";
 import BreedInput from "../BreedInput";
+import { useLightTheme } from "../useLightTheme";
 import { money, SIZES, SIZE_LABEL, todayYmd, addDays, dayParts, longDate, hm, ymd, cap } from "../format";
 
 type Menu = {
@@ -10,7 +11,7 @@ type Menu = {
   addOns: { code: string; name: string; price: number; durationMin: number }[];
 };
 type Avail = { price: number; durationMin: number; slots: { time: string; startsAt: string }[] };
-type Done = { startsAt: string; service: string; addOns: string[]; petName: string; price: number; drying: string };
+type Done = { manageToken: string; startsAt: string; service: string; addOns: string[]; petName: string; price: number; drying: string };
 
 const fmtDur = (min: number) => (min < 60 ? `${min} min` : `${Math.floor(min / 60)} h${min % 60 ? ` ${min % 60} min` : ""}`);
 
@@ -36,6 +37,7 @@ function openDaysText(h: Record<string, unknown>) {
 const WHATSAPP = import.meta.env.VITE_WHATSAPP as string | undefined;
 
 export default function Reservar() {
+  useLightTheme();
   const [menu, setMenu] = useState<Menu | null>(null);
   const [loadErr, setLoadErr] = useState("");
   const [service, setService] = useState("experiencia");
@@ -53,6 +55,7 @@ export default function Reservar() {
   const [done, setDone] = useState<Done | null>(null);
   const [missing, setMissing] = useState<string[]>([]);
   const [reviewing, setReviewing] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     api<Menu>(`/public/${BUSINESS_SLUG}`)
@@ -208,9 +211,19 @@ export default function Reservar() {
               </p>
               <p className="muted">Secado {done.drying === "cabina" ? "en cabina, suave y silencioso" : "a mano, con calma"}.</p>
             </div>
-            <p className="muted" style={{ textAlign: "center", fontSize: ".88rem" }}>
-              Te escribiremos por WhatsApp para confirmar. Si necesitas cambiar tu cita, contéstanos ahí.
-            </p>
+            <div className="summary" style={{ gap: 8 }}>
+              <b>Guarda esta liga</b>
+              <span className="muted" style={{ fontSize: ".88rem" }}>Con ella puedes ver, cambiar o cancelar tu cita cuando quieras.</span>
+              <a className="manage-link" href={`/cita/${done.manageToken}`}>{location.host}/cita/{done.manageToken.slice(0, 8)}…</a>
+              <div className="actions">
+                <button type="button" className="btn ghost" onClick={async () => {
+                  const url = `${location.origin}/cita/${done.manageToken}`;
+                  try { await navigator.clipboard.writeText(url); setCopied(true); } catch { prompt("Copia tu liga:", url); }
+                }}>{copied ? "¡Copiada!" : "Copiar liga"}</button>
+                <a className="btn ghost" style={{ textDecoration: "none" }} target="_blank" rel="noreferrer"
+                  href={`https://wa.me/?text=${encodeURIComponent(`Mi cita en Lomito Atelier: ${location.origin}/cita/${done.manageToken}`)}`}>Mandármela por WhatsApp</a>
+              </div>
+            </div>
             <button className="btn ghost" onClick={() => location.reload()}>Agendar otro lomito</button>
           </div>
         </div>

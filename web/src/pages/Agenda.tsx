@@ -24,6 +24,7 @@ export type Appt = {
   pet: { id: string; name: string; breed: string | null; notes: string | null };
   client: { id: string; name: string; phone: string };
   visits?: number;
+  manageToken?: string | null;
 };
 type Day = { date: string; open: string | null; close: string | null; groomers: { id: string; name: string }[]; appointments: Appt[] };
 
@@ -241,7 +242,7 @@ function Detail({ a, day, staff, onChanged, onCharge }: { a: Appt; day: Day; sta
   }
 
   const date = day.date;
-  const reminder = `Hola ${a.client.name.split(" ")[0]} 🐾 Te recordamos la cita de ${a.pet.name} en Lomito Atelier el ${longDate(date)} a las ${hm(a.startsAt)}. ¡Lo esperamos!`;
+  const reminder = `Hola ${a.client.name.split(" ")[0]} 🐾 Te recordamos la cita de ${a.pet.name} en Lomito Atelier el ${longDate(date)} a las ${hm(a.startsAt)}. ¡Lo esperamos!${a.manageToken ? `\n\nSi necesitas cambiar o cancelar: ${location.origin}/cita/${a.manageToken}` : ""}`;
   const times: string[] = [];
   for (let m = toMin(day.open ?? "09:00"); m < toMin(day.close ?? "19:00"); m += 30) times.push(fromMin(m));
 

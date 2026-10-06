@@ -50,6 +50,8 @@ export type AppointmentMinAggregateOutputType = {
   useCabin: boolean | null
   notes: string | null
   paidAt: Date | null
+  manageToken: string | null
+  reminderSentAt: Date | null
   createdAt: Date | null
 }
 
@@ -69,6 +71,8 @@ export type AppointmentMaxAggregateOutputType = {
   useCabin: boolean | null
   notes: string | null
   paidAt: Date | null
+  manageToken: string | null
+  reminderSentAt: Date | null
   createdAt: Date | null
 }
 
@@ -88,6 +92,8 @@ export type AppointmentCountAggregateOutputType = {
   useCabin: number
   notes: number
   paidAt: number
+  manageToken: number
+  reminderSentAt: number
   createdAt: number
   _all: number
 }
@@ -117,6 +123,8 @@ export type AppointmentMinAggregateInputType = {
   useCabin?: true
   notes?: true
   paidAt?: true
+  manageToken?: true
+  reminderSentAt?: true
   createdAt?: true
 }
 
@@ -136,6 +144,8 @@ export type AppointmentMaxAggregateInputType = {
   useCabin?: true
   notes?: true
   paidAt?: true
+  manageToken?: true
+  reminderSentAt?: true
   createdAt?: true
 }
 
@@ -155,6 +165,8 @@ export type AppointmentCountAggregateInputType = {
   useCabin?: true
   notes?: true
   paidAt?: true
+  manageToken?: true
+  reminderSentAt?: true
   createdAt?: true
   _all?: true
 }
@@ -261,6 +273,8 @@ export type AppointmentGroupByOutputType = {
   useCabin: boolean
   notes: string | null
   paidAt: Date | null
+  manageToken: string | null
+  reminderSentAt: Date | null
   createdAt: Date
   _count: AppointmentCountAggregateOutputType | null
   _avg: AppointmentAvgAggregateOutputType | null
@@ -303,6 +317,8 @@ export type AppointmentWhereInput = {
   useCabin?: Prisma.BoolFilter<"Appointment"> | boolean
   notes?: Prisma.StringNullableFilter<"Appointment"> | string | null
   paidAt?: Prisma.DateTimeNullableFilter<"Appointment"> | Date | string | null
+  manageToken?: Prisma.StringNullableFilter<"Appointment"> | string | null
+  reminderSentAt?: Prisma.DateTimeNullableFilter<"Appointment"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Appointment"> | Date | string
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
   client?: Prisma.XOR<Prisma.ClientScalarRelationFilter, Prisma.ClientWhereInput>
@@ -329,6 +345,8 @@ export type AppointmentOrderByWithRelationInput = {
   useCabin?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   paidAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  manageToken?: Prisma.SortOrderInput | Prisma.SortOrder
+  reminderSentAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   business?: Prisma.BusinessOrderByWithRelationInput
   client?: Prisma.ClientOrderByWithRelationInput
@@ -341,6 +359,7 @@ export type AppointmentOrderByWithRelationInput = {
 
 export type AppointmentWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  manageToken?: string
   AND?: Prisma.AppointmentWhereInput | Prisma.AppointmentWhereInput[]
   OR?: Prisma.AppointmentWhereInput[]
   NOT?: Prisma.AppointmentWhereInput | Prisma.AppointmentWhereInput[]
@@ -358,6 +377,7 @@ export type AppointmentWhereUniqueInput = Prisma.AtLeast<{
   useCabin?: Prisma.BoolFilter<"Appointment"> | boolean
   notes?: Prisma.StringNullableFilter<"Appointment"> | string | null
   paidAt?: Prisma.DateTimeNullableFilter<"Appointment"> | Date | string | null
+  reminderSentAt?: Prisma.DateTimeNullableFilter<"Appointment"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Appointment"> | Date | string
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
   client?: Prisma.XOR<Prisma.ClientScalarRelationFilter, Prisma.ClientWhereInput>
@@ -366,7 +386,7 @@ export type AppointmentWhereUniqueInput = Prisma.AtLeast<{
   service?: Prisma.XOR<Prisma.ServiceScalarRelationFilter, Prisma.ServiceWhereInput>
   addOns?: Prisma.AppointmentAddOnListRelationFilter
   saleItems?: Prisma.SaleItemListRelationFilter
-}, "id">
+}, "id" | "manageToken">
 
 export type AppointmentOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -384,6 +404,8 @@ export type AppointmentOrderByWithAggregationInput = {
   useCabin?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   paidAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  manageToken?: Prisma.SortOrderInput | Prisma.SortOrder
+  reminderSentAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.AppointmentCountOrderByAggregateInput
   _avg?: Prisma.AppointmentAvgOrderByAggregateInput
@@ -411,6 +433,8 @@ export type AppointmentScalarWhereWithAggregatesInput = {
   useCabin?: Prisma.BoolWithAggregatesFilter<"Appointment"> | boolean
   notes?: Prisma.StringNullableWithAggregatesFilter<"Appointment"> | string | null
   paidAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Appointment"> | Date | string | null
+  manageToken?: Prisma.StringNullableWithAggregatesFilter<"Appointment"> | string | null
+  reminderSentAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Appointment"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Appointment"> | Date | string
 }
 
@@ -425,6 +449,8 @@ export type AppointmentCreateInput = {
   useCabin: boolean
   notes?: string | null
   paidAt?: Date | string | null
+  manageToken?: string | null
+  reminderSentAt?: Date | string | null
   createdAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutAppointmentsInput
   client: Prisma.ClientCreateNestedOneWithoutAppointmentsInput
@@ -451,6 +477,8 @@ export type AppointmentUncheckedCreateInput = {
   useCabin: boolean
   notes?: string | null
   paidAt?: Date | string | null
+  manageToken?: string | null
+  reminderSentAt?: Date | string | null
   createdAt?: Date | string
   addOns?: Prisma.AppointmentAddOnUncheckedCreateNestedManyWithoutAppointmentInput
   saleItems?: Prisma.SaleItemUncheckedCreateNestedManyWithoutAppointmentInput
@@ -467,6 +495,8 @@ export type AppointmentUpdateInput = {
   useCabin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  manageToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reminderSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutAppointmentsNestedInput
   client?: Prisma.ClientUpdateOneRequiredWithoutAppointmentsNestedInput
@@ -493,6 +523,8 @@ export type AppointmentUncheckedUpdateInput = {
   useCabin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  manageToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reminderSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   addOns?: Prisma.AppointmentAddOnUncheckedUpdateManyWithoutAppointmentNestedInput
   saleItems?: Prisma.SaleItemUncheckedUpdateManyWithoutAppointmentNestedInput
@@ -514,6 +546,8 @@ export type AppointmentCreateManyInput = {
   useCabin: boolean
   notes?: string | null
   paidAt?: Date | string | null
+  manageToken?: string | null
+  reminderSentAt?: Date | string | null
   createdAt?: Date | string
 }
 
@@ -528,6 +562,8 @@ export type AppointmentUpdateManyMutationInput = {
   useCabin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  manageToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reminderSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -547,6 +583,8 @@ export type AppointmentUncheckedUpdateManyInput = {
   useCabin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  manageToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reminderSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -576,6 +614,8 @@ export type AppointmentCountOrderByAggregateInput = {
   useCabin?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   paidAt?: Prisma.SortOrder
+  manageToken?: Prisma.SortOrder
+  reminderSentAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -599,6 +639,8 @@ export type AppointmentMaxOrderByAggregateInput = {
   useCabin?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   paidAt?: Prisma.SortOrder
+  manageToken?: Prisma.SortOrder
+  reminderSentAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -618,6 +660,8 @@ export type AppointmentMinOrderByAggregateInput = {
   useCabin?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   paidAt?: Prisma.SortOrder
+  manageToken?: Prisma.SortOrder
+  reminderSentAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -898,6 +942,8 @@ export type AppointmentCreateWithoutBusinessInput = {
   useCabin: boolean
   notes?: string | null
   paidAt?: Date | string | null
+  manageToken?: string | null
+  reminderSentAt?: Date | string | null
   createdAt?: Date | string
   client: Prisma.ClientCreateNestedOneWithoutAppointmentsInput
   pet: Prisma.PetCreateNestedOneWithoutAppointmentsInput
@@ -922,6 +968,8 @@ export type AppointmentUncheckedCreateWithoutBusinessInput = {
   useCabin: boolean
   notes?: string | null
   paidAt?: Date | string | null
+  manageToken?: string | null
+  reminderSentAt?: Date | string | null
   createdAt?: Date | string
   addOns?: Prisma.AppointmentAddOnUncheckedCreateNestedManyWithoutAppointmentInput
   saleItems?: Prisma.SaleItemUncheckedCreateNestedManyWithoutAppointmentInput
@@ -972,6 +1020,8 @@ export type AppointmentScalarWhereInput = {
   useCabin?: Prisma.BoolFilter<"Appointment"> | boolean
   notes?: Prisma.StringNullableFilter<"Appointment"> | string | null
   paidAt?: Prisma.DateTimeNullableFilter<"Appointment"> | Date | string | null
+  manageToken?: Prisma.StringNullableFilter<"Appointment"> | string | null
+  reminderSentAt?: Prisma.DateTimeNullableFilter<"Appointment"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Appointment"> | Date | string
 }
 
@@ -986,6 +1036,8 @@ export type AppointmentCreateWithoutGroomerInput = {
   useCabin: boolean
   notes?: string | null
   paidAt?: Date | string | null
+  manageToken?: string | null
+  reminderSentAt?: Date | string | null
   createdAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutAppointmentsInput
   client: Prisma.ClientCreateNestedOneWithoutAppointmentsInput
@@ -1010,6 +1062,8 @@ export type AppointmentUncheckedCreateWithoutGroomerInput = {
   useCabin: boolean
   notes?: string | null
   paidAt?: Date | string | null
+  manageToken?: string | null
+  reminderSentAt?: Date | string | null
   createdAt?: Date | string
   addOns?: Prisma.AppointmentAddOnUncheckedCreateNestedManyWithoutAppointmentInput
   saleItems?: Prisma.SaleItemUncheckedCreateNestedManyWithoutAppointmentInput
@@ -1052,6 +1106,8 @@ export type AppointmentCreateWithoutServiceInput = {
   useCabin: boolean
   notes?: string | null
   paidAt?: Date | string | null
+  manageToken?: string | null
+  reminderSentAt?: Date | string | null
   createdAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutAppointmentsInput
   client: Prisma.ClientCreateNestedOneWithoutAppointmentsInput
@@ -1076,6 +1132,8 @@ export type AppointmentUncheckedCreateWithoutServiceInput = {
   useCabin: boolean
   notes?: string | null
   paidAt?: Date | string | null
+  manageToken?: string | null
+  reminderSentAt?: Date | string | null
   createdAt?: Date | string
   addOns?: Prisma.AppointmentAddOnUncheckedCreateNestedManyWithoutAppointmentInput
   saleItems?: Prisma.SaleItemUncheckedCreateNestedManyWithoutAppointmentInput
@@ -1118,6 +1176,8 @@ export type AppointmentCreateWithoutClientInput = {
   useCabin: boolean
   notes?: string | null
   paidAt?: Date | string | null
+  manageToken?: string | null
+  reminderSentAt?: Date | string | null
   createdAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutAppointmentsInput
   pet: Prisma.PetCreateNestedOneWithoutAppointmentsInput
@@ -1142,6 +1202,8 @@ export type AppointmentUncheckedCreateWithoutClientInput = {
   useCabin: boolean
   notes?: string | null
   paidAt?: Date | string | null
+  manageToken?: string | null
+  reminderSentAt?: Date | string | null
   createdAt?: Date | string
   addOns?: Prisma.AppointmentAddOnUncheckedCreateNestedManyWithoutAppointmentInput
   saleItems?: Prisma.SaleItemUncheckedCreateNestedManyWithoutAppointmentInput
@@ -1184,6 +1246,8 @@ export type AppointmentCreateWithoutPetInput = {
   useCabin: boolean
   notes?: string | null
   paidAt?: Date | string | null
+  manageToken?: string | null
+  reminderSentAt?: Date | string | null
   createdAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutAppointmentsInput
   client: Prisma.ClientCreateNestedOneWithoutAppointmentsInput
@@ -1208,6 +1272,8 @@ export type AppointmentUncheckedCreateWithoutPetInput = {
   useCabin: boolean
   notes?: string | null
   paidAt?: Date | string | null
+  manageToken?: string | null
+  reminderSentAt?: Date | string | null
   createdAt?: Date | string
   addOns?: Prisma.AppointmentAddOnUncheckedCreateNestedManyWithoutAppointmentInput
   saleItems?: Prisma.SaleItemUncheckedCreateNestedManyWithoutAppointmentInput
@@ -1250,6 +1316,8 @@ export type AppointmentCreateWithoutAddOnsInput = {
   useCabin: boolean
   notes?: string | null
   paidAt?: Date | string | null
+  manageToken?: string | null
+  reminderSentAt?: Date | string | null
   createdAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutAppointmentsInput
   client: Prisma.ClientCreateNestedOneWithoutAppointmentsInput
@@ -1275,6 +1343,8 @@ export type AppointmentUncheckedCreateWithoutAddOnsInput = {
   useCabin: boolean
   notes?: string | null
   paidAt?: Date | string | null
+  manageToken?: string | null
+  reminderSentAt?: Date | string | null
   createdAt?: Date | string
   saleItems?: Prisma.SaleItemUncheckedCreateNestedManyWithoutAppointmentInput
 }
@@ -1306,6 +1376,8 @@ export type AppointmentUpdateWithoutAddOnsInput = {
   useCabin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  manageToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reminderSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutAppointmentsNestedInput
   client?: Prisma.ClientUpdateOneRequiredWithoutAppointmentsNestedInput
@@ -1331,6 +1403,8 @@ export type AppointmentUncheckedUpdateWithoutAddOnsInput = {
   useCabin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  manageToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reminderSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   saleItems?: Prisma.SaleItemUncheckedUpdateManyWithoutAppointmentNestedInput
 }
@@ -1346,6 +1420,8 @@ export type AppointmentCreateWithoutSaleItemsInput = {
   useCabin: boolean
   notes?: string | null
   paidAt?: Date | string | null
+  manageToken?: string | null
+  reminderSentAt?: Date | string | null
   createdAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutAppointmentsInput
   client: Prisma.ClientCreateNestedOneWithoutAppointmentsInput
@@ -1371,6 +1447,8 @@ export type AppointmentUncheckedCreateWithoutSaleItemsInput = {
   useCabin: boolean
   notes?: string | null
   paidAt?: Date | string | null
+  manageToken?: string | null
+  reminderSentAt?: Date | string | null
   createdAt?: Date | string
   addOns?: Prisma.AppointmentAddOnUncheckedCreateNestedManyWithoutAppointmentInput
 }
@@ -1402,6 +1480,8 @@ export type AppointmentUpdateWithoutSaleItemsInput = {
   useCabin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  manageToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reminderSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutAppointmentsNestedInput
   client?: Prisma.ClientUpdateOneRequiredWithoutAppointmentsNestedInput
@@ -1427,6 +1507,8 @@ export type AppointmentUncheckedUpdateWithoutSaleItemsInput = {
   useCabin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  manageToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reminderSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   addOns?: Prisma.AppointmentAddOnUncheckedUpdateManyWithoutAppointmentNestedInput
 }
@@ -1446,6 +1528,8 @@ export type AppointmentCreateManyBusinessInput = {
   useCabin: boolean
   notes?: string | null
   paidAt?: Date | string | null
+  manageToken?: string | null
+  reminderSentAt?: Date | string | null
   createdAt?: Date | string
 }
 
@@ -1460,6 +1544,8 @@ export type AppointmentUpdateWithoutBusinessInput = {
   useCabin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  manageToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reminderSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   client?: Prisma.ClientUpdateOneRequiredWithoutAppointmentsNestedInput
   pet?: Prisma.PetUpdateOneRequiredWithoutAppointmentsNestedInput
@@ -1484,6 +1570,8 @@ export type AppointmentUncheckedUpdateWithoutBusinessInput = {
   useCabin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  manageToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reminderSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   addOns?: Prisma.AppointmentAddOnUncheckedUpdateManyWithoutAppointmentNestedInput
   saleItems?: Prisma.SaleItemUncheckedUpdateManyWithoutAppointmentNestedInput
@@ -1504,6 +1592,8 @@ export type AppointmentUncheckedUpdateManyWithoutBusinessInput = {
   useCabin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  manageToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reminderSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1522,6 +1612,8 @@ export type AppointmentCreateManyGroomerInput = {
   useCabin: boolean
   notes?: string | null
   paidAt?: Date | string | null
+  manageToken?: string | null
+  reminderSentAt?: Date | string | null
   createdAt?: Date | string
 }
 
@@ -1536,6 +1628,8 @@ export type AppointmentUpdateWithoutGroomerInput = {
   useCabin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  manageToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reminderSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutAppointmentsNestedInput
   client?: Prisma.ClientUpdateOneRequiredWithoutAppointmentsNestedInput
@@ -1560,6 +1654,8 @@ export type AppointmentUncheckedUpdateWithoutGroomerInput = {
   useCabin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  manageToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reminderSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   addOns?: Prisma.AppointmentAddOnUncheckedUpdateManyWithoutAppointmentNestedInput
   saleItems?: Prisma.SaleItemUncheckedUpdateManyWithoutAppointmentNestedInput
@@ -1580,6 +1676,8 @@ export type AppointmentUncheckedUpdateManyWithoutGroomerInput = {
   useCabin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  manageToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reminderSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1598,6 +1696,8 @@ export type AppointmentCreateManyServiceInput = {
   useCabin: boolean
   notes?: string | null
   paidAt?: Date | string | null
+  manageToken?: string | null
+  reminderSentAt?: Date | string | null
   createdAt?: Date | string
 }
 
@@ -1612,6 +1712,8 @@ export type AppointmentUpdateWithoutServiceInput = {
   useCabin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  manageToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reminderSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutAppointmentsNestedInput
   client?: Prisma.ClientUpdateOneRequiredWithoutAppointmentsNestedInput
@@ -1636,6 +1738,8 @@ export type AppointmentUncheckedUpdateWithoutServiceInput = {
   useCabin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  manageToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reminderSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   addOns?: Prisma.AppointmentAddOnUncheckedUpdateManyWithoutAppointmentNestedInput
   saleItems?: Prisma.SaleItemUncheckedUpdateManyWithoutAppointmentNestedInput
@@ -1656,6 +1760,8 @@ export type AppointmentUncheckedUpdateManyWithoutServiceInput = {
   useCabin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  manageToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reminderSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1674,6 +1780,8 @@ export type AppointmentCreateManyClientInput = {
   useCabin: boolean
   notes?: string | null
   paidAt?: Date | string | null
+  manageToken?: string | null
+  reminderSentAt?: Date | string | null
   createdAt?: Date | string
 }
 
@@ -1688,6 +1796,8 @@ export type AppointmentUpdateWithoutClientInput = {
   useCabin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  manageToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reminderSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutAppointmentsNestedInput
   pet?: Prisma.PetUpdateOneRequiredWithoutAppointmentsNestedInput
@@ -1712,6 +1822,8 @@ export type AppointmentUncheckedUpdateWithoutClientInput = {
   useCabin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  manageToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reminderSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   addOns?: Prisma.AppointmentAddOnUncheckedUpdateManyWithoutAppointmentNestedInput
   saleItems?: Prisma.SaleItemUncheckedUpdateManyWithoutAppointmentNestedInput
@@ -1732,6 +1844,8 @@ export type AppointmentUncheckedUpdateManyWithoutClientInput = {
   useCabin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  manageToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reminderSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1750,6 +1864,8 @@ export type AppointmentCreateManyPetInput = {
   useCabin: boolean
   notes?: string | null
   paidAt?: Date | string | null
+  manageToken?: string | null
+  reminderSentAt?: Date | string | null
   createdAt?: Date | string
 }
 
@@ -1764,6 +1880,8 @@ export type AppointmentUpdateWithoutPetInput = {
   useCabin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  manageToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reminderSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutAppointmentsNestedInput
   client?: Prisma.ClientUpdateOneRequiredWithoutAppointmentsNestedInput
@@ -1788,6 +1906,8 @@ export type AppointmentUncheckedUpdateWithoutPetInput = {
   useCabin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  manageToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reminderSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   addOns?: Prisma.AppointmentAddOnUncheckedUpdateManyWithoutAppointmentNestedInput
   saleItems?: Prisma.SaleItemUncheckedUpdateManyWithoutAppointmentNestedInput
@@ -1808,6 +1928,8 @@ export type AppointmentUncheckedUpdateManyWithoutPetInput = {
   useCabin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   paidAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  manageToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reminderSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -1867,6 +1989,8 @@ export type AppointmentSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   useCabin?: boolean
   notes?: boolean
   paidAt?: boolean
+  manageToken?: boolean
+  reminderSentAt?: boolean
   createdAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
@@ -1894,6 +2018,8 @@ export type AppointmentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   useCabin?: boolean
   notes?: boolean
   paidAt?: boolean
+  manageToken?: boolean
+  reminderSentAt?: boolean
   createdAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
@@ -1918,6 +2044,8 @@ export type AppointmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   useCabin?: boolean
   notes?: boolean
   paidAt?: boolean
+  manageToken?: boolean
+  reminderSentAt?: boolean
   createdAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
@@ -1942,10 +2070,12 @@ export type AppointmentSelectScalar = {
   useCabin?: boolean
   notes?: boolean
   paidAt?: boolean
+  manageToken?: boolean
+  reminderSentAt?: boolean
   createdAt?: boolean
 }
 
-export type AppointmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "clientId" | "petId" | "groomerId" | "serviceId" | "size" | "startsAt" | "endsAt" | "status" | "source" | "price" | "useCabin" | "notes" | "paidAt" | "createdAt", ExtArgs["result"]["appointment"]>
+export type AppointmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "clientId" | "petId" | "groomerId" | "serviceId" | "size" | "startsAt" | "endsAt" | "status" | "source" | "price" | "useCabin" | "notes" | "paidAt" | "manageToken" | "reminderSentAt" | "createdAt", ExtArgs["result"]["appointment"]>
 export type AppointmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
@@ -2001,6 +2131,11 @@ export type $AppointmentPayload<ExtArgs extends runtime.Types.Extensions.Interna
     useCabin: boolean
     notes: string | null
     paidAt: Date | null
+    /**
+     * Liga privada para que el cliente vea, cambie o cancele su cita
+     */
+    manageToken: string | null
+    reminderSentAt: Date | null
     createdAt: Date
   }, ExtArgs["result"]["appointment"]>
   composites: {}
@@ -2447,6 +2582,8 @@ export interface AppointmentFieldRefs {
   readonly useCabin: Prisma.FieldRef<"Appointment", 'Boolean'>
   readonly notes: Prisma.FieldRef<"Appointment", 'String'>
   readonly paidAt: Prisma.FieldRef<"Appointment", 'DateTime'>
+  readonly manageToken: Prisma.FieldRef<"Appointment", 'String'>
+  readonly reminderSentAt: Prisma.FieldRef<"Appointment", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Appointment", 'DateTime'>
 }
     

@@ -4,7 +4,8 @@ import { money, SIZES, SIZE_LABEL } from "../format";
 
 type Prices = Partial<Record<string, { price: number; durationMin: number }>>;
 type Settings = {
-  business: { name: string; slug: string; phone: string | null; openingHours: Record<string, { open: string; close: string } | null>; commissionPct: number };
+  business: { name: string; slug: string; phone: string | null; openingHours: Record<string, { open: string; close: string } | null>; commissionPct: number; minNoticeHours: number };
+  whatsapp: { configured: boolean; reminders: boolean; confirmations: boolean };
   services: { id: string; code: string; name: string; description: string | null; active: boolean; prices: Prices }[];
   addOns: { id: string; name: string; price: number; durationMin: number; active: boolean }[];
   products: { id: string; name: string; price: number; stock: number; active: boolean }[];
@@ -119,6 +120,7 @@ function Negocio({ st, reload }: { st: Settings; reload: () => void }) {
   const [name, setName] = useState(st.business.name);
   const [phone, setPhone] = useState(st.business.phone ?? "");
   const [pct, setPct] = useState(String(st.business.commissionPct));
+  const [notice, setNotice] = useState(String(st.business.minNoticeHours));
   const [hours, setHours] = useState(st.business.openingHours);
 
   return (
@@ -128,14 +130,33 @@ function Negocio({ st, reload }: { st: Settings; reload: () => void }) {
           <div className="field"><label htmlFor="bn">Nombre</label><input id="bn" value={name} onChange={(e) => setName(e.target.value)} /></div>
           <div className="field"><label htmlFor="bp">WhatsApp del negocio</label><input id="bp" inputMode="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="10 dígitos" /></div>
         </div>
-        <div className="field" style={{ maxWidth: 260 }}>
-          <label htmlFor="bc">Comisión general de estilistas (%)</label>
-          <input id="bc" type="number" min={0} max={100} value={pct} onChange={(e) => setPct(e.target.value)} />
+        <div className="row2">
+          <div className="field">
+            <label htmlFor="bc">Comisión general de estilistas (%)</label>
+            <input id="bc" type="number" min={0} max={100} value={pct} onChange={(e) => setPct(e.target.value)} />
+          </div>
+          <div className="field">
+            <label htmlFor="bm">Horas mínimas para que el cliente cambie o cancele en línea</label>
+            <input id="bm" type="number" min={0} max={72} value={notice} onChange={(e) => setNotice(e.target.value)} />
+          </div>
         </div>
         <div className="inline">
-          <button className="btn" disabled={busy === "biz"} onClick={() => run("biz", () => api("/api/settings/business", { method: "PATCH", body: { name, phone: phone || null, commissionPct: Number(pct) } }))}>Guardar datos</button>
+          <button className="btn" disabled={busy === "biz"} onClick={() => run("biz", () => api("/api/settings/business", { method: "PATCH", body: { name, phone: phone || null, commissionPct: Number(pct), minNoticeHours: Number(notice) } }))}>Guardar datos</button>
           <Note k="biz" />
         </div>
+      </Section>
+      <Section title="WhatsApp automático" hint="Recordatorio un día antes de cada cita, con la liga para cambiar o cancelar.">
+        <div className="kv-simple">
+          <span>Conexión con WhatsApp Business</span><b>{st.whatsapp.configured ? "Conectado" : "Sin conectar"}</b>
+          <span>Recordatorio 24 h antes</span><b>{st.whatsapp.reminders ? "Activo" : "Apagado"}</b>
+          <span>Confirmación al reservar</span><b>{st.whatsapp.confirmations ? "Activa" : "Apagada"}</b>
+        </div>
+        {!st.whatsapp.reminders && (
+          <p className="muted" style={{ fontSize: ".85rem" }}>
+            Mientras no esté conectado, recepción puede mandar el recordatorio desde la agenda con el botón "Enviar recordatorio por WhatsApp".
+            La guía para conectarlo está en el README del proyecto.
+          </p>
+        )}
       </Section>
       <Section title="Horario" hint="Las citas en línea sólo se ofrecen dentro de este horario. Las citas que ya están agendadas no se mueven.">
         <div className="tablewrap">

@@ -1,3 +1,4 @@
+import { randomBytes } from "node:crypto";
 import { prisma, type Tx, type Size, type Source } from "./db.js";
 import { badRequest, conflict, notFound } from "./errors.js";
 import { canUseCabin } from "./cabin.js";
@@ -174,6 +175,7 @@ export async function createAppointment(
       price: args.q.price,
       useCabin: canUseCabin(args.pet.breed, args.size, args.pet.cabinOk),
       notes: args.notes ?? null,
+      manageToken: newManageToken(),
       addOns: { create: args.q.addOns.map((a) => ({ addOnId: a.id, price: a.price })) },
     },
     include: { groomer: true, service: true, pet: true, client: true, addOns: { include: { addOn: true } } },
@@ -198,3 +200,5 @@ export const SOURCE_LABEL: Record<Source, string> = {
   WHATSAPP: "WhatsApp",
   INSTAGRAM: "Instagram",
 };
+
+export const newManageToken = () => randomBytes(18).toString("base64url");

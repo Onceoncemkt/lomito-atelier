@@ -5,6 +5,7 @@ import rateLimit from "express-rate-limit";
 import { errorHandler } from "./lib/errors.js";
 import { requireAuth } from "./lib/auth.js";
 import { publicRouter } from "./routes/public.js";
+import { manageRouter } from "./routes/manage.js";
 import { authRouter } from "./routes/auth.js";
 import { agendaRouter } from "./routes/agenda.js";
 import { clientsRouter } from "./routes/clients.js";
@@ -29,7 +30,8 @@ export function createApp() {
   });
 
   app.post("/public/:slug/bookings", limiter(20));
-  app.use("/public", limiter(600), publicRouter);
+  app.use("/public/:slug/manage/:token", limiter(60));
+  app.use("/public", limiter(600), manageRouter, publicRouter);
   app.use("/auth/login", limiter(30));
   app.use("/auth", authRouter);
   app.use("/api", requireAuth, agendaRouter, clientsRouter, cajaRouter, adminRouter, settingsRouter);

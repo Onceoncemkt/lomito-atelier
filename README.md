@@ -82,3 +82,34 @@ Si alguien olvida su contraseña: la dueña la cambia en Ajustes → Equipo, o d
 ```bash
 npm run set-password -w api -- correo@ejemplo.com 'NuevaContraseña123'
 ```
+
+## Liga de la cita (cambiar o cancelar)
+
+Cada cita tiene una liga privada `lomitoatelier.mx/cita/<código>`. El cliente la ve al terminar de reservar y llega en los mensajes de WhatsApp. Desde ahí puede cambiar el día u hora o cancelar, hasta **N horas antes** (Ajustes → Negocio, 4 h por defecto). Todo queda en la bitácora del día.
+
+## WhatsApp automático
+
+Sin configurar, recepción manda recordatorios desde la agenda con el botón **Enviar recordatorio por WhatsApp**, que ya incluye la liga.
+
+Para que salgan solos (recordatorio 24 h antes y, si quieres, confirmación al reservar):
+
+1. **Número:** un número para el spa que **no** esté en la app normal de WhatsApp ni en WhatsApp Business del celular (o hay que darlo de baja ahí primero).
+2. **Meta:** en [business.facebook.com](https://business.facebook.com) crea o usa tu portafolio, luego en [developers.facebook.com](https://developers.facebook.com) → *Create app* → tipo *Business* → agrega el producto **WhatsApp** y registra el número.
+3. **Token permanente:** Configuración del negocio → Usuarios del sistema → crea uno con rol Admin, asígnale la app y genera un token con permisos `whatsapp_business_messaging` y `whatsapp_business_management`.
+4. **Plantillas** (WhatsApp Manager → Plantillas de mensajes), categoría **Utilidad**, idioma **Español (MEX)**. Los números `{{1}}…{{5}}` deben ir en este orden: nombre, lomito, día, hora, liga.
+
+   **recordatorio_cita**
+   > Hola {{1}}, te recordamos la cita de {{2}} en Lomito Atelier el {{3}} a las {{4}}. Si necesitas cambiarla o cancelarla, entra aquí: {{5}} ¡Te esperamos!
+
+   **confirmacion_cita** (opcional)
+   > Hola {{1}}, ¡tu cita quedó agendada! {{2}} te espera el {{3}} a las {{4}} en Lomito Atelier. Para ver, cambiar o cancelar tu cita: {{5}}
+
+5. **Render → lomito-atelier-api → Environment:**
+   - `WHATSAPP_TOKEN` = el token permanente
+   - `WHATSAPP_PHONE_NUMBER_ID` = el *Phone number ID* (no es el número, es un id largo)
+   - `WHATSAPP_TEMPLATE_REMINDER` = `recordatorio_cita`
+   - `WHATSAPP_TEMPLATE_CONFIRM` = `confirmacion_cita` (déjala vacía si no quieres confirmación)
+
+   Guarda y redeploy. En **Ajustes → Negocio → WhatsApp automático** debe decir *Conectado / Activo*.
+
+El recordatorio se revisa cada 10 minutos: sale para citas de las próximas 24 h (y con más de 2 h de anticipación), una sola vez. Si se reprograma, se vuelve a mandar para la nueva hora. Los errores de envío aparecen en la bitácora de Caja.

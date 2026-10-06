@@ -60,6 +60,8 @@ model Business {
   /// { "1": null, "2": {"open":"09:00","close":"19:00"}, ... } — 1 = lunes … 7 = domingo; null = cerrado
   openingHours  Json
   commissionPct Int      @default(30)
+  /// Horas mínimas antes de la cita para que el cliente pueda cancelar o cambiarla en línea
+  minNoticeHours Int     @default(4)
   phone         String?
   createdAt     DateTime @default(now())
 
@@ -209,6 +211,9 @@ model Appointment {
   useCabin   Boolean
   notes      String?
   paidAt     DateTime?
+  /// Liga privada para que el cliente vea, cambie o cancele su cita
+  manageToken    String?   @unique
+  reminderSentAt DateTime?
   createdAt  DateTime          @default(now())
 
   addOns    AppointmentAddOn[]

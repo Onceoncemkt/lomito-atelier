@@ -7,6 +7,7 @@ import { allow } from "../lib/auth.js";
 import { normalizePhone } from "../lib/booking.js";
 import { logActivity, pesos } from "../lib/activity.js";
 import { SIZES } from "./public.js";
+import { whatsappStatus } from "../lib/whatsapp.js";
 
 /** Ajustes del negocio. Sólo la dueña. */
 export const settingsRouter = Router();
@@ -34,7 +35,9 @@ settingsRouter.get("/settings", async (req, res) => {
       openingHours: business.openingHours,
       commissionPct: business.commissionPct,
       slotMinutes: business.slotMinutes,
+      minNoticeHours: business.minNoticeHours,
     },
+    whatsapp: whatsappStatus(),
     services: services.map((s) => ({
       ...s,
       prices: Object.fromEntries(s.prices.map((p) => [p.size, { price: p.price, durationMin: p.durationMin }])),
@@ -53,6 +56,7 @@ const businessBody = z.object({
   name: z.string().trim().min(2).max(80).optional(),
   phone: z.string().nullable().optional(),
   commissionPct: z.number().int().min(0).max(100).optional(),
+  minNoticeHours: z.number().int().min(0).max(72).optional(),
   openingHours: z
     .record(z.enum(["1", "2", "3", "4", "5", "6", "7"]), dayHours)
     .refine((h) => Object.values(h).every((d) => !d || d.open < d.close), "La hora de cierre debe ser después de la de apertura")

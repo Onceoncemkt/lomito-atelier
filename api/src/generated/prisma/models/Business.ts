@@ -29,11 +29,13 @@ export type AggregateBusiness = {
 export type BusinessAvgAggregateOutputType = {
   slotMinutes: number | null
   commissionPct: number | null
+  minNoticeHours: number | null
 }
 
 export type BusinessSumAggregateOutputType = {
   slotMinutes: number | null
   commissionPct: number | null
+  minNoticeHours: number | null
 }
 
 export type BusinessMinAggregateOutputType = {
@@ -43,6 +45,7 @@ export type BusinessMinAggregateOutputType = {
   timezone: string | null
   slotMinutes: number | null
   commissionPct: number | null
+  minNoticeHours: number | null
   phone: string | null
   createdAt: Date | null
 }
@@ -54,6 +57,7 @@ export type BusinessMaxAggregateOutputType = {
   timezone: string | null
   slotMinutes: number | null
   commissionPct: number | null
+  minNoticeHours: number | null
   phone: string | null
   createdAt: Date | null
 }
@@ -66,6 +70,7 @@ export type BusinessCountAggregateOutputType = {
   slotMinutes: number
   openingHours: number
   commissionPct: number
+  minNoticeHours: number
   phone: number
   createdAt: number
   _all: number
@@ -75,11 +80,13 @@ export type BusinessCountAggregateOutputType = {
 export type BusinessAvgAggregateInputType = {
   slotMinutes?: true
   commissionPct?: true
+  minNoticeHours?: true
 }
 
 export type BusinessSumAggregateInputType = {
   slotMinutes?: true
   commissionPct?: true
+  minNoticeHours?: true
 }
 
 export type BusinessMinAggregateInputType = {
@@ -89,6 +96,7 @@ export type BusinessMinAggregateInputType = {
   timezone?: true
   slotMinutes?: true
   commissionPct?: true
+  minNoticeHours?: true
   phone?: true
   createdAt?: true
 }
@@ -100,6 +108,7 @@ export type BusinessMaxAggregateInputType = {
   timezone?: true
   slotMinutes?: true
   commissionPct?: true
+  minNoticeHours?: true
   phone?: true
   createdAt?: true
 }
@@ -112,6 +121,7 @@ export type BusinessCountAggregateInputType = {
   slotMinutes?: true
   openingHours?: true
   commissionPct?: true
+  minNoticeHours?: true
   phone?: true
   createdAt?: true
   _all?: true
@@ -211,6 +221,7 @@ export type BusinessGroupByOutputType = {
   slotMinutes: number
   openingHours: runtime.JsonValue
   commissionPct: number
+  minNoticeHours: number
   phone: string | null
   createdAt: Date
   _count: BusinessCountAggregateOutputType | null
@@ -246,6 +257,7 @@ export type BusinessWhereInput = {
   slotMinutes?: Prisma.IntFilter<"Business"> | number
   openingHours?: Prisma.JsonFilter<"Business">
   commissionPct?: Prisma.IntFilter<"Business"> | number
+  minNoticeHours?: Prisma.IntFilter<"Business"> | number
   phone?: Prisma.StringNullableFilter<"Business"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Business"> | Date | string
   users?: Prisma.UserListRelationFilter
@@ -269,6 +281,7 @@ export type BusinessOrderByWithRelationInput = {
   slotMinutes?: Prisma.SortOrder
   openingHours?: Prisma.SortOrder
   commissionPct?: Prisma.SortOrder
+  minNoticeHours?: Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   users?: Prisma.UserOrderByRelationAggregateInput
@@ -295,6 +308,7 @@ export type BusinessWhereUniqueInput = Prisma.AtLeast<{
   slotMinutes?: Prisma.IntFilter<"Business"> | number
   openingHours?: Prisma.JsonFilter<"Business">
   commissionPct?: Prisma.IntFilter<"Business"> | number
+  minNoticeHours?: Prisma.IntFilter<"Business"> | number
   phone?: Prisma.StringNullableFilter<"Business"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Business"> | Date | string
   users?: Prisma.UserListRelationFilter
@@ -318,6 +332,7 @@ export type BusinessOrderByWithAggregationInput = {
   slotMinutes?: Prisma.SortOrder
   openingHours?: Prisma.SortOrder
   commissionPct?: Prisma.SortOrder
+  minNoticeHours?: Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.BusinessCountOrderByAggregateInput
@@ -338,6 +353,7 @@ export type BusinessScalarWhereWithAggregatesInput = {
   slotMinutes?: Prisma.IntWithAggregatesFilter<"Business"> | number
   openingHours?: Prisma.JsonWithAggregatesFilter<"Business">
   commissionPct?: Prisma.IntWithAggregatesFilter<"Business"> | number
+  minNoticeHours?: Prisma.IntWithAggregatesFilter<"Business"> | number
   phone?: Prisma.StringNullableWithAggregatesFilter<"Business"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Business"> | Date | string
 }
@@ -350,6 +366,7 @@ export type BusinessCreateInput = {
   slotMinutes?: number
   openingHours: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: number
+  minNoticeHours?: number
   phone?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutBusinessInput
@@ -373,6 +390,7 @@ export type BusinessUncheckedCreateInput = {
   slotMinutes?: number
   openingHours: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: number
+  minNoticeHours?: number
   phone?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
@@ -396,6 +414,7 @@ export type BusinessUpdateInput = {
   slotMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   openingHours?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
+  minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
@@ -419,6 +438,7 @@ export type BusinessUncheckedUpdateInput = {
   slotMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   openingHours?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
+  minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
@@ -442,6 +462,7 @@ export type BusinessCreateManyInput = {
   slotMinutes?: number
   openingHours: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: number
+  minNoticeHours?: number
   phone?: string | null
   createdAt?: Date | string
 }
@@ -454,6 +475,7 @@ export type BusinessUpdateManyMutationInput = {
   slotMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   openingHours?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
+  minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -466,6 +488,7 @@ export type BusinessUncheckedUpdateManyInput = {
   slotMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   openingHours?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
+  minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -478,6 +501,7 @@ export type BusinessCountOrderByAggregateInput = {
   slotMinutes?: Prisma.SortOrder
   openingHours?: Prisma.SortOrder
   commissionPct?: Prisma.SortOrder
+  minNoticeHours?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -485,6 +509,7 @@ export type BusinessCountOrderByAggregateInput = {
 export type BusinessAvgOrderByAggregateInput = {
   slotMinutes?: Prisma.SortOrder
   commissionPct?: Prisma.SortOrder
+  minNoticeHours?: Prisma.SortOrder
 }
 
 export type BusinessMaxOrderByAggregateInput = {
@@ -494,6 +519,7 @@ export type BusinessMaxOrderByAggregateInput = {
   timezone?: Prisma.SortOrder
   slotMinutes?: Prisma.SortOrder
   commissionPct?: Prisma.SortOrder
+  minNoticeHours?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -505,6 +531,7 @@ export type BusinessMinOrderByAggregateInput = {
   timezone?: Prisma.SortOrder
   slotMinutes?: Prisma.SortOrder
   commissionPct?: Prisma.SortOrder
+  minNoticeHours?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -512,6 +539,7 @@ export type BusinessMinOrderByAggregateInput = {
 export type BusinessSumOrderByAggregateInput = {
   slotMinutes?: Prisma.SortOrder
   commissionPct?: Prisma.SortOrder
+  minNoticeHours?: Prisma.SortOrder
 }
 
 export type BusinessScalarRelationFilter = {
@@ -701,6 +729,7 @@ export type BusinessCreateWithoutUsersInput = {
   slotMinutes?: number
   openingHours: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: number
+  minNoticeHours?: number
   phone?: string | null
   createdAt?: Date | string
   groomers?: Prisma.GroomerCreateNestedManyWithoutBusinessInput
@@ -723,6 +752,7 @@ export type BusinessUncheckedCreateWithoutUsersInput = {
   slotMinutes?: number
   openingHours: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: number
+  minNoticeHours?: number
   phone?: string | null
   createdAt?: Date | string
   groomers?: Prisma.GroomerUncheckedCreateNestedManyWithoutBusinessInput
@@ -761,6 +791,7 @@ export type BusinessUpdateWithoutUsersInput = {
   slotMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   openingHours?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
+  minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   groomers?: Prisma.GroomerUpdateManyWithoutBusinessNestedInput
@@ -783,6 +814,7 @@ export type BusinessUncheckedUpdateWithoutUsersInput = {
   slotMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   openingHours?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
+  minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   groomers?: Prisma.GroomerUncheckedUpdateManyWithoutBusinessNestedInput
@@ -805,6 +837,7 @@ export type BusinessCreateWithoutGroomersInput = {
   slotMinutes?: number
   openingHours: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: number
+  minNoticeHours?: number
   phone?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutBusinessInput
@@ -827,6 +860,7 @@ export type BusinessUncheckedCreateWithoutGroomersInput = {
   slotMinutes?: number
   openingHours: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: number
+  minNoticeHours?: number
   phone?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
@@ -865,6 +899,7 @@ export type BusinessUpdateWithoutGroomersInput = {
   slotMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   openingHours?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
+  minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
@@ -887,6 +922,7 @@ export type BusinessUncheckedUpdateWithoutGroomersInput = {
   slotMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   openingHours?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
+  minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
@@ -909,6 +945,7 @@ export type BusinessCreateWithoutServicesInput = {
   slotMinutes?: number
   openingHours: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: number
+  minNoticeHours?: number
   phone?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutBusinessInput
@@ -931,6 +968,7 @@ export type BusinessUncheckedCreateWithoutServicesInput = {
   slotMinutes?: number
   openingHours: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: number
+  minNoticeHours?: number
   phone?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
@@ -969,6 +1007,7 @@ export type BusinessUpdateWithoutServicesInput = {
   slotMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   openingHours?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
+  minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
@@ -991,6 +1030,7 @@ export type BusinessUncheckedUpdateWithoutServicesInput = {
   slotMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   openingHours?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
+  minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
@@ -1013,6 +1053,7 @@ export type BusinessCreateWithoutAddOnsInput = {
   slotMinutes?: number
   openingHours: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: number
+  minNoticeHours?: number
   phone?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutBusinessInput
@@ -1035,6 +1076,7 @@ export type BusinessUncheckedCreateWithoutAddOnsInput = {
   slotMinutes?: number
   openingHours: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: number
+  minNoticeHours?: number
   phone?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
@@ -1073,6 +1115,7 @@ export type BusinessUpdateWithoutAddOnsInput = {
   slotMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   openingHours?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
+  minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
@@ -1095,6 +1138,7 @@ export type BusinessUncheckedUpdateWithoutAddOnsInput = {
   slotMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   openingHours?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
+  minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
@@ -1117,6 +1161,7 @@ export type BusinessCreateWithoutClientsInput = {
   slotMinutes?: number
   openingHours: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: number
+  minNoticeHours?: number
   phone?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutBusinessInput
@@ -1139,6 +1184,7 @@ export type BusinessUncheckedCreateWithoutClientsInput = {
   slotMinutes?: number
   openingHours: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: number
+  minNoticeHours?: number
   phone?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
@@ -1177,6 +1223,7 @@ export type BusinessUpdateWithoutClientsInput = {
   slotMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   openingHours?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
+  minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
@@ -1199,6 +1246,7 @@ export type BusinessUncheckedUpdateWithoutClientsInput = {
   slotMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   openingHours?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
+  minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
@@ -1221,6 +1269,7 @@ export type BusinessCreateWithoutPetsInput = {
   slotMinutes?: number
   openingHours: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: number
+  minNoticeHours?: number
   phone?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutBusinessInput
@@ -1243,6 +1292,7 @@ export type BusinessUncheckedCreateWithoutPetsInput = {
   slotMinutes?: number
   openingHours: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: number
+  minNoticeHours?: number
   phone?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
@@ -1281,6 +1331,7 @@ export type BusinessUpdateWithoutPetsInput = {
   slotMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   openingHours?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
+  minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
@@ -1303,6 +1354,7 @@ export type BusinessUncheckedUpdateWithoutPetsInput = {
   slotMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   openingHours?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
+  minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
@@ -1325,6 +1377,7 @@ export type BusinessCreateWithoutAppointmentsInput = {
   slotMinutes?: number
   openingHours: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: number
+  minNoticeHours?: number
   phone?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutBusinessInput
@@ -1347,6 +1400,7 @@ export type BusinessUncheckedCreateWithoutAppointmentsInput = {
   slotMinutes?: number
   openingHours: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: number
+  minNoticeHours?: number
   phone?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
@@ -1385,6 +1439,7 @@ export type BusinessUpdateWithoutAppointmentsInput = {
   slotMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   openingHours?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
+  minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
@@ -1407,6 +1462,7 @@ export type BusinessUncheckedUpdateWithoutAppointmentsInput = {
   slotMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   openingHours?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
+  minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
@@ -1429,6 +1485,7 @@ export type BusinessCreateWithoutProductsInput = {
   slotMinutes?: number
   openingHours: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: number
+  minNoticeHours?: number
   phone?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutBusinessInput
@@ -1451,6 +1508,7 @@ export type BusinessUncheckedCreateWithoutProductsInput = {
   slotMinutes?: number
   openingHours: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: number
+  minNoticeHours?: number
   phone?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
@@ -1489,6 +1547,7 @@ export type BusinessUpdateWithoutProductsInput = {
   slotMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   openingHours?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
+  minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
@@ -1511,6 +1570,7 @@ export type BusinessUncheckedUpdateWithoutProductsInput = {
   slotMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   openingHours?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
+  minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
@@ -1533,6 +1593,7 @@ export type BusinessCreateWithoutSalesInput = {
   slotMinutes?: number
   openingHours: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: number
+  minNoticeHours?: number
   phone?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutBusinessInput
@@ -1555,6 +1616,7 @@ export type BusinessUncheckedCreateWithoutSalesInput = {
   slotMinutes?: number
   openingHours: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: number
+  minNoticeHours?: number
   phone?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
@@ -1593,6 +1655,7 @@ export type BusinessUpdateWithoutSalesInput = {
   slotMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   openingHours?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
+  minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
@@ -1615,6 +1678,7 @@ export type BusinessUncheckedUpdateWithoutSalesInput = {
   slotMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   openingHours?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
+  minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
@@ -1637,6 +1701,7 @@ export type BusinessCreateWithoutClosingsInput = {
   slotMinutes?: number
   openingHours: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: number
+  minNoticeHours?: number
   phone?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutBusinessInput
@@ -1659,6 +1724,7 @@ export type BusinessUncheckedCreateWithoutClosingsInput = {
   slotMinutes?: number
   openingHours: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: number
+  minNoticeHours?: number
   phone?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
@@ -1697,6 +1763,7 @@ export type BusinessUpdateWithoutClosingsInput = {
   slotMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   openingHours?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
+  minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
@@ -1719,6 +1786,7 @@ export type BusinessUncheckedUpdateWithoutClosingsInput = {
   slotMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   openingHours?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
+  minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
@@ -1741,6 +1809,7 @@ export type BusinessCreateWithoutActivityInput = {
   slotMinutes?: number
   openingHours: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: number
+  minNoticeHours?: number
   phone?: string | null
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutBusinessInput
@@ -1763,6 +1832,7 @@ export type BusinessUncheckedCreateWithoutActivityInput = {
   slotMinutes?: number
   openingHours: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: number
+  minNoticeHours?: number
   phone?: string | null
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
@@ -1801,6 +1871,7 @@ export type BusinessUpdateWithoutActivityInput = {
   slotMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   openingHours?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
+  minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
@@ -1823,6 +1894,7 @@ export type BusinessUncheckedUpdateWithoutActivityInput = {
   slotMinutes?: Prisma.IntFieldUpdateOperationsInput | number
   openingHours?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
+  minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
@@ -1966,6 +2038,7 @@ export type BusinessSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   slotMinutes?: boolean
   openingHours?: boolean
   commissionPct?: boolean
+  minNoticeHours?: boolean
   phone?: boolean
   createdAt?: boolean
   users?: boolean | Prisma.Business$usersArgs<ExtArgs>
@@ -1990,6 +2063,7 @@ export type BusinessSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   slotMinutes?: boolean
   openingHours?: boolean
   commissionPct?: boolean
+  minNoticeHours?: boolean
   phone?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["business"]>
@@ -2002,6 +2076,7 @@ export type BusinessSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   slotMinutes?: boolean
   openingHours?: boolean
   commissionPct?: boolean
+  minNoticeHours?: boolean
   phone?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["business"]>
@@ -2014,11 +2089,12 @@ export type BusinessSelectScalar = {
   slotMinutes?: boolean
   openingHours?: boolean
   commissionPct?: boolean
+  minNoticeHours?: boolean
   phone?: boolean
   createdAt?: boolean
 }
 
-export type BusinessOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "name" | "timezone" | "slotMinutes" | "openingHours" | "commissionPct" | "phone" | "createdAt", ExtArgs["result"]["business"]>
+export type BusinessOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "name" | "timezone" | "slotMinutes" | "openingHours" | "commissionPct" | "minNoticeHours" | "phone" | "createdAt", ExtArgs["result"]["business"]>
 export type BusinessInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   users?: boolean | Prisma.Business$usersArgs<ExtArgs>
   groomers?: boolean | Prisma.Business$groomersArgs<ExtArgs>
@@ -2062,6 +2138,10 @@ export type $BusinessPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
      */
     openingHours: runtime.JsonValue
     commissionPct: number
+    /**
+     * Horas mínimas antes de la cita para que el cliente pueda cancelar o cambiarla en línea
+     */
+    minNoticeHours: number
     phone: string | null
     createdAt: Date
   }, ExtArgs["result"]["business"]>
@@ -2505,6 +2585,7 @@ export interface BusinessFieldRefs {
   readonly slotMinutes: Prisma.FieldRef<"Business", 'Int'>
   readonly openingHours: Prisma.FieldRef<"Business", 'Json'>
   readonly commissionPct: Prisma.FieldRef<"Business", 'Int'>
+  readonly minNoticeHours: Prisma.FieldRef<"Business", 'Int'>
   readonly phone: Prisma.FieldRef<"Business", 'String'>
   readonly createdAt: Prisma.FieldRef<"Business", 'DateTime'>
 }

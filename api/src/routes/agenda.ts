@@ -42,6 +42,7 @@ export function apptDto(a: ApptFull, visits?: number) {
     pet: { id: a.pet.id, name: a.pet.name, breed: a.pet.breed, notes: a.pet.notes },
     client: { id: a.client.id, name: a.client.name, phone: a.client.phone },
     visits,
+    manageToken: a.manageToken,
   };
 }
 

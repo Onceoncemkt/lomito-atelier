@@ -24,3 +24,14 @@ services:
         generateValue: true
       - key: CORS_ORIGIN
         value: https://lomitoatelier.mx,https://www.lomitoatelier.mx,https://lomito-atelier.vercel.app
+      - key: PUBLIC_WEB_URL
+        value: https://www.lomitoatelier.mx
+      # WhatsApp Business (Meta Cloud API). Se llenan en Render → Environment.
+      - key: WHATSAPP_TOKEN
+        sync: false
+      - key: WHATSAPP_PHONE_NUMBER_ID
+        sync: false
+      - key: WHATSAPP_TEMPLATE_REMINDER
+        sync: false
+      - key: WHATSAPP_TEMPLATE_CONFIRM
+        sync: false
