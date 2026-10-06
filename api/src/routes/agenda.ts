@@ -6,6 +6,7 @@ import { allow, STAFF } from "../lib/auth.js";
 import { dayBounds, openWindow, localDate, localTime, DATE_RE, type OpeningHours } from "../lib/time.js";
 import { pickGroomer } from "../lib/availability.js";
 import { canUseCabin } from "../lib/cabin.js";
+import { effectiveVaccineStatus } from "../lib/vaccines.js";
 import { pesos } from "../lib/activity.js";
 import { quote, busyBetween, lockDay, upsertClientPet, createAppointment, assertGroomerFree } from "../lib/booking.js";
 import { logActivity } from "../lib/activity.js";
@@ -39,7 +40,10 @@ export function apptDto(a: ApptFull, visits?: number) {
     groomer: { id: a.groomer.id, name: a.groomer.name },
     service: { id: a.service.id, name: a.service.name },
     addOns: a.addOns.map((x) => ({ id: x.addOnId, name: x.addOn.name, price: x.price })),
-    pet: { id: a.pet.id, name: a.pet.name, breed: a.pet.breed, notes: a.pet.notes },
+    pet: {
+      id: a.pet.id, name: a.pet.name, breed: a.pet.breed, notes: a.pet.notes,
+      vaccine: effectiveVaccineStatus(a.pet, a.startsAt), vaccineExpiresAt: a.pet.vaccineExpiresAt,
+    },
     client: { id: a.client.id, name: a.client.name, phone: a.client.phone },
     visits,
     manageToken: a.manageToken,

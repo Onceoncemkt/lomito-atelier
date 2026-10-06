@@ -8,6 +8,8 @@ import { normalizePhone } from "../lib/booking.js";
 import { logActivity, pesos } from "../lib/activity.js";
 import { SIZES } from "./public.js";
 import { whatsappStatus } from "../lib/whatsapp.js";
+import { aiConfigured } from "../lib/vaccineAI.js";
+import { getPolicy } from "../lib/vaccines.js";
 
 /** Ajustes del negocio. Sólo la dueña. */
 export const settingsRouter = Router();
@@ -41,6 +43,8 @@ settingsRouter.get("/settings", async (req, res) => {
       contactEmail: business.contactEmail,
     },
     whatsapp: whatsappStatus(),
+    ai: { configured: aiConfigured() },
+    vaccinePolicy: getPolicy(business.vaccinePolicy),
     services: services.map((s) => ({
       ...s,
       prices: Object.fromEntries(s.prices.map((p) => [p.size, { price: p.price, durationMin: p.durationMin }])),
@@ -63,6 +67,9 @@ const businessBody = z.object({
   legalName: z.string().trim().max(120).nullable().optional(),
   address: z.string().trim().max(300).nullable().optional(),
   contactEmail: z.union([z.email(), z.literal("")]).nullable().optional(),
+  vaccinePolicy: z
+    .array(z.object({ key: z.enum(["rabia", "multiple", "bordetella", "desparasitacion"]), months: z.number().int().min(1).max(36), required: z.boolean() }))
+    .optional(),
   openingHours: z
     .record(z.enum(["1", "2", "3", "4", "5", "6", "7"]), dayHours)
     .refine((h) => Object.values(h).every((d) => !d || d.open < d.close), "La hora de cierre debe ser después de la de apertura")

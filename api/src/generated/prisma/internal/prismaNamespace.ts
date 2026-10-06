@@ -411,7 +411,9 @@ export const ModelName = {
   Sale: 'Sale',
   SaleItem: 'SaleItem',
   CashClosing: 'CashClosing',
-  ActivityLog: 'ActivityLog'
+  ActivityLog: 'ActivityLog',
+  VaccineCard: 'VaccineCard',
+  ClientLoginCode: 'ClientLoginCode'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -427,7 +429,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "business" | "user" | "groomer" | "service" | "servicePrice" | "addOn" | "client" | "pet" | "appointment" | "appointmentAddOn" | "product" | "sale" | "saleItem" | "cashClosing" | "activityLog"
+    modelProps: "business" | "user" | "groomer" | "service" | "servicePrice" | "addOn" | "client" | "pet" | "appointment" | "appointmentAddOn" | "product" | "sale" | "saleItem" | "cashClosing" | "activityLog" | "vaccineCard" | "clientLoginCode"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1541,6 +1543,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    VaccineCard: {
+      payload: Prisma.$VaccineCardPayload<ExtArgs>
+      fields: Prisma.VaccineCardFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.VaccineCardFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VaccineCardPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.VaccineCardFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VaccineCardPayload>
+        }
+        findFirst: {
+          args: Prisma.VaccineCardFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VaccineCardPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.VaccineCardFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VaccineCardPayload>
+        }
+        findMany: {
+          args: Prisma.VaccineCardFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VaccineCardPayload>[]
+        }
+        create: {
+          args: Prisma.VaccineCardCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VaccineCardPayload>
+        }
+        createMany: {
+          args: Prisma.VaccineCardCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.VaccineCardCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VaccineCardPayload>[]
+        }
+        delete: {
+          args: Prisma.VaccineCardDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VaccineCardPayload>
+        }
+        update: {
+          args: Prisma.VaccineCardUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VaccineCardPayload>
+        }
+        deleteMany: {
+          args: Prisma.VaccineCardDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.VaccineCardUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.VaccineCardUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VaccineCardPayload>[]
+        }
+        upsert: {
+          args: Prisma.VaccineCardUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VaccineCardPayload>
+        }
+        aggregate: {
+          args: Prisma.VaccineCardAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateVaccineCard>
+        }
+        groupBy: {
+          args: Prisma.VaccineCardGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VaccineCardGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.VaccineCardCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VaccineCardCountAggregateOutputType> | number
+        }
+      }
+    }
+    ClientLoginCode: {
+      payload: Prisma.$ClientLoginCodePayload<ExtArgs>
+      fields: Prisma.ClientLoginCodeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ClientLoginCodeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClientLoginCodePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ClientLoginCodeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClientLoginCodePayload>
+        }
+        findFirst: {
+          args: Prisma.ClientLoginCodeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClientLoginCodePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ClientLoginCodeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClientLoginCodePayload>
+        }
+        findMany: {
+          args: Prisma.ClientLoginCodeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClientLoginCodePayload>[]
+        }
+        create: {
+          args: Prisma.ClientLoginCodeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClientLoginCodePayload>
+        }
+        createMany: {
+          args: Prisma.ClientLoginCodeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ClientLoginCodeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClientLoginCodePayload>[]
+        }
+        delete: {
+          args: Prisma.ClientLoginCodeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClientLoginCodePayload>
+        }
+        update: {
+          args: Prisma.ClientLoginCodeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClientLoginCodePayload>
+        }
+        deleteMany: {
+          args: Prisma.ClientLoginCodeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ClientLoginCodeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ClientLoginCodeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClientLoginCodePayload>[]
+        }
+        upsert: {
+          args: Prisma.ClientLoginCodeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClientLoginCodePayload>
+        }
+        aggregate: {
+          args: Prisma.ClientLoginCodeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateClientLoginCode>
+        }
+        groupBy: {
+          args: Prisma.ClientLoginCodeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ClientLoginCodeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ClientLoginCodeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ClientLoginCodeCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1593,6 +1743,7 @@ export const BusinessScalarFieldEnum = {
   legalName: 'legalName',
   address: 'address',
   contactEmail: 'contactEmail',
+  vaccinePolicy: 'vaccinePolicy',
   createdAt: 'createdAt'
 } as const
 
@@ -1685,6 +1836,8 @@ export const PetScalarFieldEnum = {
   size: 'size',
   notes: 'notes',
   cabinOk: 'cabinOk',
+  vaccineStatus: 'vaccineStatus',
+  vaccineExpiresAt: 'vaccineExpiresAt',
   createdAt: 'createdAt'
 } as const
 
@@ -1792,6 +1945,42 @@ export const ActivityLogScalarFieldEnum = {
 } as const
 
 export type ActivityLogScalarFieldEnum = (typeof ActivityLogScalarFieldEnum)[keyof typeof ActivityLogScalarFieldEnum]
+
+
+export const VaccineCardScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  petId: 'petId',
+  data: 'data',
+  mimeType: 'mimeType',
+  uploadedBy: 'uploadedBy',
+  aiStatus: 'aiStatus',
+  aiResult: 'aiResult',
+  aiSuggestion: 'aiSuggestion',
+  aiSummary: 'aiSummary',
+  review: 'review',
+  reviewNote: 'reviewNote',
+  reviewedBy: 'reviewedBy',
+  reviewedAt: 'reviewedAt',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt'
+} as const
+
+export type VaccineCardScalarFieldEnum = (typeof VaccineCardScalarFieldEnum)[keyof typeof VaccineCardScalarFieldEnum]
+
+
+export const ClientLoginCodeScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  phone: 'phone',
+  codeHash: 'codeHash',
+  attempts: 'attempts',
+  expiresAt: 'expiresAt',
+  usedAt: 'usedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type ClientLoginCodeScalarFieldEnum = (typeof ClientLoginCodeScalarFieldEnum)[keyof typeof ClientLoginCodeScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1940,6 +2129,20 @@ export type ListEnumSizeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
 
 
 /**
+ * Reference to a field of type 'VaccineStatus'
+ */
+export type EnumVaccineStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VaccineStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'VaccineStatus[]'
+ */
+export type ListEnumVaccineStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'VaccineStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'AppointmentStatus'
  */
 export type EnumAppointmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AppointmentStatus'>
@@ -1992,6 +2195,34 @@ export type EnumSaleItemKindFieldRefInput<$PrismaModel> = FieldRefInputType<$Pri
  * Reference to a field of type 'SaleItemKind[]'
  */
 export type ListEnumSaleItemKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SaleItemKind[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Bytes'
+ */
+export type BytesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Bytes'>
+    
+
+
+/**
+ * Reference to a field of type 'Bytes[]'
+ */
+export type ListBytesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Bytes[]'>
+    
+
+
+/**
+ * Reference to a field of type 'CardReview'
+ */
+export type EnumCardReviewFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CardReview'>
+    
+
+
+/**
+ * Reference to a field of type 'CardReview[]'
+ */
+export type ListEnumCardReviewFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CardReview[]'>
     
 
 
@@ -2174,6 +2405,8 @@ export type GlobalOmitConfig = {
   saleItem?: Prisma.SaleItemOmit
   cashClosing?: Prisma.CashClosingOmit
   activityLog?: Prisma.ActivityLogOmit
+  vaccineCard?: Prisma.VaccineCardOmit
+  clientLoginCode?: Prisma.ClientLoginCodeOmit
 }
 
 /* Types for Logging */

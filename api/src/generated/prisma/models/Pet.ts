@@ -33,6 +33,8 @@ export type PetMinAggregateOutputType = {
   size: $Enums.Size | null
   notes: string | null
   cabinOk: boolean | null
+  vaccineStatus: $Enums.VaccineStatus | null
+  vaccineExpiresAt: Date | null
   createdAt: Date | null
 }
 
@@ -45,6 +47,8 @@ export type PetMaxAggregateOutputType = {
   size: $Enums.Size | null
   notes: string | null
   cabinOk: boolean | null
+  vaccineStatus: $Enums.VaccineStatus | null
+  vaccineExpiresAt: Date | null
   createdAt: Date | null
 }
 
@@ -57,6 +61,8 @@ export type PetCountAggregateOutputType = {
   size: number
   notes: number
   cabinOk: number
+  vaccineStatus: number
+  vaccineExpiresAt: number
   createdAt: number
   _all: number
 }
@@ -71,6 +77,8 @@ export type PetMinAggregateInputType = {
   size?: true
   notes?: true
   cabinOk?: true
+  vaccineStatus?: true
+  vaccineExpiresAt?: true
   createdAt?: true
 }
 
@@ -83,6 +91,8 @@ export type PetMaxAggregateInputType = {
   size?: true
   notes?: true
   cabinOk?: true
+  vaccineStatus?: true
+  vaccineExpiresAt?: true
   createdAt?: true
 }
 
@@ -95,6 +105,8 @@ export type PetCountAggregateInputType = {
   size?: true
   notes?: true
   cabinOk?: true
+  vaccineStatus?: true
+  vaccineExpiresAt?: true
   createdAt?: true
   _all?: true
 }
@@ -180,6 +192,8 @@ export type PetGroupByOutputType = {
   size: $Enums.Size
   notes: string | null
   cabinOk: boolean | null
+  vaccineStatus: $Enums.VaccineStatus
+  vaccineExpiresAt: Date | null
   createdAt: Date
   _count: PetCountAggregateOutputType | null
   _min: PetMinAggregateOutputType | null
@@ -213,10 +227,13 @@ export type PetWhereInput = {
   size?: Prisma.EnumSizeFilter<"Pet"> | $Enums.Size
   notes?: Prisma.StringNullableFilter<"Pet"> | string | null
   cabinOk?: Prisma.BoolNullableFilter<"Pet"> | boolean | null
+  vaccineStatus?: Prisma.EnumVaccineStatusFilter<"Pet"> | $Enums.VaccineStatus
+  vaccineExpiresAt?: Prisma.DateTimeNullableFilter<"Pet"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Pet"> | Date | string
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
   client?: Prisma.XOR<Prisma.ClientScalarRelationFilter, Prisma.ClientWhereInput>
   appointments?: Prisma.AppointmentListRelationFilter
+  vaccineCards?: Prisma.VaccineCardListRelationFilter
 }
 
 export type PetOrderByWithRelationInput = {
@@ -228,10 +245,13 @@ export type PetOrderByWithRelationInput = {
   size?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   cabinOk?: Prisma.SortOrderInput | Prisma.SortOrder
+  vaccineStatus?: Prisma.SortOrder
+  vaccineExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   business?: Prisma.BusinessOrderByWithRelationInput
   client?: Prisma.ClientOrderByWithRelationInput
   appointments?: Prisma.AppointmentOrderByRelationAggregateInput
+  vaccineCards?: Prisma.VaccineCardOrderByRelationAggregateInput
 }
 
 export type PetWhereUniqueInput = Prisma.AtLeast<{
@@ -246,10 +266,13 @@ export type PetWhereUniqueInput = Prisma.AtLeast<{
   size?: Prisma.EnumSizeFilter<"Pet"> | $Enums.Size
   notes?: Prisma.StringNullableFilter<"Pet"> | string | null
   cabinOk?: Prisma.BoolNullableFilter<"Pet"> | boolean | null
+  vaccineStatus?: Prisma.EnumVaccineStatusFilter<"Pet"> | $Enums.VaccineStatus
+  vaccineExpiresAt?: Prisma.DateTimeNullableFilter<"Pet"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Pet"> | Date | string
   business?: Prisma.XOR<Prisma.BusinessScalarRelationFilter, Prisma.BusinessWhereInput>
   client?: Prisma.XOR<Prisma.ClientScalarRelationFilter, Prisma.ClientWhereInput>
   appointments?: Prisma.AppointmentListRelationFilter
+  vaccineCards?: Prisma.VaccineCardListRelationFilter
 }, "id">
 
 export type PetOrderByWithAggregationInput = {
@@ -261,6 +284,8 @@ export type PetOrderByWithAggregationInput = {
   size?: Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   cabinOk?: Prisma.SortOrderInput | Prisma.SortOrder
+  vaccineStatus?: Prisma.SortOrder
+  vaccineExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.PetCountOrderByAggregateInput
   _max?: Prisma.PetMaxOrderByAggregateInput
@@ -279,6 +304,8 @@ export type PetScalarWhereWithAggregatesInput = {
   size?: Prisma.EnumSizeWithAggregatesFilter<"Pet"> | $Enums.Size
   notes?: Prisma.StringNullableWithAggregatesFilter<"Pet"> | string | null
   cabinOk?: Prisma.BoolNullableWithAggregatesFilter<"Pet"> | boolean | null
+  vaccineStatus?: Prisma.EnumVaccineStatusWithAggregatesFilter<"Pet"> | $Enums.VaccineStatus
+  vaccineExpiresAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Pet"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Pet"> | Date | string
 }
 
@@ -289,10 +316,13 @@ export type PetCreateInput = {
   size: $Enums.Size
   notes?: string | null
   cabinOk?: boolean | null
+  vaccineStatus?: $Enums.VaccineStatus
+  vaccineExpiresAt?: Date | string | null
   createdAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutPetsInput
   client: Prisma.ClientCreateNestedOneWithoutPetsInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutPetInput
+  vaccineCards?: Prisma.VaccineCardCreateNestedManyWithoutPetInput
 }
 
 export type PetUncheckedCreateInput = {
@@ -304,8 +334,11 @@ export type PetUncheckedCreateInput = {
   size: $Enums.Size
   notes?: string | null
   cabinOk?: boolean | null
+  vaccineStatus?: $Enums.VaccineStatus
+  vaccineExpiresAt?: Date | string | null
   createdAt?: Date | string
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutPetInput
+  vaccineCards?: Prisma.VaccineCardUncheckedCreateNestedManyWithoutPetInput
 }
 
 export type PetUpdateInput = {
@@ -315,10 +348,13 @@ export type PetUpdateInput = {
   size?: Prisma.EnumSizeFieldUpdateOperationsInput | $Enums.Size
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cabinOk?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  vaccineStatus?: Prisma.EnumVaccineStatusFieldUpdateOperationsInput | $Enums.VaccineStatus
+  vaccineExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutPetsNestedInput
   client?: Prisma.ClientUpdateOneRequiredWithoutPetsNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutPetNestedInput
+  vaccineCards?: Prisma.VaccineCardUpdateManyWithoutPetNestedInput
 }
 
 export type PetUncheckedUpdateInput = {
@@ -330,8 +366,11 @@ export type PetUncheckedUpdateInput = {
   size?: Prisma.EnumSizeFieldUpdateOperationsInput | $Enums.Size
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cabinOk?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  vaccineStatus?: Prisma.EnumVaccineStatusFieldUpdateOperationsInput | $Enums.VaccineStatus
+  vaccineExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutPetNestedInput
+  vaccineCards?: Prisma.VaccineCardUncheckedUpdateManyWithoutPetNestedInput
 }
 
 export type PetCreateManyInput = {
@@ -343,6 +382,8 @@ export type PetCreateManyInput = {
   size: $Enums.Size
   notes?: string | null
   cabinOk?: boolean | null
+  vaccineStatus?: $Enums.VaccineStatus
+  vaccineExpiresAt?: Date | string | null
   createdAt?: Date | string
 }
 
@@ -353,6 +394,8 @@ export type PetUpdateManyMutationInput = {
   size?: Prisma.EnumSizeFieldUpdateOperationsInput | $Enums.Size
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cabinOk?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  vaccineStatus?: Prisma.EnumVaccineStatusFieldUpdateOperationsInput | $Enums.VaccineStatus
+  vaccineExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -365,6 +408,8 @@ export type PetUncheckedUpdateManyInput = {
   size?: Prisma.EnumSizeFieldUpdateOperationsInput | $Enums.Size
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cabinOk?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  vaccineStatus?: Prisma.EnumVaccineStatusFieldUpdateOperationsInput | $Enums.VaccineStatus
+  vaccineExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -387,6 +432,8 @@ export type PetCountOrderByAggregateInput = {
   size?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   cabinOk?: Prisma.SortOrder
+  vaccineStatus?: Prisma.SortOrder
+  vaccineExpiresAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -399,6 +446,8 @@ export type PetMaxOrderByAggregateInput = {
   size?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   cabinOk?: Prisma.SortOrder
+  vaccineStatus?: Prisma.SortOrder
+  vaccineExpiresAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -411,6 +460,8 @@ export type PetMinOrderByAggregateInput = {
   size?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   cabinOk?: Prisma.SortOrder
+  vaccineStatus?: Prisma.SortOrder
+  vaccineExpiresAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -507,6 +558,14 @@ export type NullableBoolFieldUpdateOperationsInput = {
   set?: boolean | null
 }
 
+export type EnumVaccineStatusFieldUpdateOperationsInput = {
+  set?: $Enums.VaccineStatus
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
 export type PetCreateNestedOneWithoutAppointmentsInput = {
   create?: Prisma.XOR<Prisma.PetCreateWithoutAppointmentsInput, Prisma.PetUncheckedCreateWithoutAppointmentsInput>
   connectOrCreate?: Prisma.PetCreateOrConnectWithoutAppointmentsInput
@@ -521,6 +580,20 @@ export type PetUpdateOneRequiredWithoutAppointmentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.PetUpdateToOneWithWhereWithoutAppointmentsInput, Prisma.PetUpdateWithoutAppointmentsInput>, Prisma.PetUncheckedUpdateWithoutAppointmentsInput>
 }
 
+export type PetCreateNestedOneWithoutVaccineCardsInput = {
+  create?: Prisma.XOR<Prisma.PetCreateWithoutVaccineCardsInput, Prisma.PetUncheckedCreateWithoutVaccineCardsInput>
+  connectOrCreate?: Prisma.PetCreateOrConnectWithoutVaccineCardsInput
+  connect?: Prisma.PetWhereUniqueInput
+}
+
+export type PetUpdateOneRequiredWithoutVaccineCardsNestedInput = {
+  create?: Prisma.XOR<Prisma.PetCreateWithoutVaccineCardsInput, Prisma.PetUncheckedCreateWithoutVaccineCardsInput>
+  connectOrCreate?: Prisma.PetCreateOrConnectWithoutVaccineCardsInput
+  upsert?: Prisma.PetUpsertWithoutVaccineCardsInput
+  connect?: Prisma.PetWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PetUpdateToOneWithWhereWithoutVaccineCardsInput, Prisma.PetUpdateWithoutVaccineCardsInput>, Prisma.PetUncheckedUpdateWithoutVaccineCardsInput>
+}
+
 export type PetCreateWithoutBusinessInput = {
   id?: string
   name: string
@@ -528,9 +601,12 @@ export type PetCreateWithoutBusinessInput = {
   size: $Enums.Size
   notes?: string | null
   cabinOk?: boolean | null
+  vaccineStatus?: $Enums.VaccineStatus
+  vaccineExpiresAt?: Date | string | null
   createdAt?: Date | string
   client: Prisma.ClientCreateNestedOneWithoutPetsInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutPetInput
+  vaccineCards?: Prisma.VaccineCardCreateNestedManyWithoutPetInput
 }
 
 export type PetUncheckedCreateWithoutBusinessInput = {
@@ -541,8 +617,11 @@ export type PetUncheckedCreateWithoutBusinessInput = {
   size: $Enums.Size
   notes?: string | null
   cabinOk?: boolean | null
+  vaccineStatus?: $Enums.VaccineStatus
+  vaccineExpiresAt?: Date | string | null
   createdAt?: Date | string
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutPetInput
+  vaccineCards?: Prisma.VaccineCardUncheckedCreateNestedManyWithoutPetInput
 }
 
 export type PetCreateOrConnectWithoutBusinessInput = {
@@ -583,6 +662,8 @@ export type PetScalarWhereInput = {
   size?: Prisma.EnumSizeFilter<"Pet"> | $Enums.Size
   notes?: Prisma.StringNullableFilter<"Pet"> | string | null
   cabinOk?: Prisma.BoolNullableFilter<"Pet"> | boolean | null
+  vaccineStatus?: Prisma.EnumVaccineStatusFilter<"Pet"> | $Enums.VaccineStatus
+  vaccineExpiresAt?: Prisma.DateTimeNullableFilter<"Pet"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Pet"> | Date | string
 }
 
@@ -593,9 +674,12 @@ export type PetCreateWithoutClientInput = {
   size: $Enums.Size
   notes?: string | null
   cabinOk?: boolean | null
+  vaccineStatus?: $Enums.VaccineStatus
+  vaccineExpiresAt?: Date | string | null
   createdAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutPetsInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutPetInput
+  vaccineCards?: Prisma.VaccineCardCreateNestedManyWithoutPetInput
 }
 
 export type PetUncheckedCreateWithoutClientInput = {
@@ -606,8 +690,11 @@ export type PetUncheckedCreateWithoutClientInput = {
   size: $Enums.Size
   notes?: string | null
   cabinOk?: boolean | null
+  vaccineStatus?: $Enums.VaccineStatus
+  vaccineExpiresAt?: Date | string | null
   createdAt?: Date | string
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutPetInput
+  vaccineCards?: Prisma.VaccineCardUncheckedCreateNestedManyWithoutPetInput
 }
 
 export type PetCreateOrConnectWithoutClientInput = {
@@ -643,9 +730,12 @@ export type PetCreateWithoutAppointmentsInput = {
   size: $Enums.Size
   notes?: string | null
   cabinOk?: boolean | null
+  vaccineStatus?: $Enums.VaccineStatus
+  vaccineExpiresAt?: Date | string | null
   createdAt?: Date | string
   business: Prisma.BusinessCreateNestedOneWithoutPetsInput
   client: Prisma.ClientCreateNestedOneWithoutPetsInput
+  vaccineCards?: Prisma.VaccineCardCreateNestedManyWithoutPetInput
 }
 
 export type PetUncheckedCreateWithoutAppointmentsInput = {
@@ -657,7 +747,10 @@ export type PetUncheckedCreateWithoutAppointmentsInput = {
   size: $Enums.Size
   notes?: string | null
   cabinOk?: boolean | null
+  vaccineStatus?: $Enums.VaccineStatus
+  vaccineExpiresAt?: Date | string | null
   createdAt?: Date | string
+  vaccineCards?: Prisma.VaccineCardUncheckedCreateNestedManyWithoutPetInput
 }
 
 export type PetCreateOrConnectWithoutAppointmentsInput = {
@@ -683,9 +776,12 @@ export type PetUpdateWithoutAppointmentsInput = {
   size?: Prisma.EnumSizeFieldUpdateOperationsInput | $Enums.Size
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cabinOk?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  vaccineStatus?: Prisma.EnumVaccineStatusFieldUpdateOperationsInput | $Enums.VaccineStatus
+  vaccineExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutPetsNestedInput
   client?: Prisma.ClientUpdateOneRequiredWithoutPetsNestedInput
+  vaccineCards?: Prisma.VaccineCardUpdateManyWithoutPetNestedInput
 }
 
 export type PetUncheckedUpdateWithoutAppointmentsInput = {
@@ -697,7 +793,86 @@ export type PetUncheckedUpdateWithoutAppointmentsInput = {
   size?: Prisma.EnumSizeFieldUpdateOperationsInput | $Enums.Size
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cabinOk?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  vaccineStatus?: Prisma.EnumVaccineStatusFieldUpdateOperationsInput | $Enums.VaccineStatus
+  vaccineExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  vaccineCards?: Prisma.VaccineCardUncheckedUpdateManyWithoutPetNestedInput
+}
+
+export type PetCreateWithoutVaccineCardsInput = {
+  id?: string
+  name: string
+  breed?: string | null
+  size: $Enums.Size
+  notes?: string | null
+  cabinOk?: boolean | null
+  vaccineStatus?: $Enums.VaccineStatus
+  vaccineExpiresAt?: Date | string | null
+  createdAt?: Date | string
+  business: Prisma.BusinessCreateNestedOneWithoutPetsInput
+  client: Prisma.ClientCreateNestedOneWithoutPetsInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutPetInput
+}
+
+export type PetUncheckedCreateWithoutVaccineCardsInput = {
+  id?: string
+  businessId: string
+  clientId: string
+  name: string
+  breed?: string | null
+  size: $Enums.Size
+  notes?: string | null
+  cabinOk?: boolean | null
+  vaccineStatus?: $Enums.VaccineStatus
+  vaccineExpiresAt?: Date | string | null
+  createdAt?: Date | string
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutPetInput
+}
+
+export type PetCreateOrConnectWithoutVaccineCardsInput = {
+  where: Prisma.PetWhereUniqueInput
+  create: Prisma.XOR<Prisma.PetCreateWithoutVaccineCardsInput, Prisma.PetUncheckedCreateWithoutVaccineCardsInput>
+}
+
+export type PetUpsertWithoutVaccineCardsInput = {
+  update: Prisma.XOR<Prisma.PetUpdateWithoutVaccineCardsInput, Prisma.PetUncheckedUpdateWithoutVaccineCardsInput>
+  create: Prisma.XOR<Prisma.PetCreateWithoutVaccineCardsInput, Prisma.PetUncheckedCreateWithoutVaccineCardsInput>
+  where?: Prisma.PetWhereInput
+}
+
+export type PetUpdateToOneWithWhereWithoutVaccineCardsInput = {
+  where?: Prisma.PetWhereInput
+  data: Prisma.XOR<Prisma.PetUpdateWithoutVaccineCardsInput, Prisma.PetUncheckedUpdateWithoutVaccineCardsInput>
+}
+
+export type PetUpdateWithoutVaccineCardsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  breed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.EnumSizeFieldUpdateOperationsInput | $Enums.Size
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cabinOk?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  vaccineStatus?: Prisma.EnumVaccineStatusFieldUpdateOperationsInput | $Enums.VaccineStatus
+  vaccineExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  business?: Prisma.BusinessUpdateOneRequiredWithoutPetsNestedInput
+  client?: Prisma.ClientUpdateOneRequiredWithoutPetsNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutPetNestedInput
+}
+
+export type PetUncheckedUpdateWithoutVaccineCardsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  businessId?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  breed?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.EnumSizeFieldUpdateOperationsInput | $Enums.Size
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cabinOk?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  vaccineStatus?: Prisma.EnumVaccineStatusFieldUpdateOperationsInput | $Enums.VaccineStatus
+  vaccineExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutPetNestedInput
 }
 
 export type PetCreateManyBusinessInput = {
@@ -708,6 +883,8 @@ export type PetCreateManyBusinessInput = {
   size: $Enums.Size
   notes?: string | null
   cabinOk?: boolean | null
+  vaccineStatus?: $Enums.VaccineStatus
+  vaccineExpiresAt?: Date | string | null
   createdAt?: Date | string
 }
 
@@ -718,9 +895,12 @@ export type PetUpdateWithoutBusinessInput = {
   size?: Prisma.EnumSizeFieldUpdateOperationsInput | $Enums.Size
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cabinOk?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  vaccineStatus?: Prisma.EnumVaccineStatusFieldUpdateOperationsInput | $Enums.VaccineStatus
+  vaccineExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   client?: Prisma.ClientUpdateOneRequiredWithoutPetsNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutPetNestedInput
+  vaccineCards?: Prisma.VaccineCardUpdateManyWithoutPetNestedInput
 }
 
 export type PetUncheckedUpdateWithoutBusinessInput = {
@@ -731,8 +911,11 @@ export type PetUncheckedUpdateWithoutBusinessInput = {
   size?: Prisma.EnumSizeFieldUpdateOperationsInput | $Enums.Size
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cabinOk?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  vaccineStatus?: Prisma.EnumVaccineStatusFieldUpdateOperationsInput | $Enums.VaccineStatus
+  vaccineExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutPetNestedInput
+  vaccineCards?: Prisma.VaccineCardUncheckedUpdateManyWithoutPetNestedInput
 }
 
 export type PetUncheckedUpdateManyWithoutBusinessInput = {
@@ -743,6 +926,8 @@ export type PetUncheckedUpdateManyWithoutBusinessInput = {
   size?: Prisma.EnumSizeFieldUpdateOperationsInput | $Enums.Size
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cabinOk?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  vaccineStatus?: Prisma.EnumVaccineStatusFieldUpdateOperationsInput | $Enums.VaccineStatus
+  vaccineExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -754,6 +939,8 @@ export type PetCreateManyClientInput = {
   size: $Enums.Size
   notes?: string | null
   cabinOk?: boolean | null
+  vaccineStatus?: $Enums.VaccineStatus
+  vaccineExpiresAt?: Date | string | null
   createdAt?: Date | string
 }
 
@@ -764,9 +951,12 @@ export type PetUpdateWithoutClientInput = {
   size?: Prisma.EnumSizeFieldUpdateOperationsInput | $Enums.Size
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cabinOk?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  vaccineStatus?: Prisma.EnumVaccineStatusFieldUpdateOperationsInput | $Enums.VaccineStatus
+  vaccineExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   business?: Prisma.BusinessUpdateOneRequiredWithoutPetsNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutPetNestedInput
+  vaccineCards?: Prisma.VaccineCardUpdateManyWithoutPetNestedInput
 }
 
 export type PetUncheckedUpdateWithoutClientInput = {
@@ -777,8 +967,11 @@ export type PetUncheckedUpdateWithoutClientInput = {
   size?: Prisma.EnumSizeFieldUpdateOperationsInput | $Enums.Size
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cabinOk?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  vaccineStatus?: Prisma.EnumVaccineStatusFieldUpdateOperationsInput | $Enums.VaccineStatus
+  vaccineExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutPetNestedInput
+  vaccineCards?: Prisma.VaccineCardUncheckedUpdateManyWithoutPetNestedInput
 }
 
 export type PetUncheckedUpdateManyWithoutClientInput = {
@@ -789,6 +982,8 @@ export type PetUncheckedUpdateManyWithoutClientInput = {
   size?: Prisma.EnumSizeFieldUpdateOperationsInput | $Enums.Size
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cabinOk?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  vaccineStatus?: Prisma.EnumVaccineStatusFieldUpdateOperationsInput | $Enums.VaccineStatus
+  vaccineExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -799,10 +994,12 @@ export type PetUncheckedUpdateManyWithoutClientInput = {
 
 export type PetCountOutputType = {
   appointments: number
+  vaccineCards: number
 }
 
 export type PetCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   appointments?: boolean | PetCountOutputTypeCountAppointmentsArgs
+  vaccineCards?: boolean | PetCountOutputTypeCountVaccineCardsArgs
 }
 
 /**
@@ -822,6 +1019,13 @@ export type PetCountOutputTypeCountAppointmentsArgs<ExtArgs extends runtime.Type
   where?: Prisma.AppointmentWhereInput
 }
 
+/**
+ * PetCountOutputType without action
+ */
+export type PetCountOutputTypeCountVaccineCardsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.VaccineCardWhereInput
+}
+
 
 export type PetSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -832,10 +1036,13 @@ export type PetSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
   size?: boolean
   notes?: boolean
   cabinOk?: boolean
+  vaccineStatus?: boolean
+  vaccineExpiresAt?: boolean
   createdAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
   appointments?: boolean | Prisma.Pet$appointmentsArgs<ExtArgs>
+  vaccineCards?: boolean | Prisma.Pet$vaccineCardsArgs<ExtArgs>
   _count?: boolean | Prisma.PetCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["pet"]>
 
@@ -848,6 +1055,8 @@ export type PetSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extension
   size?: boolean
   notes?: boolean
   cabinOk?: boolean
+  vaccineStatus?: boolean
+  vaccineExpiresAt?: boolean
   createdAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
@@ -862,6 +1071,8 @@ export type PetSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extension
   size?: boolean
   notes?: boolean
   cabinOk?: boolean
+  vaccineStatus?: boolean
+  vaccineExpiresAt?: boolean
   createdAt?: boolean
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
@@ -876,14 +1087,17 @@ export type PetSelectScalar = {
   size?: boolean
   notes?: boolean
   cabinOk?: boolean
+  vaccineStatus?: boolean
+  vaccineExpiresAt?: boolean
   createdAt?: boolean
 }
 
-export type PetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "clientId" | "name" | "breed" | "size" | "notes" | "cabinOk" | "createdAt", ExtArgs["result"]["pet"]>
+export type PetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "businessId" | "clientId" | "name" | "breed" | "size" | "notes" | "cabinOk" | "vaccineStatus" | "vaccineExpiresAt" | "createdAt", ExtArgs["result"]["pet"]>
 export type PetInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   business?: boolean | Prisma.BusinessDefaultArgs<ExtArgs>
   client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
   appointments?: boolean | Prisma.Pet$appointmentsArgs<ExtArgs>
+  vaccineCards?: boolean | Prisma.Pet$vaccineCardsArgs<ExtArgs>
   _count?: boolean | Prisma.PetCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PetIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -901,6 +1115,7 @@ export type $PetPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
     business: Prisma.$BusinessPayload<ExtArgs>
     client: Prisma.$ClientPayload<ExtArgs>
     appointments: Prisma.$AppointmentPayload<ExtArgs>[]
+    vaccineCards: Prisma.$VaccineCardPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -914,6 +1129,11 @@ export type $PetPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
      * null = decidir por raza/tamaño; true = cabina; false = a mano
      */
     cabinOk: boolean | null
+    vaccineStatus: $Enums.VaccineStatus
+    /**
+     * Hasta cuándo valen las vacunas aprobadas (la primera que vence)
+     */
+    vaccineExpiresAt: Date | null
     createdAt: Date
   }, ExtArgs["result"]["pet"]>
   composites: {}
@@ -1312,6 +1532,7 @@ export interface Prisma__PetClient<T, Null = never, ExtArgs extends runtime.Type
   business<T extends Prisma.BusinessDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BusinessDefaultArgs<ExtArgs>>): Prisma.Prisma__BusinessClient<runtime.Types.Result.GetResult<Prisma.$BusinessPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   client<T extends Prisma.ClientDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ClientDefaultArgs<ExtArgs>>): Prisma.Prisma__ClientClient<runtime.Types.Result.GetResult<Prisma.$ClientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   appointments<T extends Prisma.Pet$appointmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Pet$appointmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  vaccineCards<T extends Prisma.Pet$vaccineCardsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Pet$vaccineCardsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VaccineCardPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1349,6 +1570,8 @@ export interface PetFieldRefs {
   readonly size: Prisma.FieldRef<"Pet", 'Size'>
   readonly notes: Prisma.FieldRef<"Pet", 'String'>
   readonly cabinOk: Prisma.FieldRef<"Pet", 'Boolean'>
+  readonly vaccineStatus: Prisma.FieldRef<"Pet", 'VaccineStatus'>
+  readonly vaccineExpiresAt: Prisma.FieldRef<"Pet", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Pet", 'DateTime'>
 }
     
@@ -1772,6 +1995,30 @@ export type Pet$appointmentsArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.AppointmentScalarFieldEnum | Prisma.AppointmentScalarFieldEnum[]
+}
+
+/**
+ * Pet.vaccineCards
+ */
+export type Pet$vaccineCardsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the VaccineCard
+   */
+  select?: Prisma.VaccineCardSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the VaccineCard
+   */
+  omit?: Prisma.VaccineCardOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.VaccineCardInclude<ExtArgs> | null
+  where?: Prisma.VaccineCardWhereInput
+  orderBy?: Prisma.VaccineCardOrderByWithRelationInput | Prisma.VaccineCardOrderByWithRelationInput[]
+  cursor?: Prisma.VaccineCardWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.VaccineCardScalarFieldEnum | Prisma.VaccineCardScalarFieldEnum[]
 }
 
 /**

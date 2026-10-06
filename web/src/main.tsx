@@ -16,6 +16,8 @@ import Ajustes from "./pages/Ajustes";
 import Cita from "./pages/Cita";
 import Privacidad from "./pages/Privacidad";
 import Reportes from "./pages/Reportes";
+import MiLomito from "./pages/MiLomito";
+import Cartillas from "./pages/Cartillas";
 import { SessionProvider } from "./session";
 
 function PageTracker() {
@@ -33,6 +35,7 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/" element={<Reservar />} />
           <Route path="/cita/:token" element={<Cita />} />
           <Route path="/privacidad" element={<Privacidad />} />
+          <Route path="/mi-lomito" element={<MiLomito />} />
           <Route path="/panel/login" element={<Login />} />
           <Route path="/panel" element={<Panel />}>
             <Route index element={<Agenda />} />
@@ -42,6 +45,7 @@ createRoot(document.getElementById("root")!).render(
             <Route path="cuenta" element={<Cuenta />} />
             <Route path="ajustes" element={<Ajustes />} />
             <Route path="reportes" element={<Reportes />} />
+            <Route path="cartillas" element={<Cartillas />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

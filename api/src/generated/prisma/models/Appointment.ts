@@ -897,10 +897,6 @@ export type EnumSourceFieldUpdateOperationsInput = {
   set?: $Enums.Source
 }
 
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
-}
-
 export type AppointmentCreateNestedOneWithoutAddOnsInput = {
   create?: Prisma.XOR<Prisma.AppointmentCreateWithoutAddOnsInput, Prisma.AppointmentUncheckedCreateWithoutAddOnsInput>
   connectOrCreate?: Prisma.AppointmentCreateOrConnectWithoutAddOnsInput

@@ -65,7 +65,9 @@ export const ModelName = {
   Sale: 'Sale',
   SaleItem: 'SaleItem',
   CashClosing: 'CashClosing',
-  ActivityLog: 'ActivityLog'
+  ActivityLog: 'ActivityLog',
+  VaccineCard: 'VaccineCard',
+  ClientLoginCode: 'ClientLoginCode'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -97,6 +99,7 @@ export const BusinessScalarFieldEnum = {
   legalName: 'legalName',
   address: 'address',
   contactEmail: 'contactEmail',
+  vaccinePolicy: 'vaccinePolicy',
   createdAt: 'createdAt'
 } as const
 
@@ -189,6 +192,8 @@ export const PetScalarFieldEnum = {
   size: 'size',
   notes: 'notes',
   cabinOk: 'cabinOk',
+  vaccineStatus: 'vaccineStatus',
+  vaccineExpiresAt: 'vaccineExpiresAt',
   createdAt: 'createdAt'
 } as const
 
@@ -296,6 +301,42 @@ export const ActivityLogScalarFieldEnum = {
 } as const
 
 export type ActivityLogScalarFieldEnum = (typeof ActivityLogScalarFieldEnum)[keyof typeof ActivityLogScalarFieldEnum]
+
+
+export const VaccineCardScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  petId: 'petId',
+  data: 'data',
+  mimeType: 'mimeType',
+  uploadedBy: 'uploadedBy',
+  aiStatus: 'aiStatus',
+  aiResult: 'aiResult',
+  aiSuggestion: 'aiSuggestion',
+  aiSummary: 'aiSummary',
+  review: 'review',
+  reviewNote: 'reviewNote',
+  reviewedBy: 'reviewedBy',
+  reviewedAt: 'reviewedAt',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt'
+} as const
+
+export type VaccineCardScalarFieldEnum = (typeof VaccineCardScalarFieldEnum)[keyof typeof VaccineCardScalarFieldEnum]
+
+
+export const ClientLoginCodeScalarFieldEnum = {
+  id: 'id',
+  businessId: 'businessId',
+  phone: 'phone',
+  codeHash: 'codeHash',
+  attempts: 'attempts',
+  expiresAt: 'expiresAt',
+  usedAt: 'usedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type ClientLoginCodeScalarFieldEnum = (typeof ClientLoginCodeScalarFieldEnum)[keyof typeof ClientLoginCodeScalarFieldEnum]
 
 
 export const SortOrder = {

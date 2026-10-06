@@ -81,6 +81,7 @@ export type BusinessCountAggregateOutputType = {
   legalName: number
   address: number
   contactEmail: number
+  vaccinePolicy: number
   createdAt: number
   _all: number
 }
@@ -141,6 +142,7 @@ export type BusinessCountAggregateInputType = {
   legalName?: true
   address?: true
   contactEmail?: true
+  vaccinePolicy?: true
   createdAt?: true
   _all?: true
 }
@@ -244,6 +246,7 @@ export type BusinessGroupByOutputType = {
   legalName: string | null
   address: string | null
   contactEmail: string | null
+  vaccinePolicy: runtime.JsonValue | null
   createdAt: Date
   _count: BusinessCountAggregateOutputType | null
   _avg: BusinessAvgAggregateOutputType | null
@@ -283,6 +286,7 @@ export type BusinessWhereInput = {
   legalName?: Prisma.StringNullableFilter<"Business"> | string | null
   address?: Prisma.StringNullableFilter<"Business"> | string | null
   contactEmail?: Prisma.StringNullableFilter<"Business"> | string | null
+  vaccinePolicy?: Prisma.JsonNullableFilter<"Business">
   createdAt?: Prisma.DateTimeFilter<"Business"> | Date | string
   users?: Prisma.UserListRelationFilter
   groomers?: Prisma.GroomerListRelationFilter
@@ -295,6 +299,8 @@ export type BusinessWhereInput = {
   sales?: Prisma.SaleListRelationFilter
   closings?: Prisma.CashClosingListRelationFilter
   activity?: Prisma.ActivityLogListRelationFilter
+  vaccineCards?: Prisma.VaccineCardListRelationFilter
+  loginCodes?: Prisma.ClientLoginCodeListRelationFilter
 }
 
 export type BusinessOrderByWithRelationInput = {
@@ -310,6 +316,7 @@ export type BusinessOrderByWithRelationInput = {
   legalName?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
   contactEmail?: Prisma.SortOrderInput | Prisma.SortOrder
+  vaccinePolicy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   users?: Prisma.UserOrderByRelationAggregateInput
   groomers?: Prisma.GroomerOrderByRelationAggregateInput
@@ -322,6 +329,8 @@ export type BusinessOrderByWithRelationInput = {
   sales?: Prisma.SaleOrderByRelationAggregateInput
   closings?: Prisma.CashClosingOrderByRelationAggregateInput
   activity?: Prisma.ActivityLogOrderByRelationAggregateInput
+  vaccineCards?: Prisma.VaccineCardOrderByRelationAggregateInput
+  loginCodes?: Prisma.ClientLoginCodeOrderByRelationAggregateInput
 }
 
 export type BusinessWhereUniqueInput = Prisma.AtLeast<{
@@ -340,6 +349,7 @@ export type BusinessWhereUniqueInput = Prisma.AtLeast<{
   legalName?: Prisma.StringNullableFilter<"Business"> | string | null
   address?: Prisma.StringNullableFilter<"Business"> | string | null
   contactEmail?: Prisma.StringNullableFilter<"Business"> | string | null
+  vaccinePolicy?: Prisma.JsonNullableFilter<"Business">
   createdAt?: Prisma.DateTimeFilter<"Business"> | Date | string
   users?: Prisma.UserListRelationFilter
   groomers?: Prisma.GroomerListRelationFilter
@@ -352,6 +362,8 @@ export type BusinessWhereUniqueInput = Prisma.AtLeast<{
   sales?: Prisma.SaleListRelationFilter
   closings?: Prisma.CashClosingListRelationFilter
   activity?: Prisma.ActivityLogListRelationFilter
+  vaccineCards?: Prisma.VaccineCardListRelationFilter
+  loginCodes?: Prisma.ClientLoginCodeListRelationFilter
 }, "id" | "slug">
 
 export type BusinessOrderByWithAggregationInput = {
@@ -367,6 +379,7 @@ export type BusinessOrderByWithAggregationInput = {
   legalName?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
   contactEmail?: Prisma.SortOrderInput | Prisma.SortOrder
+  vaccinePolicy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.BusinessCountOrderByAggregateInput
   _avg?: Prisma.BusinessAvgOrderByAggregateInput
@@ -391,6 +404,7 @@ export type BusinessScalarWhereWithAggregatesInput = {
   legalName?: Prisma.StringNullableWithAggregatesFilter<"Business"> | string | null
   address?: Prisma.StringNullableWithAggregatesFilter<"Business"> | string | null
   contactEmail?: Prisma.StringNullableWithAggregatesFilter<"Business"> | string | null
+  vaccinePolicy?: Prisma.JsonNullableWithAggregatesFilter<"Business">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Business"> | Date | string
 }
 
@@ -407,6 +421,7 @@ export type BusinessCreateInput = {
   legalName?: string | null
   address?: string | null
   contactEmail?: string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerCreateNestedManyWithoutBusinessInput
@@ -419,6 +434,8 @@ export type BusinessCreateInput = {
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   closings?: Prisma.CashClosingCreateNestedManyWithoutBusinessInput
   activity?: Prisma.ActivityLogCreateNestedManyWithoutBusinessInput
+  vaccineCards?: Prisma.VaccineCardCreateNestedManyWithoutBusinessInput
+  loginCodes?: Prisma.ClientLoginCodeCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateInput = {
@@ -434,6 +451,7 @@ export type BusinessUncheckedCreateInput = {
   legalName?: string | null
   address?: string | null
   contactEmail?: string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerUncheckedCreateNestedManyWithoutBusinessInput
@@ -446,6 +464,8 @@ export type BusinessUncheckedCreateInput = {
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   closings?: Prisma.CashClosingUncheckedCreateNestedManyWithoutBusinessInput
   activity?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutBusinessInput
+  vaccineCards?: Prisma.VaccineCardUncheckedCreateNestedManyWithoutBusinessInput
+  loginCodes?: Prisma.ClientLoginCodeUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUpdateInput = {
@@ -461,6 +481,7 @@ export type BusinessUpdateInput = {
   legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUpdateManyWithoutBusinessNestedInput
@@ -473,6 +494,8 @@ export type BusinessUpdateInput = {
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   closings?: Prisma.CashClosingUpdateManyWithoutBusinessNestedInput
   activity?: Prisma.ActivityLogUpdateManyWithoutBusinessNestedInput
+  vaccineCards?: Prisma.VaccineCardUpdateManyWithoutBusinessNestedInput
+  loginCodes?: Prisma.ClientLoginCodeUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateInput = {
@@ -488,6 +511,7 @@ export type BusinessUncheckedUpdateInput = {
   legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUncheckedUpdateManyWithoutBusinessNestedInput
@@ -500,6 +524,8 @@ export type BusinessUncheckedUpdateInput = {
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   closings?: Prisma.CashClosingUncheckedUpdateManyWithoutBusinessNestedInput
   activity?: Prisma.ActivityLogUncheckedUpdateManyWithoutBusinessNestedInput
+  vaccineCards?: Prisma.VaccineCardUncheckedUpdateManyWithoutBusinessNestedInput
+  loginCodes?: Prisma.ClientLoginCodeUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateManyInput = {
@@ -515,6 +541,7 @@ export type BusinessCreateManyInput = {
   legalName?: string | null
   address?: string | null
   contactEmail?: string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
 }
 
@@ -531,6 +558,7 @@ export type BusinessUpdateManyMutationInput = {
   legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -547,6 +575,7 @@ export type BusinessUncheckedUpdateManyInput = {
   legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -563,6 +592,7 @@ export type BusinessCountOrderByAggregateInput = {
   legalName?: Prisma.SortOrder
   address?: Prisma.SortOrder
   contactEmail?: Prisma.SortOrder
+  vaccinePolicy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -787,6 +817,34 @@ export type BusinessUpdateOneRequiredWithoutActivityNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutActivityInput, Prisma.BusinessUpdateWithoutActivityInput>, Prisma.BusinessUncheckedUpdateWithoutActivityInput>
 }
 
+export type BusinessCreateNestedOneWithoutVaccineCardsInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutVaccineCardsInput, Prisma.BusinessUncheckedCreateWithoutVaccineCardsInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutVaccineCardsInput
+  connect?: Prisma.BusinessWhereUniqueInput
+}
+
+export type BusinessUpdateOneRequiredWithoutVaccineCardsNestedInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutVaccineCardsInput, Prisma.BusinessUncheckedCreateWithoutVaccineCardsInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutVaccineCardsInput
+  upsert?: Prisma.BusinessUpsertWithoutVaccineCardsInput
+  connect?: Prisma.BusinessWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutVaccineCardsInput, Prisma.BusinessUpdateWithoutVaccineCardsInput>, Prisma.BusinessUncheckedUpdateWithoutVaccineCardsInput>
+}
+
+export type BusinessCreateNestedOneWithoutLoginCodesInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutLoginCodesInput, Prisma.BusinessUncheckedCreateWithoutLoginCodesInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutLoginCodesInput
+  connect?: Prisma.BusinessWhereUniqueInput
+}
+
+export type BusinessUpdateOneRequiredWithoutLoginCodesNestedInput = {
+  create?: Prisma.XOR<Prisma.BusinessCreateWithoutLoginCodesInput, Prisma.BusinessUncheckedCreateWithoutLoginCodesInput>
+  connectOrCreate?: Prisma.BusinessCreateOrConnectWithoutLoginCodesInput
+  upsert?: Prisma.BusinessUpsertWithoutLoginCodesInput
+  connect?: Prisma.BusinessWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BusinessUpdateToOneWithWhereWithoutLoginCodesInput, Prisma.BusinessUpdateWithoutLoginCodesInput>, Prisma.BusinessUncheckedUpdateWithoutLoginCodesInput>
+}
+
 export type BusinessCreateWithoutUsersInput = {
   id?: string
   slug: string
@@ -800,6 +858,7 @@ export type BusinessCreateWithoutUsersInput = {
   legalName?: string | null
   address?: string | null
   contactEmail?: string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   groomers?: Prisma.GroomerCreateNestedManyWithoutBusinessInput
   services?: Prisma.ServiceCreateNestedManyWithoutBusinessInput
@@ -811,6 +870,8 @@ export type BusinessCreateWithoutUsersInput = {
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   closings?: Prisma.CashClosingCreateNestedManyWithoutBusinessInput
   activity?: Prisma.ActivityLogCreateNestedManyWithoutBusinessInput
+  vaccineCards?: Prisma.VaccineCardCreateNestedManyWithoutBusinessInput
+  loginCodes?: Prisma.ClientLoginCodeCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutUsersInput = {
@@ -826,6 +887,7 @@ export type BusinessUncheckedCreateWithoutUsersInput = {
   legalName?: string | null
   address?: string | null
   contactEmail?: string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   groomers?: Prisma.GroomerUncheckedCreateNestedManyWithoutBusinessInput
   services?: Prisma.ServiceUncheckedCreateNestedManyWithoutBusinessInput
@@ -837,6 +899,8 @@ export type BusinessUncheckedCreateWithoutUsersInput = {
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   closings?: Prisma.CashClosingUncheckedCreateNestedManyWithoutBusinessInput
   activity?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutBusinessInput
+  vaccineCards?: Prisma.VaccineCardUncheckedCreateNestedManyWithoutBusinessInput
+  loginCodes?: Prisma.ClientLoginCodeUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutUsersInput = {
@@ -868,6 +932,7 @@ export type BusinessUpdateWithoutUsersInput = {
   legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   groomers?: Prisma.GroomerUpdateManyWithoutBusinessNestedInput
   services?: Prisma.ServiceUpdateManyWithoutBusinessNestedInput
@@ -879,6 +944,8 @@ export type BusinessUpdateWithoutUsersInput = {
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   closings?: Prisma.CashClosingUpdateManyWithoutBusinessNestedInput
   activity?: Prisma.ActivityLogUpdateManyWithoutBusinessNestedInput
+  vaccineCards?: Prisma.VaccineCardUpdateManyWithoutBusinessNestedInput
+  loginCodes?: Prisma.ClientLoginCodeUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutUsersInput = {
@@ -894,6 +961,7 @@ export type BusinessUncheckedUpdateWithoutUsersInput = {
   legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   groomers?: Prisma.GroomerUncheckedUpdateManyWithoutBusinessNestedInput
   services?: Prisma.ServiceUncheckedUpdateManyWithoutBusinessNestedInput
@@ -905,6 +973,8 @@ export type BusinessUncheckedUpdateWithoutUsersInput = {
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   closings?: Prisma.CashClosingUncheckedUpdateManyWithoutBusinessNestedInput
   activity?: Prisma.ActivityLogUncheckedUpdateManyWithoutBusinessNestedInput
+  vaccineCards?: Prisma.VaccineCardUncheckedUpdateManyWithoutBusinessNestedInput
+  loginCodes?: Prisma.ClientLoginCodeUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutGroomersInput = {
@@ -920,6 +990,7 @@ export type BusinessCreateWithoutGroomersInput = {
   legalName?: string | null
   address?: string | null
   contactEmail?: string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutBusinessInput
   services?: Prisma.ServiceCreateNestedManyWithoutBusinessInput
@@ -931,6 +1002,8 @@ export type BusinessCreateWithoutGroomersInput = {
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   closings?: Prisma.CashClosingCreateNestedManyWithoutBusinessInput
   activity?: Prisma.ActivityLogCreateNestedManyWithoutBusinessInput
+  vaccineCards?: Prisma.VaccineCardCreateNestedManyWithoutBusinessInput
+  loginCodes?: Prisma.ClientLoginCodeCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutGroomersInput = {
@@ -946,6 +1019,7 @@ export type BusinessUncheckedCreateWithoutGroomersInput = {
   legalName?: string | null
   address?: string | null
   contactEmail?: string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
   services?: Prisma.ServiceUncheckedCreateNestedManyWithoutBusinessInput
@@ -957,6 +1031,8 @@ export type BusinessUncheckedCreateWithoutGroomersInput = {
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   closings?: Prisma.CashClosingUncheckedCreateNestedManyWithoutBusinessInput
   activity?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutBusinessInput
+  vaccineCards?: Prisma.VaccineCardUncheckedCreateNestedManyWithoutBusinessInput
+  loginCodes?: Prisma.ClientLoginCodeUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutGroomersInput = {
@@ -988,6 +1064,7 @@ export type BusinessUpdateWithoutGroomersInput = {
   legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
   services?: Prisma.ServiceUpdateManyWithoutBusinessNestedInput
@@ -999,6 +1076,8 @@ export type BusinessUpdateWithoutGroomersInput = {
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   closings?: Prisma.CashClosingUpdateManyWithoutBusinessNestedInput
   activity?: Prisma.ActivityLogUpdateManyWithoutBusinessNestedInput
+  vaccineCards?: Prisma.VaccineCardUpdateManyWithoutBusinessNestedInput
+  loginCodes?: Prisma.ClientLoginCodeUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutGroomersInput = {
@@ -1014,6 +1093,7 @@ export type BusinessUncheckedUpdateWithoutGroomersInput = {
   legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
   services?: Prisma.ServiceUncheckedUpdateManyWithoutBusinessNestedInput
@@ -1025,6 +1105,8 @@ export type BusinessUncheckedUpdateWithoutGroomersInput = {
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   closings?: Prisma.CashClosingUncheckedUpdateManyWithoutBusinessNestedInput
   activity?: Prisma.ActivityLogUncheckedUpdateManyWithoutBusinessNestedInput
+  vaccineCards?: Prisma.VaccineCardUncheckedUpdateManyWithoutBusinessNestedInput
+  loginCodes?: Prisma.ClientLoginCodeUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutServicesInput = {
@@ -1040,6 +1122,7 @@ export type BusinessCreateWithoutServicesInput = {
   legalName?: string | null
   address?: string | null
   contactEmail?: string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerCreateNestedManyWithoutBusinessInput
@@ -1051,6 +1134,8 @@ export type BusinessCreateWithoutServicesInput = {
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   closings?: Prisma.CashClosingCreateNestedManyWithoutBusinessInput
   activity?: Prisma.ActivityLogCreateNestedManyWithoutBusinessInput
+  vaccineCards?: Prisma.VaccineCardCreateNestedManyWithoutBusinessInput
+  loginCodes?: Prisma.ClientLoginCodeCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutServicesInput = {
@@ -1066,6 +1151,7 @@ export type BusinessUncheckedCreateWithoutServicesInput = {
   legalName?: string | null
   address?: string | null
   contactEmail?: string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerUncheckedCreateNestedManyWithoutBusinessInput
@@ -1077,6 +1163,8 @@ export type BusinessUncheckedCreateWithoutServicesInput = {
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   closings?: Prisma.CashClosingUncheckedCreateNestedManyWithoutBusinessInput
   activity?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutBusinessInput
+  vaccineCards?: Prisma.VaccineCardUncheckedCreateNestedManyWithoutBusinessInput
+  loginCodes?: Prisma.ClientLoginCodeUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutServicesInput = {
@@ -1108,6 +1196,7 @@ export type BusinessUpdateWithoutServicesInput = {
   legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUpdateManyWithoutBusinessNestedInput
@@ -1119,6 +1208,8 @@ export type BusinessUpdateWithoutServicesInput = {
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   closings?: Prisma.CashClosingUpdateManyWithoutBusinessNestedInput
   activity?: Prisma.ActivityLogUpdateManyWithoutBusinessNestedInput
+  vaccineCards?: Prisma.VaccineCardUpdateManyWithoutBusinessNestedInput
+  loginCodes?: Prisma.ClientLoginCodeUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutServicesInput = {
@@ -1134,6 +1225,7 @@ export type BusinessUncheckedUpdateWithoutServicesInput = {
   legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUncheckedUpdateManyWithoutBusinessNestedInput
@@ -1145,6 +1237,8 @@ export type BusinessUncheckedUpdateWithoutServicesInput = {
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   closings?: Prisma.CashClosingUncheckedUpdateManyWithoutBusinessNestedInput
   activity?: Prisma.ActivityLogUncheckedUpdateManyWithoutBusinessNestedInput
+  vaccineCards?: Prisma.VaccineCardUncheckedUpdateManyWithoutBusinessNestedInput
+  loginCodes?: Prisma.ClientLoginCodeUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutAddOnsInput = {
@@ -1160,6 +1254,7 @@ export type BusinessCreateWithoutAddOnsInput = {
   legalName?: string | null
   address?: string | null
   contactEmail?: string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerCreateNestedManyWithoutBusinessInput
@@ -1171,6 +1266,8 @@ export type BusinessCreateWithoutAddOnsInput = {
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   closings?: Prisma.CashClosingCreateNestedManyWithoutBusinessInput
   activity?: Prisma.ActivityLogCreateNestedManyWithoutBusinessInput
+  vaccineCards?: Prisma.VaccineCardCreateNestedManyWithoutBusinessInput
+  loginCodes?: Prisma.ClientLoginCodeCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutAddOnsInput = {
@@ -1186,6 +1283,7 @@ export type BusinessUncheckedCreateWithoutAddOnsInput = {
   legalName?: string | null
   address?: string | null
   contactEmail?: string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerUncheckedCreateNestedManyWithoutBusinessInput
@@ -1197,6 +1295,8 @@ export type BusinessUncheckedCreateWithoutAddOnsInput = {
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   closings?: Prisma.CashClosingUncheckedCreateNestedManyWithoutBusinessInput
   activity?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutBusinessInput
+  vaccineCards?: Prisma.VaccineCardUncheckedCreateNestedManyWithoutBusinessInput
+  loginCodes?: Prisma.ClientLoginCodeUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutAddOnsInput = {
@@ -1228,6 +1328,7 @@ export type BusinessUpdateWithoutAddOnsInput = {
   legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUpdateManyWithoutBusinessNestedInput
@@ -1239,6 +1340,8 @@ export type BusinessUpdateWithoutAddOnsInput = {
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   closings?: Prisma.CashClosingUpdateManyWithoutBusinessNestedInput
   activity?: Prisma.ActivityLogUpdateManyWithoutBusinessNestedInput
+  vaccineCards?: Prisma.VaccineCardUpdateManyWithoutBusinessNestedInput
+  loginCodes?: Prisma.ClientLoginCodeUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutAddOnsInput = {
@@ -1254,6 +1357,7 @@ export type BusinessUncheckedUpdateWithoutAddOnsInput = {
   legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUncheckedUpdateManyWithoutBusinessNestedInput
@@ -1265,6 +1369,8 @@ export type BusinessUncheckedUpdateWithoutAddOnsInput = {
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   closings?: Prisma.CashClosingUncheckedUpdateManyWithoutBusinessNestedInput
   activity?: Prisma.ActivityLogUncheckedUpdateManyWithoutBusinessNestedInput
+  vaccineCards?: Prisma.VaccineCardUncheckedUpdateManyWithoutBusinessNestedInput
+  loginCodes?: Prisma.ClientLoginCodeUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutClientsInput = {
@@ -1280,6 +1386,7 @@ export type BusinessCreateWithoutClientsInput = {
   legalName?: string | null
   address?: string | null
   contactEmail?: string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerCreateNestedManyWithoutBusinessInput
@@ -1291,6 +1398,8 @@ export type BusinessCreateWithoutClientsInput = {
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   closings?: Prisma.CashClosingCreateNestedManyWithoutBusinessInput
   activity?: Prisma.ActivityLogCreateNestedManyWithoutBusinessInput
+  vaccineCards?: Prisma.VaccineCardCreateNestedManyWithoutBusinessInput
+  loginCodes?: Prisma.ClientLoginCodeCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutClientsInput = {
@@ -1306,6 +1415,7 @@ export type BusinessUncheckedCreateWithoutClientsInput = {
   legalName?: string | null
   address?: string | null
   contactEmail?: string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerUncheckedCreateNestedManyWithoutBusinessInput
@@ -1317,6 +1427,8 @@ export type BusinessUncheckedCreateWithoutClientsInput = {
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   closings?: Prisma.CashClosingUncheckedCreateNestedManyWithoutBusinessInput
   activity?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutBusinessInput
+  vaccineCards?: Prisma.VaccineCardUncheckedCreateNestedManyWithoutBusinessInput
+  loginCodes?: Prisma.ClientLoginCodeUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutClientsInput = {
@@ -1348,6 +1460,7 @@ export type BusinessUpdateWithoutClientsInput = {
   legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUpdateManyWithoutBusinessNestedInput
@@ -1359,6 +1472,8 @@ export type BusinessUpdateWithoutClientsInput = {
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   closings?: Prisma.CashClosingUpdateManyWithoutBusinessNestedInput
   activity?: Prisma.ActivityLogUpdateManyWithoutBusinessNestedInput
+  vaccineCards?: Prisma.VaccineCardUpdateManyWithoutBusinessNestedInput
+  loginCodes?: Prisma.ClientLoginCodeUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutClientsInput = {
@@ -1374,6 +1489,7 @@ export type BusinessUncheckedUpdateWithoutClientsInput = {
   legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUncheckedUpdateManyWithoutBusinessNestedInput
@@ -1385,6 +1501,8 @@ export type BusinessUncheckedUpdateWithoutClientsInput = {
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   closings?: Prisma.CashClosingUncheckedUpdateManyWithoutBusinessNestedInput
   activity?: Prisma.ActivityLogUncheckedUpdateManyWithoutBusinessNestedInput
+  vaccineCards?: Prisma.VaccineCardUncheckedUpdateManyWithoutBusinessNestedInput
+  loginCodes?: Prisma.ClientLoginCodeUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutPetsInput = {
@@ -1400,6 +1518,7 @@ export type BusinessCreateWithoutPetsInput = {
   legalName?: string | null
   address?: string | null
   contactEmail?: string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerCreateNestedManyWithoutBusinessInput
@@ -1411,6 +1530,8 @@ export type BusinessCreateWithoutPetsInput = {
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   closings?: Prisma.CashClosingCreateNestedManyWithoutBusinessInput
   activity?: Prisma.ActivityLogCreateNestedManyWithoutBusinessInput
+  vaccineCards?: Prisma.VaccineCardCreateNestedManyWithoutBusinessInput
+  loginCodes?: Prisma.ClientLoginCodeCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutPetsInput = {
@@ -1426,6 +1547,7 @@ export type BusinessUncheckedCreateWithoutPetsInput = {
   legalName?: string | null
   address?: string | null
   contactEmail?: string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerUncheckedCreateNestedManyWithoutBusinessInput
@@ -1437,6 +1559,8 @@ export type BusinessUncheckedCreateWithoutPetsInput = {
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   closings?: Prisma.CashClosingUncheckedCreateNestedManyWithoutBusinessInput
   activity?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutBusinessInput
+  vaccineCards?: Prisma.VaccineCardUncheckedCreateNestedManyWithoutBusinessInput
+  loginCodes?: Prisma.ClientLoginCodeUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutPetsInput = {
@@ -1468,6 +1592,7 @@ export type BusinessUpdateWithoutPetsInput = {
   legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUpdateManyWithoutBusinessNestedInput
@@ -1479,6 +1604,8 @@ export type BusinessUpdateWithoutPetsInput = {
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   closings?: Prisma.CashClosingUpdateManyWithoutBusinessNestedInput
   activity?: Prisma.ActivityLogUpdateManyWithoutBusinessNestedInput
+  vaccineCards?: Prisma.VaccineCardUpdateManyWithoutBusinessNestedInput
+  loginCodes?: Prisma.ClientLoginCodeUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutPetsInput = {
@@ -1494,6 +1621,7 @@ export type BusinessUncheckedUpdateWithoutPetsInput = {
   legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUncheckedUpdateManyWithoutBusinessNestedInput
@@ -1505,6 +1633,8 @@ export type BusinessUncheckedUpdateWithoutPetsInput = {
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   closings?: Prisma.CashClosingUncheckedUpdateManyWithoutBusinessNestedInput
   activity?: Prisma.ActivityLogUncheckedUpdateManyWithoutBusinessNestedInput
+  vaccineCards?: Prisma.VaccineCardUncheckedUpdateManyWithoutBusinessNestedInput
+  loginCodes?: Prisma.ClientLoginCodeUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutAppointmentsInput = {
@@ -1520,6 +1650,7 @@ export type BusinessCreateWithoutAppointmentsInput = {
   legalName?: string | null
   address?: string | null
   contactEmail?: string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerCreateNestedManyWithoutBusinessInput
@@ -1531,6 +1662,8 @@ export type BusinessCreateWithoutAppointmentsInput = {
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   closings?: Prisma.CashClosingCreateNestedManyWithoutBusinessInput
   activity?: Prisma.ActivityLogCreateNestedManyWithoutBusinessInput
+  vaccineCards?: Prisma.VaccineCardCreateNestedManyWithoutBusinessInput
+  loginCodes?: Prisma.ClientLoginCodeCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutAppointmentsInput = {
@@ -1546,6 +1679,7 @@ export type BusinessUncheckedCreateWithoutAppointmentsInput = {
   legalName?: string | null
   address?: string | null
   contactEmail?: string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerUncheckedCreateNestedManyWithoutBusinessInput
@@ -1557,6 +1691,8 @@ export type BusinessUncheckedCreateWithoutAppointmentsInput = {
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   closings?: Prisma.CashClosingUncheckedCreateNestedManyWithoutBusinessInput
   activity?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutBusinessInput
+  vaccineCards?: Prisma.VaccineCardUncheckedCreateNestedManyWithoutBusinessInput
+  loginCodes?: Prisma.ClientLoginCodeUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutAppointmentsInput = {
@@ -1588,6 +1724,7 @@ export type BusinessUpdateWithoutAppointmentsInput = {
   legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUpdateManyWithoutBusinessNestedInput
@@ -1599,6 +1736,8 @@ export type BusinessUpdateWithoutAppointmentsInput = {
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   closings?: Prisma.CashClosingUpdateManyWithoutBusinessNestedInput
   activity?: Prisma.ActivityLogUpdateManyWithoutBusinessNestedInput
+  vaccineCards?: Prisma.VaccineCardUpdateManyWithoutBusinessNestedInput
+  loginCodes?: Prisma.ClientLoginCodeUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutAppointmentsInput = {
@@ -1614,6 +1753,7 @@ export type BusinessUncheckedUpdateWithoutAppointmentsInput = {
   legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUncheckedUpdateManyWithoutBusinessNestedInput
@@ -1625,6 +1765,8 @@ export type BusinessUncheckedUpdateWithoutAppointmentsInput = {
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   closings?: Prisma.CashClosingUncheckedUpdateManyWithoutBusinessNestedInput
   activity?: Prisma.ActivityLogUncheckedUpdateManyWithoutBusinessNestedInput
+  vaccineCards?: Prisma.VaccineCardUncheckedUpdateManyWithoutBusinessNestedInput
+  loginCodes?: Prisma.ClientLoginCodeUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutProductsInput = {
@@ -1640,6 +1782,7 @@ export type BusinessCreateWithoutProductsInput = {
   legalName?: string | null
   address?: string | null
   contactEmail?: string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerCreateNestedManyWithoutBusinessInput
@@ -1651,6 +1794,8 @@ export type BusinessCreateWithoutProductsInput = {
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   closings?: Prisma.CashClosingCreateNestedManyWithoutBusinessInput
   activity?: Prisma.ActivityLogCreateNestedManyWithoutBusinessInput
+  vaccineCards?: Prisma.VaccineCardCreateNestedManyWithoutBusinessInput
+  loginCodes?: Prisma.ClientLoginCodeCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutProductsInput = {
@@ -1666,6 +1811,7 @@ export type BusinessUncheckedCreateWithoutProductsInput = {
   legalName?: string | null
   address?: string | null
   contactEmail?: string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerUncheckedCreateNestedManyWithoutBusinessInput
@@ -1677,6 +1823,8 @@ export type BusinessUncheckedCreateWithoutProductsInput = {
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   closings?: Prisma.CashClosingUncheckedCreateNestedManyWithoutBusinessInput
   activity?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutBusinessInput
+  vaccineCards?: Prisma.VaccineCardUncheckedCreateNestedManyWithoutBusinessInput
+  loginCodes?: Prisma.ClientLoginCodeUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutProductsInput = {
@@ -1708,6 +1856,7 @@ export type BusinessUpdateWithoutProductsInput = {
   legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUpdateManyWithoutBusinessNestedInput
@@ -1719,6 +1868,8 @@ export type BusinessUpdateWithoutProductsInput = {
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   closings?: Prisma.CashClosingUpdateManyWithoutBusinessNestedInput
   activity?: Prisma.ActivityLogUpdateManyWithoutBusinessNestedInput
+  vaccineCards?: Prisma.VaccineCardUpdateManyWithoutBusinessNestedInput
+  loginCodes?: Prisma.ClientLoginCodeUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutProductsInput = {
@@ -1734,6 +1885,7 @@ export type BusinessUncheckedUpdateWithoutProductsInput = {
   legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUncheckedUpdateManyWithoutBusinessNestedInput
@@ -1745,6 +1897,8 @@ export type BusinessUncheckedUpdateWithoutProductsInput = {
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   closings?: Prisma.CashClosingUncheckedUpdateManyWithoutBusinessNestedInput
   activity?: Prisma.ActivityLogUncheckedUpdateManyWithoutBusinessNestedInput
+  vaccineCards?: Prisma.VaccineCardUncheckedUpdateManyWithoutBusinessNestedInput
+  loginCodes?: Prisma.ClientLoginCodeUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutSalesInput = {
@@ -1760,6 +1914,7 @@ export type BusinessCreateWithoutSalesInput = {
   legalName?: string | null
   address?: string | null
   contactEmail?: string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerCreateNestedManyWithoutBusinessInput
@@ -1771,6 +1926,8 @@ export type BusinessCreateWithoutSalesInput = {
   products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
   closings?: Prisma.CashClosingCreateNestedManyWithoutBusinessInput
   activity?: Prisma.ActivityLogCreateNestedManyWithoutBusinessInput
+  vaccineCards?: Prisma.VaccineCardCreateNestedManyWithoutBusinessInput
+  loginCodes?: Prisma.ClientLoginCodeCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutSalesInput = {
@@ -1786,6 +1943,7 @@ export type BusinessUncheckedCreateWithoutSalesInput = {
   legalName?: string | null
   address?: string | null
   contactEmail?: string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerUncheckedCreateNestedManyWithoutBusinessInput
@@ -1797,6 +1955,8 @@ export type BusinessUncheckedCreateWithoutSalesInput = {
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
   closings?: Prisma.CashClosingUncheckedCreateNestedManyWithoutBusinessInput
   activity?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutBusinessInput
+  vaccineCards?: Prisma.VaccineCardUncheckedCreateNestedManyWithoutBusinessInput
+  loginCodes?: Prisma.ClientLoginCodeUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutSalesInput = {
@@ -1828,6 +1988,7 @@ export type BusinessUpdateWithoutSalesInput = {
   legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUpdateManyWithoutBusinessNestedInput
@@ -1839,6 +2000,8 @@ export type BusinessUpdateWithoutSalesInput = {
   products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
   closings?: Prisma.CashClosingUpdateManyWithoutBusinessNestedInput
   activity?: Prisma.ActivityLogUpdateManyWithoutBusinessNestedInput
+  vaccineCards?: Prisma.VaccineCardUpdateManyWithoutBusinessNestedInput
+  loginCodes?: Prisma.ClientLoginCodeUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutSalesInput = {
@@ -1854,6 +2017,7 @@ export type BusinessUncheckedUpdateWithoutSalesInput = {
   legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUncheckedUpdateManyWithoutBusinessNestedInput
@@ -1865,6 +2029,8 @@ export type BusinessUncheckedUpdateWithoutSalesInput = {
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
   closings?: Prisma.CashClosingUncheckedUpdateManyWithoutBusinessNestedInput
   activity?: Prisma.ActivityLogUncheckedUpdateManyWithoutBusinessNestedInput
+  vaccineCards?: Prisma.VaccineCardUncheckedUpdateManyWithoutBusinessNestedInput
+  loginCodes?: Prisma.ClientLoginCodeUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutClosingsInput = {
@@ -1880,6 +2046,7 @@ export type BusinessCreateWithoutClosingsInput = {
   legalName?: string | null
   address?: string | null
   contactEmail?: string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerCreateNestedManyWithoutBusinessInput
@@ -1891,6 +2058,8 @@ export type BusinessCreateWithoutClosingsInput = {
   products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   activity?: Prisma.ActivityLogCreateNestedManyWithoutBusinessInput
+  vaccineCards?: Prisma.VaccineCardCreateNestedManyWithoutBusinessInput
+  loginCodes?: Prisma.ClientLoginCodeCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutClosingsInput = {
@@ -1906,6 +2075,7 @@ export type BusinessUncheckedCreateWithoutClosingsInput = {
   legalName?: string | null
   address?: string | null
   contactEmail?: string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerUncheckedCreateNestedManyWithoutBusinessInput
@@ -1917,6 +2087,8 @@ export type BusinessUncheckedCreateWithoutClosingsInput = {
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   activity?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutBusinessInput
+  vaccineCards?: Prisma.VaccineCardUncheckedCreateNestedManyWithoutBusinessInput
+  loginCodes?: Prisma.ClientLoginCodeUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutClosingsInput = {
@@ -1948,6 +2120,7 @@ export type BusinessUpdateWithoutClosingsInput = {
   legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUpdateManyWithoutBusinessNestedInput
@@ -1959,6 +2132,8 @@ export type BusinessUpdateWithoutClosingsInput = {
   products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   activity?: Prisma.ActivityLogUpdateManyWithoutBusinessNestedInput
+  vaccineCards?: Prisma.VaccineCardUpdateManyWithoutBusinessNestedInput
+  loginCodes?: Prisma.ClientLoginCodeUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutClosingsInput = {
@@ -1974,6 +2149,7 @@ export type BusinessUncheckedUpdateWithoutClosingsInput = {
   legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUncheckedUpdateManyWithoutBusinessNestedInput
@@ -1985,6 +2161,8 @@ export type BusinessUncheckedUpdateWithoutClosingsInput = {
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   activity?: Prisma.ActivityLogUncheckedUpdateManyWithoutBusinessNestedInput
+  vaccineCards?: Prisma.VaccineCardUncheckedUpdateManyWithoutBusinessNestedInput
+  loginCodes?: Prisma.ClientLoginCodeUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessCreateWithoutActivityInput = {
@@ -2000,6 +2178,7 @@ export type BusinessCreateWithoutActivityInput = {
   legalName?: string | null
   address?: string | null
   contactEmail?: string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerCreateNestedManyWithoutBusinessInput
@@ -2011,6 +2190,8 @@ export type BusinessCreateWithoutActivityInput = {
   products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
   closings?: Prisma.CashClosingCreateNestedManyWithoutBusinessInput
+  vaccineCards?: Prisma.VaccineCardCreateNestedManyWithoutBusinessInput
+  loginCodes?: Prisma.ClientLoginCodeCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessUncheckedCreateWithoutActivityInput = {
@@ -2026,6 +2207,7 @@ export type BusinessUncheckedCreateWithoutActivityInput = {
   legalName?: string | null
   address?: string | null
   contactEmail?: string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
   groomers?: Prisma.GroomerUncheckedCreateNestedManyWithoutBusinessInput
@@ -2037,6 +2219,8 @@ export type BusinessUncheckedCreateWithoutActivityInput = {
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
   sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
   closings?: Prisma.CashClosingUncheckedCreateNestedManyWithoutBusinessInput
+  vaccineCards?: Prisma.VaccineCardUncheckedCreateNestedManyWithoutBusinessInput
+  loginCodes?: Prisma.ClientLoginCodeUncheckedCreateNestedManyWithoutBusinessInput
 }
 
 export type BusinessCreateOrConnectWithoutActivityInput = {
@@ -2068,6 +2252,7 @@ export type BusinessUpdateWithoutActivityInput = {
   legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUpdateManyWithoutBusinessNestedInput
@@ -2079,6 +2264,8 @@ export type BusinessUpdateWithoutActivityInput = {
   products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
   closings?: Prisma.CashClosingUpdateManyWithoutBusinessNestedInput
+  vaccineCards?: Prisma.VaccineCardUpdateManyWithoutBusinessNestedInput
+  loginCodes?: Prisma.ClientLoginCodeUpdateManyWithoutBusinessNestedInput
 }
 
 export type BusinessUncheckedUpdateWithoutActivityInput = {
@@ -2094,6 +2281,7 @@ export type BusinessUncheckedUpdateWithoutActivityInput = {
   legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
   groomers?: Prisma.GroomerUncheckedUpdateManyWithoutBusinessNestedInput
@@ -2105,6 +2293,272 @@ export type BusinessUncheckedUpdateWithoutActivityInput = {
   products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
   sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
   closings?: Prisma.CashClosingUncheckedUpdateManyWithoutBusinessNestedInput
+  vaccineCards?: Prisma.VaccineCardUncheckedUpdateManyWithoutBusinessNestedInput
+  loginCodes?: Prisma.ClientLoginCodeUncheckedUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessCreateWithoutVaccineCardsInput = {
+  id?: string
+  slug: string
+  name: string
+  timezone?: string
+  slotMinutes?: number
+  openingHours: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  commissionPct?: number
+  minNoticeHours?: number
+  phone?: string | null
+  legalName?: string | null
+  address?: string | null
+  contactEmail?: string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  users?: Prisma.UserCreateNestedManyWithoutBusinessInput
+  groomers?: Prisma.GroomerCreateNestedManyWithoutBusinessInput
+  services?: Prisma.ServiceCreateNestedManyWithoutBusinessInput
+  addOns?: Prisma.AddOnCreateNestedManyWithoutBusinessInput
+  clients?: Prisma.ClientCreateNestedManyWithoutBusinessInput
+  pets?: Prisma.PetCreateNestedManyWithoutBusinessInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutBusinessInput
+  products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
+  closings?: Prisma.CashClosingCreateNestedManyWithoutBusinessInput
+  activity?: Prisma.ActivityLogCreateNestedManyWithoutBusinessInput
+  loginCodes?: Prisma.ClientLoginCodeCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessUncheckedCreateWithoutVaccineCardsInput = {
+  id?: string
+  slug: string
+  name: string
+  timezone?: string
+  slotMinutes?: number
+  openingHours: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  commissionPct?: number
+  minNoticeHours?: number
+  phone?: string | null
+  legalName?: string | null
+  address?: string | null
+  contactEmail?: string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
+  groomers?: Prisma.GroomerUncheckedCreateNestedManyWithoutBusinessInput
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutBusinessInput
+  addOns?: Prisma.AddOnUncheckedCreateNestedManyWithoutBusinessInput
+  clients?: Prisma.ClientUncheckedCreateNestedManyWithoutBusinessInput
+  pets?: Prisma.PetUncheckedCreateNestedManyWithoutBusinessInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutBusinessInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
+  closings?: Prisma.CashClosingUncheckedCreateNestedManyWithoutBusinessInput
+  activity?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutBusinessInput
+  loginCodes?: Prisma.ClientLoginCodeUncheckedCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessCreateOrConnectWithoutVaccineCardsInput = {
+  where: Prisma.BusinessWhereUniqueInput
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutVaccineCardsInput, Prisma.BusinessUncheckedCreateWithoutVaccineCardsInput>
+}
+
+export type BusinessUpsertWithoutVaccineCardsInput = {
+  update: Prisma.XOR<Prisma.BusinessUpdateWithoutVaccineCardsInput, Prisma.BusinessUncheckedUpdateWithoutVaccineCardsInput>
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutVaccineCardsInput, Prisma.BusinessUncheckedCreateWithoutVaccineCardsInput>
+  where?: Prisma.BusinessWhereInput
+}
+
+export type BusinessUpdateToOneWithWhereWithoutVaccineCardsInput = {
+  where?: Prisma.BusinessWhereInput
+  data: Prisma.XOR<Prisma.BusinessUpdateWithoutVaccineCardsInput, Prisma.BusinessUncheckedUpdateWithoutVaccineCardsInput>
+}
+
+export type BusinessUpdateWithoutVaccineCardsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  slotMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  openingHours?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
+  minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
+  groomers?: Prisma.GroomerUpdateManyWithoutBusinessNestedInput
+  services?: Prisma.ServiceUpdateManyWithoutBusinessNestedInput
+  addOns?: Prisma.AddOnUpdateManyWithoutBusinessNestedInput
+  clients?: Prisma.ClientUpdateManyWithoutBusinessNestedInput
+  pets?: Prisma.PetUpdateManyWithoutBusinessNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutBusinessNestedInput
+  products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
+  closings?: Prisma.CashClosingUpdateManyWithoutBusinessNestedInput
+  activity?: Prisma.ActivityLogUpdateManyWithoutBusinessNestedInput
+  loginCodes?: Prisma.ClientLoginCodeUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessUncheckedUpdateWithoutVaccineCardsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  slotMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  openingHours?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
+  minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
+  groomers?: Prisma.GroomerUncheckedUpdateManyWithoutBusinessNestedInput
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutBusinessNestedInput
+  addOns?: Prisma.AddOnUncheckedUpdateManyWithoutBusinessNestedInput
+  clients?: Prisma.ClientUncheckedUpdateManyWithoutBusinessNestedInput
+  pets?: Prisma.PetUncheckedUpdateManyWithoutBusinessNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutBusinessNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
+  closings?: Prisma.CashClosingUncheckedUpdateManyWithoutBusinessNestedInput
+  activity?: Prisma.ActivityLogUncheckedUpdateManyWithoutBusinessNestedInput
+  loginCodes?: Prisma.ClientLoginCodeUncheckedUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessCreateWithoutLoginCodesInput = {
+  id?: string
+  slug: string
+  name: string
+  timezone?: string
+  slotMinutes?: number
+  openingHours: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  commissionPct?: number
+  minNoticeHours?: number
+  phone?: string | null
+  legalName?: string | null
+  address?: string | null
+  contactEmail?: string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  users?: Prisma.UserCreateNestedManyWithoutBusinessInput
+  groomers?: Prisma.GroomerCreateNestedManyWithoutBusinessInput
+  services?: Prisma.ServiceCreateNestedManyWithoutBusinessInput
+  addOns?: Prisma.AddOnCreateNestedManyWithoutBusinessInput
+  clients?: Prisma.ClientCreateNestedManyWithoutBusinessInput
+  pets?: Prisma.PetCreateNestedManyWithoutBusinessInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutBusinessInput
+  products?: Prisma.ProductCreateNestedManyWithoutBusinessInput
+  sales?: Prisma.SaleCreateNestedManyWithoutBusinessInput
+  closings?: Prisma.CashClosingCreateNestedManyWithoutBusinessInput
+  activity?: Prisma.ActivityLogCreateNestedManyWithoutBusinessInput
+  vaccineCards?: Prisma.VaccineCardCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessUncheckedCreateWithoutLoginCodesInput = {
+  id?: string
+  slug: string
+  name: string
+  timezone?: string
+  slotMinutes?: number
+  openingHours: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  commissionPct?: number
+  minNoticeHours?: number
+  phone?: string | null
+  legalName?: string | null
+  address?: string | null
+  contactEmail?: string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutBusinessInput
+  groomers?: Prisma.GroomerUncheckedCreateNestedManyWithoutBusinessInput
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutBusinessInput
+  addOns?: Prisma.AddOnUncheckedCreateNestedManyWithoutBusinessInput
+  clients?: Prisma.ClientUncheckedCreateNestedManyWithoutBusinessInput
+  pets?: Prisma.PetUncheckedCreateNestedManyWithoutBusinessInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutBusinessInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutBusinessInput
+  sales?: Prisma.SaleUncheckedCreateNestedManyWithoutBusinessInput
+  closings?: Prisma.CashClosingUncheckedCreateNestedManyWithoutBusinessInput
+  activity?: Prisma.ActivityLogUncheckedCreateNestedManyWithoutBusinessInput
+  vaccineCards?: Prisma.VaccineCardUncheckedCreateNestedManyWithoutBusinessInput
+}
+
+export type BusinessCreateOrConnectWithoutLoginCodesInput = {
+  where: Prisma.BusinessWhereUniqueInput
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutLoginCodesInput, Prisma.BusinessUncheckedCreateWithoutLoginCodesInput>
+}
+
+export type BusinessUpsertWithoutLoginCodesInput = {
+  update: Prisma.XOR<Prisma.BusinessUpdateWithoutLoginCodesInput, Prisma.BusinessUncheckedUpdateWithoutLoginCodesInput>
+  create: Prisma.XOR<Prisma.BusinessCreateWithoutLoginCodesInput, Prisma.BusinessUncheckedCreateWithoutLoginCodesInput>
+  where?: Prisma.BusinessWhereInput
+}
+
+export type BusinessUpdateToOneWithWhereWithoutLoginCodesInput = {
+  where?: Prisma.BusinessWhereInput
+  data: Prisma.XOR<Prisma.BusinessUpdateWithoutLoginCodesInput, Prisma.BusinessUncheckedUpdateWithoutLoginCodesInput>
+}
+
+export type BusinessUpdateWithoutLoginCodesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  slotMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  openingHours?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
+  minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUpdateManyWithoutBusinessNestedInput
+  groomers?: Prisma.GroomerUpdateManyWithoutBusinessNestedInput
+  services?: Prisma.ServiceUpdateManyWithoutBusinessNestedInput
+  addOns?: Prisma.AddOnUpdateManyWithoutBusinessNestedInput
+  clients?: Prisma.ClientUpdateManyWithoutBusinessNestedInput
+  pets?: Prisma.PetUpdateManyWithoutBusinessNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutBusinessNestedInput
+  products?: Prisma.ProductUpdateManyWithoutBusinessNestedInput
+  sales?: Prisma.SaleUpdateManyWithoutBusinessNestedInput
+  closings?: Prisma.CashClosingUpdateManyWithoutBusinessNestedInput
+  activity?: Prisma.ActivityLogUpdateManyWithoutBusinessNestedInput
+  vaccineCards?: Prisma.VaccineCardUpdateManyWithoutBusinessNestedInput
+}
+
+export type BusinessUncheckedUpdateWithoutLoginCodesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  slotMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  openingHours?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  commissionPct?: Prisma.IntFieldUpdateOperationsInput | number
+  minNoticeHours?: Prisma.IntFieldUpdateOperationsInput | number
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  legalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vaccinePolicy?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUncheckedUpdateManyWithoutBusinessNestedInput
+  groomers?: Prisma.GroomerUncheckedUpdateManyWithoutBusinessNestedInput
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutBusinessNestedInput
+  addOns?: Prisma.AddOnUncheckedUpdateManyWithoutBusinessNestedInput
+  clients?: Prisma.ClientUncheckedUpdateManyWithoutBusinessNestedInput
+  pets?: Prisma.PetUncheckedUpdateManyWithoutBusinessNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutBusinessNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutBusinessNestedInput
+  sales?: Prisma.SaleUncheckedUpdateManyWithoutBusinessNestedInput
+  closings?: Prisma.CashClosingUncheckedUpdateManyWithoutBusinessNestedInput
+  activity?: Prisma.ActivityLogUncheckedUpdateManyWithoutBusinessNestedInput
+  vaccineCards?: Prisma.VaccineCardUncheckedUpdateManyWithoutBusinessNestedInput
 }
 
 
@@ -2124,6 +2578,8 @@ export type BusinessCountOutputType = {
   sales: number
   closings: number
   activity: number
+  vaccineCards: number
+  loginCodes: number
 }
 
 export type BusinessCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2138,6 +2594,8 @@ export type BusinessCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensio
   sales?: boolean | BusinessCountOutputTypeCountSalesArgs
   closings?: boolean | BusinessCountOutputTypeCountClosingsArgs
   activity?: boolean | BusinessCountOutputTypeCountActivityArgs
+  vaccineCards?: boolean | BusinessCountOutputTypeCountVaccineCardsArgs
+  loginCodes?: boolean | BusinessCountOutputTypeCountLoginCodesArgs
 }
 
 /**
@@ -2227,6 +2685,20 @@ export type BusinessCountOutputTypeCountActivityArgs<ExtArgs extends runtime.Typ
   where?: Prisma.ActivityLogWhereInput
 }
 
+/**
+ * BusinessCountOutputType without action
+ */
+export type BusinessCountOutputTypeCountVaccineCardsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.VaccineCardWhereInput
+}
+
+/**
+ * BusinessCountOutputType without action
+ */
+export type BusinessCountOutputTypeCountLoginCodesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClientLoginCodeWhereInput
+}
+
 
 export type BusinessSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2241,6 +2713,7 @@ export type BusinessSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   legalName?: boolean
   address?: boolean
   contactEmail?: boolean
+  vaccinePolicy?: boolean
   createdAt?: boolean
   users?: boolean | Prisma.Business$usersArgs<ExtArgs>
   groomers?: boolean | Prisma.Business$groomersArgs<ExtArgs>
@@ -2253,6 +2726,8 @@ export type BusinessSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   sales?: boolean | Prisma.Business$salesArgs<ExtArgs>
   closings?: boolean | Prisma.Business$closingsArgs<ExtArgs>
   activity?: boolean | Prisma.Business$activityArgs<ExtArgs>
+  vaccineCards?: boolean | Prisma.Business$vaccineCardsArgs<ExtArgs>
+  loginCodes?: boolean | Prisma.Business$loginCodesArgs<ExtArgs>
   _count?: boolean | Prisma.BusinessCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["business"]>
 
@@ -2269,6 +2744,7 @@ export type BusinessSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   legalName?: boolean
   address?: boolean
   contactEmail?: boolean
+  vaccinePolicy?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["business"]>
 
@@ -2285,6 +2761,7 @@ export type BusinessSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   legalName?: boolean
   address?: boolean
   contactEmail?: boolean
+  vaccinePolicy?: boolean
   createdAt?: boolean
 }, ExtArgs["result"]["business"]>
 
@@ -2301,10 +2778,11 @@ export type BusinessSelectScalar = {
   legalName?: boolean
   address?: boolean
   contactEmail?: boolean
+  vaccinePolicy?: boolean
   createdAt?: boolean
 }
 
-export type BusinessOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "name" | "timezone" | "slotMinutes" | "openingHours" | "commissionPct" | "minNoticeHours" | "phone" | "legalName" | "address" | "contactEmail" | "createdAt", ExtArgs["result"]["business"]>
+export type BusinessOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "name" | "timezone" | "slotMinutes" | "openingHours" | "commissionPct" | "minNoticeHours" | "phone" | "legalName" | "address" | "contactEmail" | "vaccinePolicy" | "createdAt", ExtArgs["result"]["business"]>
 export type BusinessInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   users?: boolean | Prisma.Business$usersArgs<ExtArgs>
   groomers?: boolean | Prisma.Business$groomersArgs<ExtArgs>
@@ -2317,6 +2795,8 @@ export type BusinessInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   sales?: boolean | Prisma.Business$salesArgs<ExtArgs>
   closings?: boolean | Prisma.Business$closingsArgs<ExtArgs>
   activity?: boolean | Prisma.Business$activityArgs<ExtArgs>
+  vaccineCards?: boolean | Prisma.Business$vaccineCardsArgs<ExtArgs>
+  loginCodes?: boolean | Prisma.Business$loginCodesArgs<ExtArgs>
   _count?: boolean | Prisma.BusinessCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type BusinessIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -2336,6 +2816,8 @@ export type $BusinessPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     sales: Prisma.$SalePayload<ExtArgs>[]
     closings: Prisma.$CashClosingPayload<ExtArgs>[]
     activity: Prisma.$ActivityLogPayload<ExtArgs>[]
+    vaccineCards: Prisma.$VaccineCardPayload<ExtArgs>[]
+    loginCodes: Prisma.$ClientLoginCodePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2359,6 +2841,10 @@ export type $BusinessPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     legalName: string | null
     address: string | null
     contactEmail: string | null
+    /**
+     * [{ key, label, months, required }] — vacunas que se exigen y cuántos meses dura cada una
+     */
+    vaccinePolicy: runtime.JsonValue | null
     createdAt: Date
   }, ExtArgs["result"]["business"]>
   composites: {}
@@ -2765,6 +3251,8 @@ export interface Prisma__BusinessClient<T, Null = never, ExtArgs extends runtime
   sales<T extends Prisma.Business$salesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$salesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SalePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   closings<T extends Prisma.Business$closingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$closingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CashClosingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   activity<T extends Prisma.Business$activityArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$activityArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ActivityLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  vaccineCards<T extends Prisma.Business$vaccineCardsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$vaccineCardsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$VaccineCardPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  loginCodes<T extends Prisma.Business$loginCodesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Business$loginCodesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientLoginCodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2806,6 +3294,7 @@ export interface BusinessFieldRefs {
   readonly legalName: Prisma.FieldRef<"Business", 'String'>
   readonly address: Prisma.FieldRef<"Business", 'String'>
   readonly contactEmail: Prisma.FieldRef<"Business", 'String'>
+  readonly vaccinePolicy: Prisma.FieldRef<"Business", 'Json'>
   readonly createdAt: Prisma.FieldRef<"Business", 'DateTime'>
 }
     
@@ -3461,6 +3950,54 @@ export type Business$activityArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.ActivityLogScalarFieldEnum | Prisma.ActivityLogScalarFieldEnum[]
+}
+
+/**
+ * Business.vaccineCards
+ */
+export type Business$vaccineCardsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the VaccineCard
+   */
+  select?: Prisma.VaccineCardSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the VaccineCard
+   */
+  omit?: Prisma.VaccineCardOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.VaccineCardInclude<ExtArgs> | null
+  where?: Prisma.VaccineCardWhereInput
+  orderBy?: Prisma.VaccineCardOrderByWithRelationInput | Prisma.VaccineCardOrderByWithRelationInput[]
+  cursor?: Prisma.VaccineCardWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.VaccineCardScalarFieldEnum | Prisma.VaccineCardScalarFieldEnum[]
+}
+
+/**
+ * Business.loginCodes
+ */
+export type Business$loginCodesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ClientLoginCode
+   */
+  select?: Prisma.ClientLoginCodeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ClientLoginCode
+   */
+  omit?: Prisma.ClientLoginCodeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientLoginCodeInclude<ExtArgs> | null
+  where?: Prisma.ClientLoginCodeWhereInput
+  orderBy?: Prisma.ClientLoginCodeOrderByWithRelationInput | Prisma.ClientLoginCodeOrderByWithRelationInput[]
+  cursor?: Prisma.ClientLoginCodeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClientLoginCodeScalarFieldEnum | Prisma.ClientLoginCodeScalarFieldEnum[]
 }
 
 /**

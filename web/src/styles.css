@@ -214,3 +214,14 @@ table.heat td{width:30px;height:26px;padding:0;text-align:center;border-radius:5
 .heat .lv4,.heat-legend .lv4{background:var(--accent);color:var(--accent-ink)}
 .heat-legend{display:flex;align-items:center;gap:4px;font-size:.75rem;margin-top:6px}
 .heat-legend i{width:16px;height:12px;border-radius:3px;display:inline-block}
+/* cartillas */
+.vcard{display:grid;grid-template-columns:260px minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:760px){.vcard{grid-template-columns:1fr}}
+.vimg img{width:100%;border-radius:10px;border:1px solid var(--line);display:block;background:var(--bg)}
+.vinfo{display:grid;gap:10px}
+.vtable{font-size:.88rem}
+.ok-txt{color:var(--accent);font-weight:700;white-space:nowrap}
+.bad-txt{color:var(--warn);font-weight:700;white-space:nowrap}
+.client-row .r{text-align:right}
+.tabs .tab{position:relative}
+.badge{display:inline-grid;place-items:center;min-width:18px;height:18px;padding:0 5px;margin-left:6px;border-radius:99px;background:var(--warn);color:#fff;font-size:.7rem;font-weight:700;vertical-align:1px}

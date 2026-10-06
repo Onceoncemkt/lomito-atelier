@@ -35,3 +35,8 @@ services:
         sync: false
       - key: WHATSAPP_TEMPLATE_CONFIRM
         sync: false
+      - key: WHATSAPP_TEMPLATE_CODE
+        sync: false
+      # Lectura de cartillas con IA (console.anthropic.com)
+      - key: ANTHROPIC_API_KEY
+        sync: false

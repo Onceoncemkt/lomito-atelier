@@ -1,8 +1,19 @@
 import { Link, NavLink, Navigate, Outlet } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { api } from "../api";
 import { useSession } from "../session";
 
 export default function Panel() {
   const { me, loading, logout } = useSession();
+  const [pending, setPending] = useState(0);
+  const canReview = !!me && me.user.role !== "GROOMER";
+  useEffect(() => {
+    if (!canReview) return;
+    const get = () => api<{ pending: number }>("/api/vaccine-cards", { query: { status: "PENDING" } }).then((r) => setPending(r.pending)).catch(() => {});
+    get();
+    const t = setInterval(get, 120_000);
+    return () => clearInterval(t);
+  }, [canReview]);
   if (loading) return <p className="loading wrap">Cargando…</p>;
   if (!me) return <Navigate to="/panel/login" replace />;
   const role = me.user.role;
@@ -10,6 +21,7 @@ export default function Panel() {
     { to: "/panel", label: "Agenda", end: true, show: true },
     { to: "/panel/clientes", label: "Clientes", show: role !== "GROOMER" },
     { to: "/panel/caja", label: "Caja", show: role !== "GROOMER" },
+    { to: "/panel/cartillas", label: "Cartillas", show: role !== "GROOMER", badge: pending },
     { to: "/panel/reportes", label: "Reportes", show: role === "OWNER" },
     { to: "/panel/comisiones", label: "Comisiones", show: role === "OWNER" },
     { to: "/panel/ajustes", label: "Ajustes", show: role === "OWNER" },
@@ -31,6 +43,7 @@ export default function Panel() {
           {tabs.map((t) => (
             <NavLink key={t.to} to={t.to} end={t.end} className="tab">
               {t.label}
+              {"badge" in t && t.badge ? <span className="badge" aria-label={`${t.badge} por revisar`}>{t.badge}</span> : null}
             </NavLink>
           ))}
         </nav>

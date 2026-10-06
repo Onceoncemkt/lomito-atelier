@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api";
 import { useSession } from "../session";
+import { VACCINE_LABEL } from "../image";
 import { useCatalog, type Catalog } from "../useCatalog";
 import {
   money, todayYmd, addDays, dayParts, hm, minutesOf, localIso, SIZES, SIZE_LABEL, STATUS_LABEL, SOURCE_LABEL, waLink, longDate, cap,
@@ -21,7 +22,7 @@ export type Appt = {
   groomer: { id: string; name: string };
   service: { id: string; name: string };
   addOns: { id: string; name: string; price: number }[];
-  pet: { id: string; name: string; breed: string | null; notes: string | null };
+  pet: { id: string; name: string; breed: string | null; notes: string | null; vaccine?: string; vaccineExpiresAt?: string | null };
   client: { id: string; name: string; phone: string };
   visits?: number;
   manageToken?: string | null;
@@ -209,6 +210,7 @@ function Calendar({ day, selId, onSelect, onEmpty }: {
                       <span className={`chip ${a.useCabin ? "cab" : "mano"}`}>{a.useCabin ? "Cabina" : "A mano"}</span>{" "}
                       {a.paid && <span className="chip paid">Pagado</span>}
                       {a.status === "NO_SHOW" && <span className="chip">No llegó</span>}
+                      {a.pet.vaccine && a.pet.vaccine !== "APPROVED" && a.status === "BOOKED" && <span className="chip mano" title={VACCINE_LABEL[a.pet.vaccine]?.text}>Cartilla</span>}
                     </span>
                   </button>
                 );
@@ -273,6 +275,10 @@ function Detail({ a, day, staff, onChanged, onCharge }: { a: Appt; day: Day; sta
         <span>Dueño</span><b>{a.client.name}</b>
         <span>WhatsApp</span><b><a href={waLink(a.client.phone, "")} target="_blank" rel="noreferrer">{a.client.phone}</a></b>
         <span>Agendó por</span><b>{SOURCE_LABEL[a.source]}</b>
+        {a.pet.vaccine && (<><span>Cartilla</span><b>
+          <span className={`chip ${VACCINE_LABEL[a.pet.vaccine]?.cls}`}>{VACCINE_LABEL[a.pet.vaccine]?.text}</span>
+          {a.pet.vaccine === "PENDING" && staff && <> <a href="/panel/cartillas">Revisar</a></>}
+        </b></>)}
         {(a.notes || a.pet.notes) && (<><span>Notas</span><b style={{ fontWeight: 500 }}>{[a.pet.notes, a.notes].filter(Boolean).join(" · ")}</b></>)}
       </div>
       {err && <div className="err" role="alert">{err}</div>}

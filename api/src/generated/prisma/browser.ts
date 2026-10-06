@@ -92,3 +92,13 @@ export type CashClosing = Prisma.CashClosingModel
  * 
  */
 export type ActivityLog = Prisma.ActivityLogModel
+/**
+ * Model VaccineCard
+ * Foto o PDF de la cartilla de vacunación, con la lectura de la IA y la decisión del equipo.
+ */
+export type VaccineCard = Prisma.VaccineCardModel
+/**
+ * Model ClientLoginCode
+ * Códigos de un solo uso para que el cliente entre a su cuenta por WhatsApp.
+ */
+export type ClientLoginCode = Prisma.ClientLoginCodeModel

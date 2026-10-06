@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
-import { api, BUSINESS_SLUG } from "../api";
+import { useNavigate, useParams } from "react-router-dom";
+import { api, BUSINESS_SLUG, enterWithLink } from "../api";
 import { money, SIZE_LABEL, todayYmd, addDays, dayParts, longDate, cap, hm, ymd } from "../format";
 import { useLightTheme } from "../useLightTheme";
 
@@ -29,6 +29,7 @@ const WHATSAPP = import.meta.env.VITE_WHATSAPP as string | undefined;
 export default function Cita() {
   useLightTheme();
   const { token = "" } = useParams();
+  const nav = useNavigate();
   const [data, setData] = useState<Data | null>(null);
   const [err, setErr] = useState("");
   const [mode, setMode] = useState<"view" | "move" | "cancel">("view");
@@ -166,6 +167,9 @@ export default function Cita() {
               )}
 
               {!data.canChange && data.reason && a!.status !== "CANCELLED" && <p className="hint">{data.reason}</p>}
+              <button className="btn ghost" onClick={() => enterWithLink(token).then(() => nav("/mi-lomito")).catch((e) => setErr(e.message))}>
+                Mi cuenta: mis lomitos, cartilla e historial
+              </button>
               {a!.status === "CANCELLED" && <a className="btn" style={{ textAlign: "center", textDecoration: "none" }} href="/">Agendar otra cita</a>}
               {contact && (
                 <a className="btn ghost" style={{ textAlign: "center", textDecoration: "none" }} href={`https://wa.me/52${contact}`} target="_blank" rel="noreferrer">

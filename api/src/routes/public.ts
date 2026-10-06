@@ -6,6 +6,7 @@ import { parse, conflict, badRequest } from "../lib/errors.js";
 import { computeSlots, pickGroomer } from "../lib/availability.js";
 import { openWindow, localDate, type OpeningHours, DATE_RE } from "../lib/time.js";
 import { sendConfirmation } from "../lib/reminders.js";
+import { whatsappStatus } from "../lib/whatsapp.js";
 import { businessBySlug, quote, busyBetween, lockDay, upsertClientPet, createAppointment } from "../lib/booking.js";
 
 export const SIZES = ["CHICO", "MEDIANO", "GRANDE", "GIGANTE"] as const;
@@ -26,7 +27,8 @@ publicRouter.get("/:slug", async (req, res) => {
   ]);
   res.json({
     business: { slug: b.slug, name: b.name, timezone: b.timezone, phone: b.phone, openingHours: b.openingHours, minNoticeHours: b.minNoticeHours,
-      legalName: b.legalName, address: b.address, contactEmail: b.contactEmail },
+      legalName: b.legalName, address: b.address, contactEmail: b.contactEmail,
+      codeLogin: whatsappStatus().loginCodes },
     services: services.map((s) => ({
       code: s.code,
       name: s.name,

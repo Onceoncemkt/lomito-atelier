@@ -25,13 +25,17 @@ export class ApiError extends Error {
   }
 }
 
-export async function api<T = any>(path: string, opts: { method?: string; body?: unknown; query?: Record<string, string | number | undefined> } = {}): Promise<T> {
+export async function api<T = any>(
+  path: string,
+  opts: { method?: string; body?: unknown; query?: Record<string, string | number | undefined>; token?: string | null } = {},
+): Promise<T> {
   const url = new URL(API_URL + path);
   for (const [k, v] of Object.entries(opts.query ?? {})) if (v !== undefined && v !== "") url.searchParams.set(k, String(v));
   const headers: Record<string, string> = {};
   if (opts.body !== undefined) headers["Content-Type"] = "application/json";
   const token = getToken();
-  if (token && !path.startsWith("/public")) headers.Authorization = `Bearer ${token}`;
+  if (opts.token) headers.Authorization = `Bearer ${opts.token}`;
+  else if (token && !path.startsWith("/public")) headers.Authorization = `Bearer ${token}`;
   let res: Response;
   try {
     res = await fetch(url, { method: opts.method ?? "GET", headers, body: opts.body !== undefined ? JSON.stringify(opts.body) : undefined });
@@ -48,4 +52,27 @@ export async function api<T = any>(path: string, opts: { method?: string; body?:
     throw new ApiError(res.status, (data?.error ?? "Algo salió mal") + detail, data);
   }
   return data as T;
+}
+
+// ---- sesión del cliente ("Mi lomito"), separada de la del equipo
+const CLIENT_KEY = "lomito.client";
+export function getClientToken() {
+  try {
+    return localStorage.getItem(CLIENT_KEY);
+  } catch {
+    return null;
+  }
+}
+export function setClientToken(t: string | null) {
+  try {
+    if (t) localStorage.setItem(CLIENT_KEY, t);
+    else localStorage.removeItem(CLIENT_KEY);
+  } catch {
+    /* sin almacenamiento */
+  }
+}
+/** Abre la cuenta del cliente a partir de la liga de una cita. */
+export async function enterWithLink(manageToken: string) {
+  const r = await api<{ token: string }>(`/public/${BUSINESS_SLUG}/account/from-link`, { method: "POST", body: { token: manageToken } });
+  setClientToken(r.token);
 }

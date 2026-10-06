@@ -56,6 +56,9 @@ export const dayParts = (date: string) => {
 };
 export const longDate = (date: string) =>
   new Date(date + "T12:00:00Z").toLocaleDateString("es-MX", { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" });
+/** "6 jul 2026" */
+export const shortDate = (date: string) =>
+  new Date(date + "T12:00:00Z").toLocaleDateString("es-MX", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).replace(".", "");
 export const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
 /** ISO UTC para una fecha y hora locales de Tulancingo (UTC-6 todo el año desde 2022). */

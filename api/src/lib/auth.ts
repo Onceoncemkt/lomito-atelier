@@ -39,6 +39,7 @@ export const requireAuth: RequestHandler = async (req, _res, next) => {
   } catch {
     throw new HttpError(401, "Sesión vencida, vuelve a entrar");
   }
+  if (p.kind === "client") throw new HttpError(401, "Inicia sesión");
   const u = await prisma.user.findUnique({ where: { id: p.sub! }, select: { active: true, role: true, businessId: true, groomerId: true, name: true } });
   if (!u || !u.active || u.businessId !== p.businessId) throw new HttpError(401, "Inicia sesión");
   req.user = { id: p.sub!, businessId: u.businessId, role: u.role, groomerId: u.groomerId, name: u.name };

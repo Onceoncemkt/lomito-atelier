@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { api } from "../api";
-import { money, SIZES, SIZE_LABEL, STATUS_LABEL, ymd, hm, waLink } from "../format";
+import { money, SIZES, SIZE_LABEL, STATUS_LABEL, ymd, hm, waLink, shortDate } from "../format";
+import { fileToDataUrl, VACCINE_LABEL } from "../image";
 
 type Row = { id: string; name: string; phone: string; pets: { id: string; name: string; breed: string | null; size: string }[]; visits: number; spent: number; lastVisit: string | null };
 type Full = {
   id: string; name: string; phone: string; email: string | null; notes: string | null;
-  pets: { id: string; name: string; breed: string | null; size: string; notes: string | null; cabinOk: boolean | null; cabin: boolean }[];
+  pets: { id: string; name: string; breed: string | null; size: string; notes: string | null; cabinOk: boolean | null; cabin: boolean; vaccine: string; vaccineExpiresAt: string | null }[];
   history: { id: string; startsAt: string; status: string; price: number; paid: boolean; service: string; groomer: string; pet: string }[];
 };
 
@@ -94,6 +95,23 @@ function ClientCard({ id, onChanged }: { id: string; onChanged: () => void }) {
             <span className={`chip ${p.cabin ? "cab" : "mano"}`}>{p.cabin ? "Cabina" : "A mano"}</span>
           </div>
           <span className="muted">{p.breed ?? "Sin raza"} · {SIZE_LABEL[p.size]?.name}</span>
+          <div className="inline">
+            <span className={`chip ${VACCINE_LABEL[p.vaccine]?.cls}`}>{VACCINE_LABEL[p.vaccine]?.text}</span>
+            {p.vaccine === "APPROVED" && p.vaccineExpiresAt && <span className="muted" style={{ fontSize: ".8rem" }}>hasta {shortDate(ymd(new Date(p.vaccineExpiresAt)))}</span>}
+            {p.vaccine === "PENDING" && <a href="/panel/cartillas" style={{ fontSize: ".85rem" }}>Revisar</a>}
+            <label className="linkbtn" style={{ fontSize: ".85rem" }}>
+              Subir cartilla
+              <input type="file" accept="image/*,application/pdf" hidden onChange={async (e) => {
+                const f = e.target.files?.[0];
+                if (!f) return;
+                try {
+                  const dataUrl = await fileToDataUrl(f);
+                  await api(`/api/pets/${p.id}/vaccine-card`, { method: "POST", body: { dataUrl } });
+                  load();
+                } catch (x: any) { setErr(x.message); }
+              }} />
+            </label>
+          </div>
           <div className="field">
             <label htmlFor={`n${p.id}`}>Notas del lomito</label>
             <textarea id={`n${p.id}`} rows={2} defaultValue={p.notes ?? ""} onBlur={(e) => e.target.value !== (p.notes ?? "") && savePet(p.id, { notes: e.target.value || null })} placeholder="Alergias, carácter, corte favorito…" />

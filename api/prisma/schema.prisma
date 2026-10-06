@@ -46,6 +46,19 @@ enum PayMethod {
   TRANSFER
 }
 
+enum VaccineStatus {
+  NONE
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum CardReview {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
 enum SaleItemKind {
   SERVICE
   PRODUCT
@@ -67,6 +80,8 @@ model Business {
   legalName     String?
   address       String?
   contactEmail  String?
+  /// [{ key, label, months, required }] — vacunas que se exigen y cuántos meses dura cada una
+  vaccinePolicy Json?
   createdAt     DateTime @default(now())
 
   users        User[]
@@ -80,6 +95,8 @@ model Business {
   sales        Sale[]
   closings     CashClosing[]
   activity     ActivityLog[]
+  vaccineCards VaccineCard[]
+  loginCodes   ClientLoginCode[]
 }
 
 model User {
@@ -186,9 +203,13 @@ model Pet {
   notes      String?
   /// null = decidir por raza/tamaño; true = cabina; false = a mano
   cabinOk    Boolean?
+  vaccineStatus    VaccineStatus @default(NONE)
+  /// Hasta cuándo valen las vacunas aprobadas (la primera que vence)
+  vaccineExpiresAt DateTime?
   createdAt  DateTime @default(now())
 
   appointments Appointment[]
+  vaccineCards VaccineCard[]
 
   @@index([businessId, clientId])
 }
@@ -312,4 +333,48 @@ model ActivityLog {
   createdAt  DateTime @default(now())
 
   @@index([businessId, createdAt])
+}
+
+/// Foto o PDF de la cartilla de vacunación, con la lectura de la IA y la decisión del equipo.
+model VaccineCard {
+  id           String     @id @default(cuid())
+  businessId   String
+  business     Business   @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  petId        String
+  pet          Pet        @relation(fields: [petId], references: [id], onDelete: Cascade)
+  data         Bytes
+  mimeType     String
+  /// CLIENT | STAFF
+  uploadedBy   String
+  /// PENDING | DONE | ERROR | SKIPPED
+  aiStatus     String     @default("PENDING")
+  /// Lectura de la IA: { legible, vaccines: [...], notes }
+  aiResult     Json?
+  /// APPROVE | REVIEW | REJECT
+  aiSuggestion String?
+  aiSummary    String?
+  review       CardReview @default(PENDING)
+  reviewNote   String?
+  reviewedBy   String?
+  reviewedAt   DateTime?
+  expiresAt    DateTime?
+  createdAt    DateTime   @default(now())
+
+  @@index([businessId, review])
+  @@index([petId])
+}
+
+/// Códigos de un solo uso para que el cliente entre a su cuenta por WhatsApp.
+model ClientLoginCode {
+  id         String    @id @default(cuid())
+  businessId String
+  business   Business  @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  phone      String
+  codeHash   String
+  attempts   Int       @default(0)
+  expiresAt  DateTime
+  usedAt     DateTime?
+  createdAt  DateTime  @default(now())
+
+  @@index([businessId, phone])
 }

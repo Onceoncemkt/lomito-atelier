@@ -5,6 +5,7 @@ import { parse, notFound, conflict } from "../lib/errors.js";
 import { allow, STAFF } from "../lib/auth.js";
 import { normalizePhone } from "../lib/booking.js";
 import { canUseCabin } from "../lib/cabin.js";
+import { effectiveVaccineStatus } from "../lib/vaccines.js";
 import { SIZES } from "./public.js";
 
 export const clientsRouter = Router();
@@ -71,7 +72,7 @@ clientsRouter.get("/clients/:id", async (req, res) => {
     phone: c.phone,
     email: c.email,
     notes: c.notes,
-    pets: c.pets.map((p) => ({ ...p, cabin: canUseCabin(p.breed, p.size, p.cabinOk) })),
+    pets: c.pets.map((p) => ({ ...p, cabin: canUseCabin(p.breed, p.size, p.cabinOk), vaccine: effectiveVaccineStatus(p) })),
     history: c.appointments.map((a) => ({
       id: a.id,
       startsAt: a.startsAt,

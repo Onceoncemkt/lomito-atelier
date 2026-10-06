@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, type FormEvent } from "react";
-import { api, BUSINESS_SLUG } from "../api";
+import { api, BUSINESS_SLUG, enterWithLink } from "../api";
 import { guessSize, SIZE_EXAMPLES, type Size } from "../breeds";
 import BreedInput from "../BreedInput";
 import { useLightTheme } from "../useLightTheme";
@@ -226,6 +226,11 @@ export default function Reservar() {
                   href={`https://wa.me/?text=${encodeURIComponent(`Mi cita en Lomito Atelier: ${location.origin}/cita/${done.manageToken}`)}`}>Mandármela por WhatsApp</a>
               </div>
             </div>
+            <div className="summary" style={{ gap: 8 }}>
+              <b>Sube la cartilla de {done.petName}</b>
+              <span className="muted" style={{ fontSize: ".88rem" }}>Pedimos vacunas al día para cuidar a todos. Súbela desde tu cuenta y la revisamos antes de tu cita.</span>
+              <button className="btn" onClick={() => enterWithLink(done.manageToken).then(() => { location.href = "/mi-lomito"; })}>Subir cartilla ahora</button>
+            </div>
             <button className="btn ghost" onClick={() => location.reload()}>Agendar otro lomito</button>
           </div>
         </div>
@@ -443,7 +448,7 @@ export default function Reservar() {
             </div>
           )}
           <p className="footer-note">
-            Pagas en el atelier · {openDaysText(menu.business.openingHours)}
+            <a href="/mi-lomito">Mi cuenta</a> · Pagas en el atelier · {openDaysText(menu.business.openingHours)}
             {contactPhone ? (
               <>
                 {" · "}

@@ -5,7 +5,9 @@ import { money, SIZES, SIZE_LABEL } from "../format";
 type Prices = Partial<Record<string, { price: number; durationMin: number }>>;
 type Settings = {
   business: { name: string; slug: string; phone: string | null; openingHours: Record<string, { open: string; close: string } | null>; commissionPct: number; minNoticeHours: number; legalName: string | null; address: string | null; contactEmail: string | null };
-  whatsapp: { configured: boolean; reminders: boolean; confirmations: boolean };
+  whatsapp: { configured: boolean; reminders: boolean; confirmations: boolean; loginCodes?: boolean };
+  ai: { configured: boolean };
+  vaccinePolicy: { key: string; label: string; months: number; required: boolean }[];
   services: { id: string; code: string; name: string; description: string | null; active: boolean; prices: Prices }[];
   addOns: { id: string; name: string; price: number; durationMin: number; active: boolean }[];
   products: { id: string; name: string; price: number; stock: number; active: boolean }[];
@@ -123,6 +125,7 @@ function Negocio({ st, reload }: { st: Settings; reload: () => void }) {
   const [notice, setNotice] = useState(String(st.business.minNoticeHours));
   const [legal, setLegal] = useState({ legalName: st.business.legalName ?? "", address: st.business.address ?? "", contactEmail: st.business.contactEmail ?? "" });
   const [wipe, setWipe] = useState("");
+  const [policy, setPolicy] = useState(st.vaccinePolicy);
   const [hours, setHours] = useState(st.business.openingHours);
 
   return (
@@ -159,6 +162,30 @@ function Negocio({ st, reload }: { st: Settings; reload: () => void }) {
           <Note k="legal" />
         </div>
         {(!st.business.legalName || !st.business.address || !st.business.contactEmail) && <div className="warnbox">Faltan datos: el aviso publicado los muestra incompletos.</div>}
+      </Section>
+      <Section title="Vacunas que pedimos" hint="Se usan para revisar las cartillas. Los meses son cuánto dura cada vacuna si la cartilla no dice la fecha de la siguiente dosis.">
+        <div className="tablewrap">
+          <table className="slim">
+            <thead><tr><th>Vacuna</th><th>Obligatoria</th><th>Dura (meses)</th></tr></thead>
+            <tbody>
+              {policy.map((p, i) => (
+                <tr key={p.key}>
+                  <td><b>{p.label}</b></td>
+                  <td><input type="checkbox" aria-label={`${p.label} obligatoria`} checked={p.required} onChange={(e) => setPolicy(policy.map((x, j) => (j === i ? { ...x, required: e.target.checked } : x)))} /></td>
+                  <td><input className="num-in" type="number" min={1} max={36} value={p.months} aria-label={`Meses ${p.label}`} onChange={(e) => setPolicy(policy.map((x, j) => (j === i ? { ...x, months: Number(e.target.value) } : x)))} /></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="kv-simple">
+          <span>Lectura de cartillas con IA</span><b>{st.ai.configured ? "Activa" : "Sin conectar (ver README)"}</b>
+          <span>Clientes entran con código por WhatsApp</span><b>{st.whatsapp.loginCodes ? "Activo" : "Apagado: entran con la liga de su cita"}</b>
+        </div>
+        <div className="inline">
+          <button className="btn" disabled={busy === "pol"} onClick={() => run("pol", () => api("/api/settings/business", { method: "PATCH", body: { vaccinePolicy: policy.map(({ key, months, required }) => ({ key, months, required })) } }))}>Guardar vacunas</button>
+          <Note k="pol" />
+        </div>
       </Section>
       <Section title="WhatsApp automático" hint="Recordatorio un día antes de cada cita, con la liga para cambiar o cancelar.">
         <div className="kv-simple">

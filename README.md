@@ -125,3 +125,24 @@ El recordatorio se revisa cada 10 minutos: sale para citas de las próximas 24 h
 ## Reportes
 
 Panel → **Reportes** (sólo dueña): ventas por día, servicios y productos más vendidos, ticket promedio, clientes nuevos y que regresan, porcentaje que no llegó, días y horas más llenos, cómo agendan, formas de pago y clientes por recuperar (más de 60 días sin venir) con botón para invitarlos por WhatsApp.
+
+## Cuenta del cliente y cartillas
+
+**Mi lomito** (`lomitoatelier.mx/mi-lomito`): el cliente ve sus perros, sus citas próximas y su historial, y sube la foto o PDF de la cartilla de cada lomito.
+
+- **Cómo entra:** con la liga de cualquiera de sus citas (botón *Mi cuenta* en la página de la cita, o *Subir cartilla ahora* al terminar de reservar). Cuando WhatsApp esté conectado y exista la plantilla de código, también puede entrar escribiendo su número y un código de 6 números que le llega por WhatsApp. El cliente usa su WhatsApp normal; el que necesita WhatsApp Business es el spa.
+- **Plantilla de código** (WhatsApp Manager → Plantillas → categoría **Autenticación**, idioma Español (MEX), con botón *Copiar código*). Ponle de nombre `codigo_acceso` y en Render: `WHATSAPP_TEMPLATE_CODE=codigo_acceso`.
+
+**Revisión de cartillas** (Panel → **Cartillas**, dueña y recepción):
+
+1. Al subirse, la IA (Claude) lee cada vacuna y su fecha. El sistema calcula cuáles están vigentes según **Ajustes → Negocio → Vacunas que pedimos** (cuáles son obligatorias y cuántos meses dura cada una).
+2. La IA sólo **sugiere**: "todo vigente", "revisar" o "no parece cartilla". Una persona aprueba (con fecha de vigencia) o rechaza (con nota que el cliente ve en su cuenta).
+3. En la agenda, las citas de lomitos sin cartilla aprobada muestran la etiqueta **Cartilla**. Pueden reservar igual; recepción revisa antes o al llegar.
+
+**Activar la IA:**
+
+1. Crea una cuenta en [console.anthropic.com](https://console.anthropic.com), agrega un método de pago y crea una **API key**.
+2. Render → lomito-atelier-api → Environment: `ANTHROPIC_API_KEY=<tu clave>`. Opcional: `ANTHROPIC_MODEL` (por defecto `claude-sonnet-5-5`).
+3. Redeploy. En Ajustes debe decir *Lectura de cartillas con IA: Activa*.
+
+Cada cartilla cuesta centavos de dólar. Sin la clave, todo funciona igual pero la revisión es 100% manual.

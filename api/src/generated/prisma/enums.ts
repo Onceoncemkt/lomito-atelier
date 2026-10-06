@@ -58,6 +58,25 @@ export const PayMethod = {
 export type PayMethod = (typeof PayMethod)[keyof typeof PayMethod]
 
 
+export const VaccineStatus = {
+  NONE: 'NONE',
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type VaccineStatus = (typeof VaccineStatus)[keyof typeof VaccineStatus]
+
+
+export const CardReview = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type CardReview = (typeof CardReview)[keyof typeof CardReview]
+
+
 export const SaleItemKind = {
   SERVICE: 'SERVICE',
   PRODUCT: 'PRODUCT'
