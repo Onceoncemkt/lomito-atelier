@@ -148,6 +148,18 @@ export async function createAppointment(
   },
 ) {
   const endsAt = new Date(+args.startsAt + args.durationMin * 60_000);
+  const dup = await tx.appointment.findFirst({
+    where: {
+      businessId: args.businessId,
+      petId: args.pet.id,
+      status: { in: ["BOOKED", "DONE"] },
+      startsAt: { lt: endsAt },
+      endsAt: { gt: args.startsAt },
+    },
+  });
+  if (dup) {
+    throw conflict(`${args.pet.name} ya tiene cita a las ${localTime(dup.startsAt, args.timezone)} ese día`, { appointmentId: dup.id });
+  }
   const appt = await tx.appointment.create({
     data: {
       businessId: args.businessId,

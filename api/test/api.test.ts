@@ -106,6 +106,15 @@ describe("reservas en línea", () => {
     expect(codes.filter((c) => c === 409)).toHaveLength(4);
   });
 
+  it("el mismo lomito no puede tener dos citas encimadas", async () => {
+    const first = await request(app).post(`/public/${SLUG}/bookings`).send(booking({ startsAt: iso(tuesday, "11:30") }));
+    expect(first.status).toBe(201);
+    // hay un groomer libre a las 12:00, pero Canela ya está ocupada
+    const dup = await request(app).post(`/public/${SLUG}/bookings`).send(booking({ startsAt: iso(tuesday, "12:00") }));
+    expect(dup.status).toBe(409);
+    expect(dup.body.error).toMatch(/Canela ya tiene cita/);
+  });
+
   it("rechaza horarios fuera de servicio, pasados o mal formados", async () => {
     const late = await request(app).post(`/public/${SLUG}/bookings`).send(booking({ startsAt: iso(tuesday, "18:00"), phone: "7710000003" }));
     expect(late.status).toBe(400);
