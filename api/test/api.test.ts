@@ -167,6 +167,18 @@ describe("recepción", () => {
     expect(ok.body.source).toBe("WHATSAPP");
   });
 
+  it("cambiar tamaño al llegar recalcula precio y corrige la ficha", async () => {
+    const ag = await request(app).get("/api/agenda").query({ date: tuesday }).set(auth());
+    const canela = ag.body.appointments.find((a: any) => a.pet.name === "Canela" && a.startsAt === iso(tuesday, "13:00"));
+    const r = await request(app).patch(`/api/appointments/${canela.id}`).set(auth()).send({ size: "MEDIANO" });
+    expect(r.status).toBe(200);
+    expect(r.body.size).toBe("MEDIANO");
+    expect(r.body.price).toBe(60000);
+    expect(+new Date(r.body.endsAt) - +new Date(r.body.startsAt)).toBe(120 * 60_000);
+    const cl = await request(app).get(`/api/clients/${canela.client.id}`).set(auth());
+    expect(cl.body.pets[0].size).toBe("MEDIANO");
+  });
+
   it("mover una cita revisa disponibilidad", async () => {
     const ag = await request(app).get("/api/agenda").query({ date: tuesday }).set(auth());
     const luna = ag.body.appointments.find((a: any) => a.pet.name === "Luna");

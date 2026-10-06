@@ -257,6 +257,15 @@ function Detail({ a, day, staff, onChanged, onCharge }: { a: Appt; day: Day; sta
       <div className="kv">
         <span>Hora</span><b className="num">{hm(a.startsAt)} – {hm(a.endsAt)}</b>
         <span>Groomer</span><b>{a.groomer.name}</b>
+        <span>Tamaño</span>
+        {staff && !a.paid && (a.status === "BOOKED" || a.status === "DONE") ? (
+          <select className="status-sel" aria-label="Tamaño real" value={a.size} disabled={busy} onChange={(e) => {
+            const z = e.target.value;
+            if (confirm(`¿Cambiar a ${SIZE_LABEL[z].name.toLowerCase()}? El precio y la duración se recalculan.`)) patch({ size: z });
+          }}>
+            {SIZES.map((z) => <option key={z} value={z}>{SIZE_LABEL[z].name} ({SIZE_LABEL[z].desc})</option>)}
+          </select>
+        ) : <b>{SIZE_LABEL[a.size]?.name}</b>}
         <span>Servicio</span><b>{a.service.name}{a.addOns.length ? ` + ${a.addOns.map((x) => x.name).join(", ")}` : ""}</b>
         <span>Total</span><b className="num">{money(a.price)} {a.paid ? <span className="chip paid">Pagado</span> : null}</b>
         <span>Estado</span><b>{STATUS_LABEL[a.status]}</b>

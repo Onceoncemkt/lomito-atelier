@@ -5,6 +5,8 @@ import { parse, badRequest, notFound, conflict, forbidden } from "../lib/errors.
 import { allow, STAFF } from "../lib/auth.js";
 import { dayBounds, openWindow, localDate, localTime, DATE_RE, type OpeningHours } from "../lib/time.js";
 import { pickGroomer } from "../lib/availability.js";
+import { canUseCabin } from "../lib/cabin.js";
+import { pesos } from "../lib/activity.js";
 import { quote, busyBetween, lockDay, upsertClientPet, createAppointment, assertGroomerFree } from "../lib/booking.js";
 import { logActivity } from "../lib/activity.js";
 import { SIZES } from "./public.js";
@@ -180,6 +182,8 @@ const patchAppt = z.object({
   startsAt: z.iso.datetime({ offset: true }).optional(),
   durationMin: z.number().int().min(15).max(480).optional(),
   useCabin: z.boolean().optional(),
+  /** Tamaño real al llegar: recalcula precio y duración, y corrige la ficha del lomito. */
+  size: z.enum(SIZES).optional(),
 });
 
 const STATUS_LABEL = { BOOKED: "agendada", DONE: "terminada", CANCELLED: "cancelada", NO_SHOW: "no llegó" } as const;
@@ -197,11 +201,16 @@ agendaRouter.patch("/appointments/:id", async (req, res) => {
   if (current.paidAt && (body.status === "CANCELLED" || body.status === "NO_SHOW")) {
     throw badRequest("Esta cita ya se cobró; no se puede cancelar");
   }
+  const resizing = !!body.size && body.size !== current.size;
+  if (resizing && current.paidAt) throw badRequest("Esta cita ya se cobró; no se puede cambiar el tamaño");
 
   const updated = await prisma.$transaction(async (tx) => {
-    const moving = body.startsAt || body.groomerId || body.durationMin;
+    const q = resizing
+      ? await quote(tx, b.id, { id: current.serviceId }, body.size!, current.addOns.map((x) => x.addOnId))
+      : null;
+    const moving = body.startsAt || body.groomerId || body.durationMin || resizing;
     const startsAt = body.startsAt ? new Date(body.startsAt) : current.startsAt;
-    const dur = body.durationMin ?? (+current.endsAt - +current.startsAt) / 60_000;
+    const dur = body.durationMin ?? q?.durationMin ?? (+current.endsAt - +current.startsAt) / 60_000;
     const endsAt = new Date(+startsAt + dur * 60_000);
     const groomerId = body.groomerId ?? current.groomerId;
     if (moving) {
@@ -215,14 +224,17 @@ agendaRouter.patch("/appointments/:id", async (req, res) => {
       data: {
         status: body.status,
         notes: body.notes,
-        useCabin: body.useCabin,
+        useCabin: body.useCabin ?? (resizing ? canUseCabin(current.pet.breed, body.size!, current.pet.cabinOk) : undefined),
         ...(moving ? { startsAt, endsAt, groomerId } : {}),
+        ...(resizing ? { size: body.size, price: q!.price } : {}),
       },
       include,
     });
+    if (resizing) await tx.pet.update({ where: { id: current.petId }, data: { size: body.size } });
     const msgs: string[] = [];
     if (body.status && body.status !== current.status) msgs.push(`marcada como ${STATUS_LABEL[body.status]}`);
-    if (moving) msgs.push(`movida a ${localDate(startsAt, b.timezone)} ${localTime(startsAt, b.timezone)} con ${a.groomer.name}`);
+    if (resizing) msgs.push(`cambió a tamaño ${body.size!.toLowerCase()} (${pesos(current.price)} → ${pesos(a.price)})`);
+    if (moving && !resizing) msgs.push(`movida a ${localDate(startsAt, b.timezone)} ${localTime(startsAt, b.timezone)} con ${a.groomer.name}`);
     if (msgs.length) {
       await logActivity(tx, b.id, "appointment.updated", `Cita de ${a.pet.name} ${msgs.join(", ")}`, {
         userId: u.id,

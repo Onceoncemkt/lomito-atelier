@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { api, BUSINESS_SLUG } from "../api";
+import { BREEDS, guessSize, SIZE_EXAMPLES, type Size } from "../breeds";
 import { money, SIZES, SIZE_LABEL, todayYmd, addDays, dayParts, longDate, hm, ymd, cap } from "../format";
 
 type Menu = {
@@ -38,6 +39,8 @@ export default function Reservar() {
   const [loadErr, setLoadErr] = useState("");
   const [service, setService] = useState("experiencia");
   const [size, setSize] = useState<string>("CHICO");
+  /** de dónde salió el tamaño: null = aún no se sabe */
+  const [sizeSource, setSizeSource] = useState<null | "breed" | "manual">(null);
   const [addOns, setAddOns] = useState<string[]>([]);
   const [date, setDate] = useState<string>("");
   const [avail, setAvail] = useState<Avail | null>(null);
@@ -73,7 +76,7 @@ export default function Reservar() {
   useEffect(() => {
     if (missing.length) setMissing(check());
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slot, form]);
+  }, [slot, form, sizeSource]);
 
   useEffect(() => {
     if (!date && days.length) setDate(days[0]);
@@ -97,8 +100,33 @@ export default function Reservar() {
     };
   }, [date, service, size, addOns]);
 
+  useEffect(() => {
+    if (!menu || !sizeSource) return;
+    const cur = menu.services.find((x) => x.code === service);
+    if (cur && !cur.prices[size]) {
+      const alt = menu.services.find((x) => x.prices[size]);
+      if (alt) setService(alt.code);
+    }
+  }, [size, sizeSource, menu, service]);
+
   if (loadErr) return <div className="public"><div className="err">{loadErr}</div></div>;
   if (!menu) return <div className="public"><p className="loading">Cargando…</p></div>;
+
+  const guess = guessSize(form.breed);
+  const sizeSet = sizeSource !== null;
+
+  function onBreed(v: string) {
+    setForm((f) => ({ ...f, breed: v }));
+    const g = guessSize(v);
+    if (g.kind === "match") {
+      if (sizeSource !== "manual") {
+        setSize(g.size);
+        setSizeSource("breed");
+      }
+    } else if (sizeSource === "breed") {
+      setSizeSource(null);
+    }
+  }
 
   const svc = menu.services.find((s) => s.code === service);
   const contactPhone = menu.business.phone || WHATSAPP;
@@ -112,8 +140,9 @@ export default function Reservar() {
 
   function check() {
     const m: string[] = [];
-    if (!slot) m.push("hora");
     if (!form.petName.trim()) m.push("pet");
+    if (sizeSource === null) m.push("size");
+    if (!slot) m.push("hora");
     if (form.clientName.trim().length < 2) m.push("name");
     const digits = form.phone.replace(/\D/g, "");
     if (digits.length < 10 || digits.length > 13) m.push("phone");
@@ -126,7 +155,8 @@ export default function Reservar() {
     const m = check();
     setMissing(m);
     if (m.length) {
-      const target = m[0] === "hora" ? document.querySelector(".slots, .days") : document.getElementById(m[0]);
+      const target =
+        m[0] === "hora" ? document.querySelector(".slots, .days") : m[0] === "size" ? document.getElementById("sizes") : document.getElementById(m[0]);
       target?.scrollIntoView({ behavior: "smooth", block: "center" });
       if (target instanceof HTMLInputElement) setTimeout(() => target.focus(), 300);
       return;
@@ -197,38 +227,86 @@ export default function Reservar() {
         </div>
         <div className="phone-body">
           <section className="step">
-            <h3>1 · Servicio</h3>
-            <div className="opts">
-              {menu.services.map((s) => (
-                <button type="button" key={s.code} className="opt" aria-pressed={s.code === service} onClick={() => {
-                    setService(s.code);
-                    if (s.code === "unas") setAddOns([]);
-                    if (!s.prices[size]) setSize(SIZES.find((z) => s.prices[z]) ?? "CHICO");
-                  }}>
-                  <b>{s.name}</b>
-                  <span>{s.prices[size] ? `${money(s.prices[size].price)} · ${fmtDur(s.prices[size].durationMin)}` : "—"}</span>
+            <h3>1 · Tu lomito</h3>
+            <div className="row2">
+              <div className="field">
+                <label htmlFor="pet">Nombre</label>
+                <input id="pet" aria-invalid={missing.includes("pet")} value={form.petName} onChange={(e) => setForm({ ...form, petName: e.target.value })} maxLength={40} autoComplete="off" />
+              </div>
+              <div className="field">
+                <label htmlFor="breed">Raza</label>
+                <input id="breed" list="breed-list" value={form.breed} onChange={(e) => onBreed(e.target.value)} placeholder="Ej. Golden, mestizo" maxLength={60} autoComplete="off" />
+                <datalist id="breed-list">
+                  <option value="Mestizo / cruza" />
+                  {BREEDS.map(([n]) => <option key={n} value={n} />)}
+                </datalist>
+              </div>
+            </div>
+            {missing.includes("pet") && <div className="warnbox">Escribe el nombre de tu lomito</div>}
+            {guess.kind === "match" && sizeSource === "breed" && (
+              <p className="hint">Por su raza lo consideramos <b>{SIZE_LABEL[guess.size].name.toLowerCase()}</b> ({SIZE_LABEL[guess.size].desc}). Si tu lomito es más chico o más grande, cámbialo abajo.</p>
+            )}
+            {guess.kind === "match" && sizeSource === "manual" && guess.size !== size && (
+              <p className="hint">
+                Elegiste {SIZE_LABEL[size].name.toLowerCase()}; para un {guess.label.toLowerCase()} solemos considerar{" "}
+                <b>{SIZE_LABEL[guess.size].name.toLowerCase()}</b>.{" "}
+                <button type="button" className="linkbtn" onClick={() => { setSize(guess.size); setSizeSource("breed"); }}>
+                  Usar {SIZE_LABEL[guess.size].name.toLowerCase()}
+                </button>
+              </p>
+            )}
+            {(guess.kind === "unknown" || guess.kind === "mixed") && !sizeSet && (
+              <p className="hint">Como es cruza, elige abajo cuánto pesa más o menos.</p>
+            )}
+            {guess.kind === "nomatch" && !sizeSet && <p className="hint">Elige abajo cuánto pesa más o menos.</p>}
+          </section>
+
+          <section className="step sizes" id="sizes">
+            <h3>2 · Tamaño <span className="muted" style={{ letterSpacing: 0, textTransform: "none", fontWeight: 500 }}>(peso aproximado)</span></h3>
+            {missing.includes("size") && <div className="warnbox">Elige el tamaño de tu lomito</div>}
+            <div className="opts sizes-grid">
+              {SIZES.filter((z) => !svc || svc.prices[z]).map((z) => (
+                <button
+                  type="button"
+                  key={z}
+                  className="opt"
+                  aria-pressed={sizeSet && z === size}
+                  onClick={() => {
+                    setSize(z);
+                    setSizeSource(guess.kind === "match" && guess.size === z ? "breed" : "manual");
+                  }}
+                >
+                  <b>{SIZE_LABEL[z].name} · {SIZE_LABEL[z].desc}</b>
+                  <span>{SIZE_EXAMPLES[z as Size]}</span>
                 </button>
               ))}
+            </div>
+            <p className="muted" style={{ fontSize: ".8rem" }}>Si al llegar tu lomito es de otro tamaño, ajustamos el precio en el atelier.</p>
+          </section>
+
+          <section className="step">
+            <h3>3 · Servicio</h3>
+            <div className="opts">
+              {menu.services.map((s) => {
+                const p = sizeSet ? s.prices[size] : undefined;
+                const from = Math.min(...Object.values(s.prices).map((x) => x.price));
+                return (
+                  <button type="button" key={s.code} className="opt" aria-pressed={s.code === service} disabled={sizeSet && !p} onClick={() => {
+                      setService(s.code);
+                      if (s.code === "unas") setAddOns([]);
+                    }}>
+                    <b>{s.name}</b>
+                    <span>{p ? `${money(p.price)} · ${fmtDur(p.durationMin)}` : sizeSet ? "No disponible en este tamaño" : `desde ${money(from)}`}</span>
+                  </button>
+                );
+              })}
             </div>
             {svc?.description && <p className="muted" style={{ fontSize: ".85rem" }}>{svc.description}</p>}
           </section>
 
-          <section className="step sizes">
-            <h3>2 · Tamaño</h3>
-            <div className="opts">
-              {SIZES.filter((z) => svc?.prices[z]).map((z) => (
-                <button type="button" key={z} className="opt" aria-pressed={z === size} onClick={() => setSize(z)}>
-                  <b>{SIZE_LABEL[z].name}</b>
-                  <span>{SIZE_LABEL[z].desc}</span>
-                  <span className="num" style={{ color: "var(--ink)", fontWeight: 600 }}>{money(svc!.prices[z].price)}</span>
-                </button>
-              ))}
-            </div>
-          </section>
-
           {showAddOns && menu.addOns.length > 0 && (
             <section className="step">
-              <h3>3 · Extras (opcional)</h3>
+              <h3>4 · Extras (opcional)</h3>
               <div className="checks">
                 {menu.addOns.map((a) => (
                   <label key={a.code}>
@@ -245,7 +323,7 @@ export default function Reservar() {
           )}
 
           <section className="step">
-            <h3>{showAddOns ? 4 : 3} · Día y hora</h3>
+            <h3>{showAddOns ? 5 : 4} · Día y hora</h3>
             <div className="days" role="group" aria-label="Día">
               {days.map((d) => {
                 const p = dayParts(d);
@@ -277,17 +355,7 @@ export default function Reservar() {
           </section>
 
           <section className="step">
-            <h3>{showAddOns ? 5 : 4} · Tus datos</h3>
-            <div className="row2">
-              <div className="field">
-                <label htmlFor="pet">Nombre del lomito</label>
-                <input id="pet" aria-invalid={missing.includes("pet")} value={form.petName} onChange={(e) => setForm({ ...form, petName: e.target.value })} required maxLength={40} />
-              </div>
-              <div className="field">
-                <label htmlFor="breed">Raza</label>
-                <input id="breed" value={form.breed} onChange={(e) => setForm({ ...form, breed: e.target.value })} placeholder="Ej. Poodle, mestizo" maxLength={60} />
-              </div>
-            </div>
+            <h3>{showAddOns ? 6 : 5} · Tus datos</h3>
             <div className="row2">
               <div className="field">
                 <label htmlFor="name">Tu nombre</label>
@@ -298,9 +366,9 @@ export default function Reservar() {
                 <input id="phone" aria-invalid={missing.includes("phone")} inputMode="tel" autoComplete="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder="10 dígitos" required />
               </div>
             </div>
-            {missing.some((m) => m !== "hora") && (
+            {missing.some((m) => m === "name" || m === "phone") && (
               <div className="warnbox">
-                Falta: {missing.filter((m) => m !== "hora").map((m) => ({ pet: "nombre del lomito", name: "tu nombre", phone: "WhatsApp a 10 dígitos" } as Record<string, string>)[m]).join(", ")}
+                Falta: {missing.filter((m) => m === "name" || m === "phone").map((m) => ({ name: "tu nombre", phone: "WhatsApp a 10 dígitos" } as Record<string, string>)[m]).join(", ")}
               </div>
             )}
             <div className="field">
@@ -309,7 +377,10 @@ export default function Reservar() {
             </div>
           </section>
 
-          {svc && (
+          {svc && !sizeSet && (
+            <div className="summary"><span className="muted">Elige el tamaño de tu lomito para ver el precio.</span></div>
+          )}
+          {svc && sizeSet && (
             <div className="summary">
               <div className="line">
                 <span>{svc.name} · {SIZE_LABEL[size].name}</span>
