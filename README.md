@@ -2,8 +2,11 @@
 
 Sistema de citas y gestión para Lomito Atelier (spa canino, Tulancingo). Ya está preparado para manejar varios negocios.
 
-- **Página pública de reservas**: el cliente elige servicio, tamaño, extras, día y hora, y deja sus datos.
-- **Panel del equipo** (`/panel`): agenda por groomer, citas manuales y walk-ins, clientes y lomitos, caja (servicios y boutique), corte de caja con bitácora del día, y comisiones.
+- **Página pública de reservas** (`/`): el cliente escribe nombre y raza de su lomito (el tamaño se sugiere solo), elige servicio, extras, día y hora, y confirma.
+- **Liga de cada cita** (`/cita/<código>`): ver, cambiar o cancelar.
+- **Mi lomito** (`/mi-lomito`): cuenta del cliente con sus perros, citas, historial y cartilla de vacunación.
+- **Panel del equipo** (`/panel`): agenda por estilista, citas manuales y walk-ins, clientes, caja y corte, cartillas (revisadas con IA), reportes, comisiones y ajustes.
+- **Aviso de privacidad** (`/privacidad`).
 
 | Parte | Tecnología | Dónde vive |
 |---|---|---|
@@ -55,7 +58,7 @@ TEST_DATABASE_URL=postgresql://localhost:5432/lomito_test npm test
 
 ### 3. Dominio
 
-- En Vercel → Settings → Domains agrega `lomitoatelier.mx` y `www.lomitoatelier.mx`, y configura el DNS como te indique.
+- En Vercel → Settings → Domains agrega `lomitoatelier.mx` (Vercel agrega `www` y redirige ahí). En Namecheap → Advanced DNS: registro **A** `@` y **CNAME** `www` con los valores que muestre Vercel.
 - La página de reservas queda en `lomitoatelier.mx` y el panel del equipo en `lomitoatelier.mx/panel`.
 - Si cambias de dominio, actualiza `CORS_ORIGIN` en Render.
 
