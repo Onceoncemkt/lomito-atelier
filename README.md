@@ -53,8 +53,8 @@ TEST_DATABASE_URL=postgresql://localhost:5432/lomito_test npm test
 
 ### 3. Dominio
 
-- En Vercel → Settings → Domains agrega `lomitoatelier.com` y `www.lomitoatelier.com`, y configura el DNS como te indique.
-- La página de reservas queda en `lomitoatelier.com` y el panel del equipo en `lomitoatelier.com/panel`.
+- En Vercel → Settings → Domains agrega `lomitoatelier.mx` y `www.lomitoatelier.mx`, y configura el DNS como te indique.
+- La página de reservas queda en `lomitoatelier.mx` y el panel del equipo en `lomitoatelier.mx/panel`.
 - Si cambias de dominio, actualiza `CORS_ORIGIN` en Render.
 
 ## Reglas del negocio en el código

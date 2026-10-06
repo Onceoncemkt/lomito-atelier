@@ -23,4 +23,4 @@ services:
       - key: JWT_SECRET
         generateValue: true
       - key: CORS_ORIGIN
-        value: https://lomitoatelier.com,https://www.lomitoatelier.com
+        value: https://lomitoatelier.mx,https://www.lomitoatelier.mx
