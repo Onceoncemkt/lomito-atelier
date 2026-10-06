@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { api, BUSINESS_SLUG } from "../api";
-import { BREEDS, guessSize, SIZE_EXAMPLES, type Size } from "../breeds";
+import { guessSize, SIZE_EXAMPLES, type Size } from "../breeds";
+import BreedInput from "../BreedInput";
 import { money, SIZES, SIZE_LABEL, todayYmd, addDays, dayParts, longDate, hm, ymd, cap } from "../format";
 
 type Menu = {
@@ -228,19 +229,13 @@ export default function Reservar() {
         <div className="phone-body">
           <section className="step">
             <h3>1 · Tu lomito</h3>
-            <div className="row2">
-              <div className="field">
-                <label htmlFor="pet">Nombre</label>
-                <input id="pet" aria-invalid={missing.includes("pet")} value={form.petName} onChange={(e) => setForm({ ...form, petName: e.target.value })} maxLength={40} autoComplete="off" />
-              </div>
-              <div className="field">
-                <label htmlFor="breed">Raza</label>
-                <input id="breed" list="breed-list" value={form.breed} onChange={(e) => onBreed(e.target.value)} placeholder="Ej. Golden, mestizo" maxLength={60} autoComplete="off" />
-                <datalist id="breed-list">
-                  <option value="Mestizo / cruza" />
-                  {BREEDS.map(([n]) => <option key={n} value={n} />)}
-                </datalist>
-              </div>
+            <div className="field">
+              <label htmlFor="pet">Nombre</label>
+              <input id="pet" aria-invalid={missing.includes("pet")} value={form.petName} onChange={(e) => setForm({ ...form, petName: e.target.value })} maxLength={40} autoComplete="off" />
+            </div>
+            <div className="field">
+              <label htmlFor="breed">Raza</label>
+              <BreedInput value={form.breed} onChange={onBreed} />
             </div>
             {missing.includes("pet") && <div className="warnbox">Escribe el nombre de tu lomito</div>}
             {guess.kind === "match" && sizeSource === "breed" && (
