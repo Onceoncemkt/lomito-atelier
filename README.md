@@ -62,6 +62,14 @@ TEST_DATABASE_URL=postgresql://localhost:5432/lomito_test npm test
 - La página de reservas queda en `lomitoatelier.mx` y el panel del equipo en `lomitoatelier.mx/panel`.
 - Si cambias de dominio, actualiza `CORS_ORIGIN` en Render.
 
+## Antes de abrir: página "¡No comas ansias!"
+
+Mientras `VITE_LAUNCHED` no sea `1`, todas las páginas públicas (reservas, liga de cita, Mi lomito, privacidad) muestran una página de "próximamente" con huellitas. El panel (`/panel`) sí funciona.
+
+- **Ver la página real antes de abrir:** entra una vez a `lomitoatelier.mx/?preview=lomito` (se queda guardado en ese navegador).
+- **Abrir al público:** Vercel → Settings → Environment Variables → `VITE_LAUNCHED` = `1` → Redeploy.
+- Después de abrir, cualquier liga que no exista muestra la página 404 "Aquí no hay ningún hueso".
+
 ## Reglas del negocio en el código
 
 - **Horario**: martes a domingo de 9:00 a 19:00, con citas cada 30 min (`Business.openingHours`, `slotMinutes`). Lunes cerrado.

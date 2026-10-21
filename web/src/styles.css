@@ -225,3 +225,22 @@ table.heat td{width:30px;height:26px;padding:0;text-align:center;border-radius:5
 .client-row .r{text-align:right}
 .tabs .tab{position:relative}
 .badge{display:inline-grid;place-items:center;min-width:18px;height:18px;padding:0 5px;margin-left:6px;border-radius:99px;background:var(--warn);color:#fff;font-size:.7rem;font-weight:700;vertical-align:1px}
+
+/* ---------- Huellitas: próximamente / 404 ---------- */
+.huellitas{position:fixed;inset:0;overflow:auto;background:radial-gradient(120% 80% at 50% 0%,var(--menta) 0%,var(--bg) 60%);display:grid;place-items:center;padding:24px 16px}
+.huellitas .trail{position:absolute;left:0;right:0;height:60px;pointer-events:none}
+.huellitas .trail.flip{transform:scaleX(-1)}
+.huellitas .paw{position:absolute;width:clamp(30px,5vw,46px);height:clamp(30px,5vw,46px);fill:var(--accent);opacity:0;animation:pisada 6s ease-in-out infinite}
+@keyframes pisada{0%{opacity:0}8%{opacity:.35}55%{opacity:.35}75%,100%{opacity:0}}
+.huellitas-card{position:relative;z-index:1;max-width:500px;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:32px 24px 24px;text-align:center;display:grid;gap:12px;justify-items:center;box-shadow:0 18px 50px rgba(31,77,63,.12)}
+.huellitas-dog{width:clamp(72px,18vw,104px);height:auto;animation:menea 2.4s ease-in-out infinite;transform-origin:50% 90%}
+@keyframes menea{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg) translateY(-3px)}}
+.huellitas-eyebrow{margin:0;font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.huellitas h1{margin:0;font-family:var(--display);font-weight:500;font-size:clamp(2rem,8vw,2.6rem);line-height:1.1;color:var(--accent)}
+.huellitas-card p{margin:0;color:var(--muted)}
+.huellitas-date{display:inline-block;background:var(--rosa-soft);color:var(--ink)!important;font-weight:600;border-radius:99px;padding:6px 14px}
+.huellitas-404{font-family:var(--display);font-size:4rem!important;line-height:1;color:var(--rosa)!important}
+.huellitas-actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:4px}
+.huellitas-actions .btn{text-decoration:none}
+.huellitas-sign{font-family:var(--display);font-style:italic;color:var(--oro)!important;margin-top:6px!important}
+@media (prefers-reduced-motion:reduce){.huellitas .paw{animation:none;opacity:.15}.huellitas-dog{animation:none}}
