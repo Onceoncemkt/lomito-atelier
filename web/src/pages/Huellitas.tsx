@@ -74,11 +74,8 @@ export default function Huellitas({ mode }: { mode: "soon" | "404" }) {
         {soon ? (
           <>
             <h1>¡No comas ansias!</h1>
-            <p>
-              Estamos dejando todo bonito para consentir a tu lomito. Muy pronto vas a poder agendar aquí su baño, su corte y
-              hasta su moño.
-            </p>
-            <p className="huellitas-date">Abrimos en enero de 2027</p>
+            <p>Estamos preparando algo muy bonito para consentir a tu lomito.</p>
+            <p className="huellitas-date">Muy pronto</p>
             <div className="huellitas-actions">
               <a className="btn" href={INSTAGRAM} target="_blank" rel="noreferrer">
                 Síguenos en Instagram
